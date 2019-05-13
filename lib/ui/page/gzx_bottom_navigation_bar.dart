@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_taobao/common/style/gzx_style.dart';
-import 'package:flutter_taobao/page/home/home_page.dart';
+import 'package:flutter_taobao/common/utils/screen_util.dart';
+import 'package:flutter_taobao/ui/page/test/demo.dart';
+import 'package:flutter_taobao/ui/page/home/home_page.dart';
 
 class GZXBottomNavigationBar extends StatefulWidget {
   static final String sName = "home";
@@ -41,13 +43,15 @@ class _GZXBottomNavigationBarState extends State<GZXBottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-//    ScreenUtil.instance = ScreenUtil(width: 360)..init(context);
+    ScreenUtil.instance = ScreenUtil(width: 360)..init(context);
+//    ScreenUtil.instance = ScreenUtil(width: Klength.designWidth)..init(context);
 
     return Scaffold(
 //      drawer: new HomeDrawer(),
       body: PageView(
         controller: _controller,
         children: <Widget>[
+//          Index(),
           new HomePage(),
 ////          new AmosHomePage(),
 ////          new CRMPage(),
