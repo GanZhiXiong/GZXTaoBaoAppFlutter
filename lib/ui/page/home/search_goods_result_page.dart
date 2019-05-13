@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_taobao/common/style/gzx_style.dart';
+import 'package:flutter_taobao/common/utils/common_utils.dart';
+import 'package:flutter_taobao/common/utils/navigator_utils.dart';
 import 'package:flutter_taobao/ui/page/drawer/gzx_filter_goods_page.dart';
 import 'package:flutter_taobao/ui/page/home/searchlist_page.dart';
 import 'package:flutter_taobao/ui/widget/gzx_search_card.dart';
@@ -16,6 +18,16 @@ class SearchGoodsResultPage extends StatefulWidget {
 class _SearchGoodsResultPageState extends State<SearchGoodsResultPage> {
   List _tabsTitle = ['全部', '天猫', '店铺', '淘宝经验'];
   var _scaffoldkey = new GlobalKey<ScaffoldState>();
+  TextEditingController _keywordTextEditingController = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    _keywordTextEditingController.text = widget.keywords;
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +68,12 @@ class _SearchGoodsResultPageState extends State<SearchGoodsResultPage> {
                     flex: 1,
                     child: GZXSearchCardWidget(
                       isShowLeading: false,
-//                  textEditingController: _keywordTextEditingController,
+                      isShowSuffixIcon: false,
+                      textEditingController: _keywordTextEditingController,
+                      onTap: (){
+                        NavigatorUtils.gotoSearchGoodsPage(context,keywords: widget.keywords);
+                      }
+                      ,
 //                  focusNode: _focus,
                     ),
                   ),
@@ -113,26 +130,27 @@ class _SearchGoodsResultPageState extends State<SearchGoodsResultPage> {
 //                  labelStyle: TextStyle(fontSize: 1),
                   onTap: (i) {},
                   tabs: _tabsTitle
-                      .map((i) => Text(
-                            i,
-                          ))
+                      .map((i) =>
+                      Text(
+                        i,
+                      ))
                       .toList()),
               SizedBox(
                 height: 8,
               ),
               Expanded(
                   child: TabBarView(
-                children: <Widget>[
-                  SearchResultListPage(
-                    widget.keywords,
-                    isList: true,
-                    isShowFilterWidget: true,
-                    onTapfilter: (){
-                      _scaffoldkey.currentState.openEndDrawer();
-                    },
-                  ),
-                ],
-              ))
+                    children: <Widget>[
+                      SearchResultListPage(
+                        widget.keywords,
+                        isList: true,
+                        isShowFilterWidget: true,
+                        onTapfilter: () {
+                          _scaffoldkey.currentState.openEndDrawer();
+                        },
+                      ),
+                    ],
+                  ))
             ],
           )),
     );

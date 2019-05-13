@@ -39,7 +39,7 @@ class HomeTopBar extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(right: 6.0),
+            margin: EdgeInsets.only(right: 6.0,left: 4),
 //            color: Colors.red,
             height: 30,
             width: 30,
@@ -80,7 +80,7 @@ class HomeTopBar extends StatelessWidget {
           ),
 
           Container(
-            margin: EdgeInsets.only(left: 6.0),
+            margin: EdgeInsets.only(left: 6.0,right: 4),
 //            color: Colors.red,
             width: 30,
             height: 30,

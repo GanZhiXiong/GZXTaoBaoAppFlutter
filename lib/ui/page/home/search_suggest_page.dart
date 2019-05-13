@@ -137,10 +137,15 @@ class _SearchSuggestPageState extends State<SearchSuggestPage> {
 ////            return Container(color: Colors.red,child: Text(i,style: TextStyle(color: Colors.grey),),);
 //          }).toList(),
                   children: List.generate(searchHintTexts.length, (index) {
-                    return Container(
-                      child: Text(
-                        searchHintTexts[index],
-                        style: TextStyle(fontSize: 13, color: Color(0xFF565757)),
+                    return GestureDetector(
+                      onTap: () {
+                        NavigatorUtils.gotoSearchGoodsResultPage(context, searchHintTexts[index]);
+                      },
+                      child: Container(
+                        child: Text(
+                          searchHintTexts[index],
+                          style: TextStyle(fontSize: 13, color: Color(0xFF565757)),
+                        ),
                       ),
                     );
                   }, growable: false),

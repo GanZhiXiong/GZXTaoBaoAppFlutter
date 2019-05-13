@@ -5,8 +5,8 @@ import 'package:flutter_taobao/ui/page/home/search_goods_result_page.dart';
 
 class NavigatorUtils{
 
-  static gotoSearchGoodsPage(BuildContext context) {
-    NavigatorRouter(context, new SearchGoodsPage());
+  static gotoSearchGoodsPage(BuildContext context,{String keywords}) {
+    NavigatorRouter(context, new SearchGoodsPage(keywords: keywords,));
   }
 
   static gotoSearchGoodsResultPage(BuildContext context,String keywords) {

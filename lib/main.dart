@@ -10,6 +10,7 @@ import 'package:flutter_taobao/ui/page/test/gridview_height_page.dart';
 import 'package:flutter_taobao/ui/page/test/my_home_page.dart';
 import 'package:flutter_taobao/ui/page/test/scroll_page.dart';
 import 'package:flutter_taobao/ui/page/test/scroll_page1.dart';
+import 'package:flutter_taobao/ui/page/test/textfield_test_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
 //        primaryColor: GZXColors.primarySwatch,
       ),
       home: GZXBottomNavigationBar(),
+//    home: TextFieldTestPage(),
 //    home: MyHomePage1(),
 //    home: GridViewHeightPage(title: '',),
 //    home: AnimateExpanded(),

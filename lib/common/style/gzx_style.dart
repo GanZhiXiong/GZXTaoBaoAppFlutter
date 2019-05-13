@@ -254,6 +254,7 @@ class GZXIcons {
   static const IconData cascades = const IconData(0xe67c, fontFamily: FONT_FAMILY);
   static const IconData list = const IconData(0xe682, fontFamily: FONT_FAMILY);
   static const IconData filter = const IconData(0xe69c, fontFamily: FONT_FAMILY);
+  static const IconData jump = const IconData(0xe670, fontFamily: FONT_FAMILY);
 
   static const IconData MORE = const IconData(0xe674, fontFamily: GZXIcons.FONT_FAMILY);
   static const IconData SEARCH = const IconData(0xe61c, fontFamily: GZXIcons.FONT_FAMILY);

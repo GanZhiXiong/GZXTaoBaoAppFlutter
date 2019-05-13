@@ -184,7 +184,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ),
                   Text(
                     '热搜：',
-                    style: TextStyle(color: Colors.white, fontSize: 10),
+                    style: TextStyle(color: Colors.white, fontSize: 13),
                   ),
                   Expanded(
                     child: SingleChildScrollView(
@@ -209,7 +209,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   child: Center(
                                     child: Text(
                                       item,
-                                      style: TextStyle(color: Colors.white, fontSize: 10),
+                                      style: TextStyle(color: Colors.white, fontSize: 13),
                                     ),
                                   ),
                                 ),

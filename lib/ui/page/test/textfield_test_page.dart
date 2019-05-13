@@ -1,57 +1,20 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_taobao/common/data/home.dart';
 import 'package:flutter_taobao/common/style/gzx_style.dart';
 
-class GZXSearchCardWidget extends StatefulWidget {
-  final FocusNode focusNode;
-  TextEditingController textEditingController;
-  final VoidCallback onTap;
-  final bool isShowLeading;
-  final ValueChanged<String> onSubmitted;
-  final ValueChanged<String> onChanged;
-  final bool autofocus;
-  final bool isShowSuffixIcon;
-
-  GZXSearchCardWidget(
-      {Key key,
-      this.focusNode,
-      this.textEditingController,
-      this.onTap,
-      this.isShowLeading = true,
-      this.onSubmitted,
-      this.onChanged,
-      this.autofocus = false,
-      this.isShowSuffixIcon=true})
-      : super(key: key);
-
+class TextFieldTestPage extends StatefulWidget {
   @override
-  _GZXSearchCardWidgetState createState() => _GZXSearchCardWidgetState();
+  _TextFieldTestPageState createState() => _TextFieldTestPageState();
 }
 
-class _GZXSearchCardWidgetState extends State<GZXSearchCardWidget> {
-  TextEditingController textEditingController;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    if (widget.textEditingController == null) {
-      widget.textEditingController = TextEditingController();
-    }
-
-    textEditingController = widget.textEditingController;
-  }
+class _TextFieldTestPageState extends State<TextFieldTestPage> {
+  TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-//    if (widget.textEditingController == null) {
-//      widget.textEditingController = TextEditingController();
-//    }
-
-    return searchCard();
+    return Scaffold(
+      appBar: AppBar(),
+      body: searchCard(),
+    );
   }
 
   Widget searchCard() => Padding(
@@ -66,8 +29,7 @@ class _GZXSearchCardWidgetState extends State<GZXSearchCardWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                widget.isShowLeading
-                    ? Padding(
+                     Padding(
                         padding: EdgeInsets.only(right: 5, top: 0, left: 5),
                         child: Icon(
                           GZXIcons.search_light,
@@ -75,9 +37,7 @@ class _GZXSearchCardWidgetState extends State<GZXSearchCardWidget> {
                           size: 20,
                         ),
                       )
-                    : SizedBox(
-                        width: 10,
-                      ),
+                    ,
 //               Container(
 //                 color: Colors.red,
 //                 child:
@@ -86,9 +46,8 @@ class _GZXSearchCardWidgetState extends State<GZXSearchCardWidget> {
 //                     color: Colors.red,
                       height: 30,
                       child: TextField(
-                        autofocus: widget.autofocus,
-                        onTap: widget.onTap,
-                        focusNode: widget.focusNode,
+//                        onTap: widget.onTap,
+//                        focusNode: widget.focusNode,
                         style: TextStyle(fontSize: 13),
                         controller: textEditingController,
 //                        autofocus: true,
@@ -96,8 +55,8 @@ class _GZXSearchCardWidgetState extends State<GZXSearchCardWidget> {
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.only(top: 6),
                           border: InputBorder.none,
-                          hintText: searchHintTexts[Random().nextInt(searchHintTexts.length)],
-                          suffixIcon: textEditingController.text.length == 0 || !widget.isShowSuffixIcon
+//                          hintText: searchHintTexts[Random().nextInt(searchHintTexts.length)],
+                          suffixIcon: textEditingController.text.length == 0
                               ? SizedBox()
                               : Container(
                                   width: 20.0,
@@ -117,7 +76,6 @@ class _GZXSearchCardWidgetState extends State<GZXSearchCardWidget> {
                                       setState(() {
 //                                  textEditingController.clear();
                                         textEditingController.text = '';
-                                        widget.onChanged('');
                                       });
 ////                                setState(() {
 ////                                  _inputText = "";
@@ -128,13 +86,18 @@ class _GZXSearchCardWidgetState extends State<GZXSearchCardWidget> {
                                   ),
                                 ),
                         ),
-                        onSubmitted: widget.onSubmitted,
-                        onChanged: widget.onChanged,
+//                        onSubmitted: widget.onSubmitted,
+                        onChanged: (value){
+                          print('onchanged $value');
+                          setState(() {
+
+                          });
+                        },
 //                     ),
                       )),
                 ),
 
-                textEditingController.text.length == 0 || !widget.isShowSuffixIcon
+                textEditingController.text.length == 0
                     ? Padding(
                         padding: EdgeInsets.only(right: 5),
                         child: Icon(
