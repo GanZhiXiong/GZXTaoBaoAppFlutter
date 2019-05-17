@@ -256,6 +256,11 @@ class GZXIcons {
   static const IconData filter = const IconData(0xe69c, fontFamily: FONT_FAMILY);
   static const IconData jump = const IconData(0xe670, fontFamily: FONT_FAMILY);
 
+//  static const IconData message = const IconData(0xe779, fontFamily: FONT_FAMILY);
+  static const IconData appreciate_light = const IconData(0xe7e1, fontFamily: FONT_FAMILY);
+  static const IconData appreciate_fill_light = const IconData(0xe7e2, fontFamily: FONT_FAMILY);
+  static const IconData people_list_light = const IconData(0xe7db, fontFamily: FONT_FAMILY);
+
   static const IconData MORE = const IconData(0xe674, fontFamily: GZXIcons.FONT_FAMILY);
   static const IconData SEARCH = const IconData(0xe61c, fontFamily: GZXIcons.FONT_FAMILY);
 

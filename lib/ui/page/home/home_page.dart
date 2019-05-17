@@ -30,7 +30,7 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin,AutomaticKeepAliveClientMixin<HomePage> {
   List<KingKongItem> kingKongItems;
 
   int _diffScaleNext = 0;
@@ -112,6 +112,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     print('_HomePageState.build');
     //test
     {
@@ -388,7 +389,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     borderRadius: BorderRadius.circular(10),
                     child: CachedNetworkImage(
                       imageUrl:
-                          'https://img.alicdn.com/imgextra/i4/1637289231/O1CN01emxYFy2I3qba9sBZg_!!1637289231.jpg_1080x1800Q90s50.jpg',
+                          'https://gw.alicdn.com/tps/TB1U3r4PpXXXXX2apXXXXXXXXXX-990-50.png',
 //                  height: 44,
                       fit: BoxFit.fill,
                     )),
@@ -569,4 +570,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

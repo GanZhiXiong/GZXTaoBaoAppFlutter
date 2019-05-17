@@ -18,6 +18,10 @@ class MyApp extends StatelessWidget {
   // This ui.widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+//    int i = int.parse('84.99998982747397');
+  double i=84.99998982747397;
+
+    print(i.toInt());
 
     return MaterialApp(
       title: 'Flutter Demo',
