@@ -1,0 +1,2 @@
+# GZXTaoBaoAppFlutter
+这个一个用Flutter开发仿淘宝的App
