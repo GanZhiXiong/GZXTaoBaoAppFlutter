@@ -9,40 +9,44 @@ class GZXSearchCardWidget extends StatefulWidget {
   TextEditingController textEditingController;
   final VoidCallback onTap;
   final bool isShowLeading;
+  final String hintText;
   final ValueChanged<String> onSubmitted;
   final ValueChanged<String> onChanged;
   final bool autofocus;
   final bool isShowSuffixIcon;
+  final double elevation;
+   Widget rightWidget;
 
-  GZXSearchCardWidget(
-      {Key key,
-      this.focusNode,
-      this.textEditingController,
-      this.onTap,
-      this.isShowLeading = true,
-      this.onSubmitted,
-      this.onChanged,
-      this.autofocus = false,
-      this.isShowSuffixIcon=true})
-      : super(key: key);
+  GZXSearchCardWidget({
+    Key key,
+    this.focusNode,
+    this.textEditingController,
+    this.onTap,
+    this.isShowLeading = true,
+    this.onSubmitted,
+    this.onChanged,
+    this.autofocus = false,
+    this.isShowSuffixIcon = true,
+    this.hintText,
+    this.elevation = 2.0,
+    this.rightWidget,
+  }) : super(key: key);
 
   @override
   _GZXSearchCardWidgetState createState() => _GZXSearchCardWidgetState();
 }
 
 class _GZXSearchCardWidgetState extends State<GZXSearchCardWidget> {
-  TextEditingController textEditingController;
+//  TextEditingController textEditingController;
+  String _hintText;
+  Widget _rightWidget;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-    if (widget.textEditingController == null) {
-      widget.textEditingController = TextEditingController();
-    }
-
-    textEditingController = widget.textEditingController;
+//    textEditingController = widget.textEditingController;
   }
 
   @override
@@ -50,6 +54,17 @@ class _GZXSearchCardWidgetState extends State<GZXSearchCardWidget> {
 //    if (widget.textEditingController == null) {
 //      widget.textEditingController = TextEditingController();
 //    }
+    _rightWidget = widget.rightWidget;
+    _rightWidget ??= Icon(
+      GZXIcons.camera,
+      color: Colors.grey,
+      size: 20,
+    );
+    _hintText = widget.hintText;
+    _hintText ??= searchHintTexts[Random().nextInt(searchHintTexts.length)];
+    if (widget.textEditingController == null) {
+      widget.textEditingController = TextEditingController();
+    }
 
     return searchCard();
   }
@@ -58,7 +73,7 @@ class _GZXSearchCardWidgetState extends State<GZXSearchCardWidget> {
 //    padding: const EdgeInsets.only(top: 8,bottom: 8),
         padding: const EdgeInsets.only(top: 0, right: 0),
         child: Card(
-          elevation: 2.0,
+          elevation: widget.elevation,
           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))), //设置圆角
           child: Padding(
             padding: const EdgeInsets.only(top: 0),
@@ -84,20 +99,20 @@ class _GZXSearchCardWidgetState extends State<GZXSearchCardWidget> {
                 Expanded(
                   child: Container(
 //                     color: Colors.red,
-                      height: 30,
+                      height: 34,
                       child: TextField(
                         autofocus: widget.autofocus,
                         onTap: widget.onTap,
                         focusNode: widget.focusNode,
                         style: TextStyle(fontSize: 13),
-                        controller: textEditingController,
+                        controller: widget.textEditingController,
 //                        autofocus: true,
 //                    focusNode: _focusNode,
                         decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.only(top: 6),
+                          contentPadding: const EdgeInsets.only(top: 8),
                           border: InputBorder.none,
-                          hintText: searchHintTexts[Random().nextInt(searchHintTexts.length)],
-                          suffixIcon: textEditingController.text.length == 0 || !widget.isShowSuffixIcon
+                          hintText: _hintText,
+                          suffixIcon: widget.textEditingController.text.length == 0 || !widget.isShowSuffixIcon
                               ? SizedBox()
                               : Container(
                                   width: 20.0,
@@ -116,7 +131,7 @@ class _GZXSearchCardWidgetState extends State<GZXSearchCardWidget> {
                                     onPressed: () {
                                       setState(() {
 //                                  textEditingController.clear();
-                                        textEditingController.text = '';
+                                        widget.textEditingController.text = '';
                                         widget.onChanged('');
                                       });
 ////                                setState(() {
@@ -130,18 +145,15 @@ class _GZXSearchCardWidgetState extends State<GZXSearchCardWidget> {
                         ),
                         onSubmitted: widget.onSubmitted,
                         onChanged: widget.onChanged,
+//                      onChanged: (value){
+//                        print('_GZXSearchCardWidgetState.searchCard  ${widget.textEditingController.text}');
+//                      },
 //                     ),
                       )),
                 ),
 
-                textEditingController.text.length == 0 || !widget.isShowSuffixIcon
-                    ? Padding(
-                        padding: EdgeInsets.only(right: 5),
-                        child: Icon(
-                          GZXIcons.camera,
-                          color: Colors.grey,
-                          size: 20,
-                        ))
+                widget.textEditingController.text.length == 0 || !widget.isShowSuffixIcon
+                    ? Padding(padding: EdgeInsets.only(right: 5), child: _rightWidget)
                     : SizedBox(),
               ],
             ),

@@ -68,7 +68,9 @@ TextEditingController _keywordsTextEditingController=TextEditingController();
                   Expanded(
                     flex: 1,
                     child: GZXSearchCardWidget(
-                      autofocus: widget.keywords!=null,
+                      elevation: 0,
+//                      autofocus: widget.keywords!=null,
+                    autofocus: true,
                       textEditingController: _keywordsTextEditingController,
                       isShowLeading: false,
                       onSubmitted: (value) {
@@ -146,7 +148,7 @@ TextEditingController _keywordsTextEditingController=TextEditingController();
 //                      .toList()
             tabs: _tabsTitle
                 .map((i) => Text(
-                      i,
+                      i,style: TextStyle(fontSize: 15),
                     ))
                 .toList()),
         SizedBox(

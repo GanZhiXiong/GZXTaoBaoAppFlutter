@@ -70,6 +70,7 @@ class HomeTopBar extends StatelessWidget {
           Expanded(
             flex: 1,
             child: GZXSearchCardWidget(
+              elevation: 0,
               onTap: (){
                 FocusScope.of(context).requestFocus(FocusNode());
                 NavigatorUtils.gotoSearchGoodsPage(_context);

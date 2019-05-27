@@ -50,6 +50,8 @@ class GZXColors {
       900: const Color(primaryDarkValue),
     },
   );
+
+  static Gradient primaryGradient=const LinearGradient(colors: [Colors.orange, Colors.deepOrange]);
 }
 
 ///文本样式
@@ -62,6 +64,12 @@ class GZXConstant {
   static const middleTextWhiteSize = 16.0;
   static const smallTextSize = 14.0;
   static const minTextSize = 12.0;
+
+  static TextStyle appBarTitleWhiteTextStyle = TextStyle(
+      fontSize: 18, color: Colors.white);
+
+  static TextStyle appBarTitleBlackTextStyle = TextStyle(
+      fontSize: 16, color: Colors.black);
 
   static TextStyle searchResultItemCommentCountStyle = TextStyle(
       fontSize: 12, color: Color(0xFF999999));
@@ -255,6 +263,26 @@ class GZXIcons {
   static const IconData list = const IconData(0xe682, fontFamily: FONT_FAMILY);
   static const IconData filter = const IconData(0xe69c, fontFamily: FONT_FAMILY);
   static const IconData jump = const IconData(0xe670, fontFamily: FONT_FAMILY);
+  static const IconData time = const IconData(0xe65f, fontFamily: FONT_FAMILY);
+  static const IconData time_fill = const IconData(0xe65e, fontFamily: FONT_FAMILY);
+  static const IconData add_light = const IconData(0xe7dc, fontFamily: FONT_FAMILY);
+
+  static const IconData clear = const IconData(0xe601, fontFamily: FONT_FAMILY);
+  static const IconData deliver_fill = const IconData(0xe7f6, fontFamily: FONT_FAMILY);
+  static const IconData comment_light = const IconData(0xe7e3, fontFamily: FONT_FAMILY);
+  static const IconData comment_fill_light= const IconData(0xe7e4, fontFamily: FONT_FAMILY);
+  static const IconData notification = const IconData(0xe66b, fontFamily: FONT_FAMILY);
+  static const IconData notification_fill = const IconData(0xe66a, fontFamily: FONT_FAMILY);
+
+  static const IconData emoji= const IconData(0xe64a, fontFamily: FONT_FAMILY);
+  static const IconData round_add = const IconData(0xe6d9, fontFamily: FONT_FAMILY);
+  static const IconData round_add_light = const IconData(0xe7a7, fontFamily: FONT_FAMILY);
+
+  static const IconData sound= const IconData(0xe77b, fontFamily: FONT_FAMILY);
+  static const IconData sound_light= const IconData(0xe7a8, fontFamily: FONT_FAMILY);
+
+  static const IconData emoji_light= const IconData(0xe7a1, fontFamily: FONT_FAMILY);
+  static const IconData friend_settings_light= const IconData(0xe7fe, fontFamily: FONT_FAMILY);
 
 //  static const IconData message = const IconData(0xe779, fontFamily: FONT_FAMILY);
   static const IconData appreciate_light = const IconData(0xe7e1, fontFamily: FONT_FAMILY);
