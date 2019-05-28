@@ -30,6 +30,7 @@ dependencies:
   # 本地存储、收藏功能
   shared_preferences: ^0.5.1
   flutter_statusbarcolor: ^0.2.0
+  fluttertoast: ^3.1.0
 
 dev_dependencies:
   flutter_test:

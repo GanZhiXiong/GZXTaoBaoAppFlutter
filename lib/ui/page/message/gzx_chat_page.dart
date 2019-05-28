@@ -44,7 +44,7 @@ class _GZXChatPageState extends State<GZXChatPage> with TickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-
+    print('_GZXChatPageState.build');
     final controller = TextEditingController();
     //定义发送文本事件的处理函数
     void _handleSubmitted(String text) {

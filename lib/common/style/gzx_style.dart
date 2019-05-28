@@ -235,6 +235,8 @@ class GZXIcons {
   static const String DEFAULT_REMOTE_PIC =
       'https://raw.githubusercontent.com/CarGuo/GSYGithubAppFlutter/master/static/images/logo.png';
 
+  static const String tmall_easy_buy = 'static/images/tmall_easy_buy.png';
+
   static const IconData home = const IconData(0xe6b8, fontFamily: GZXIcons.FONT_FAMILY);
   static const IconData home_active = const IconData(0xe652, fontFamily: GZXIcons.FONT_FAMILY);
 
@@ -283,6 +285,11 @@ class GZXIcons {
 
   static const IconData emoji_light= const IconData(0xe7a1, fontFamily: FONT_FAMILY);
   static const IconData friend_settings_light= const IconData(0xe7fe, fontFamily: FONT_FAMILY);
+
+  static const IconData shop= const IconData(0xe676, fontFamily: FONT_FAMILY);
+  static const IconData shop_fill = const IconData(0xe697, fontFamily: FONT_FAMILY);
+  static const IconData shop_light= const IconData(0xe7b8, fontFamily: FONT_FAMILY);
+  static const IconData tmall= const IconData(0xe65a, fontFamily: FONT_FAMILY);
 
 //  static const IconData message = const IconData(0xe779, fontFamily: FONT_FAMILY);
   static const IconData appreciate_light = const IconData(0xe7e1, fontFamily: FONT_FAMILY);

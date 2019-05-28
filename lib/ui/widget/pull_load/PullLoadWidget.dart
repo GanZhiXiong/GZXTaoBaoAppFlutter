@@ -126,10 +126,10 @@ class _PullLoadWidgetState extends State<PullLoadWidget> {
       child: new Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          FlatButton(
-            onPressed: () {},
-            child: new Image(image: new AssetImage('static/images/default_img.png'), width: 70.0, height: 70.0),
-          ),
+//          FlatButton(
+//            onPressed: () {},
+//            child: new Image(image: new AssetImage('static/images/default_img.png'), width: 70.0, height: 70.0),
+//          ),
           Container(
             child: Text('暂无数据', style: TextStyle(color: Color(0xFF121917))),
           ),

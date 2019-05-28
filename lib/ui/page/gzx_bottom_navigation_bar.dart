@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_taobao/common/style/gzx_style.dart';
 import 'package:flutter_taobao/common/utils/screen_util.dart';
+import 'package:flutter_taobao/ui/page/shopping_cart/shopping_cart_page.dart';
 import 'package:flutter_taobao/ui/page/test/demo.dart';
 import 'package:flutter_taobao/ui/page/home/home_page.dart';
 import 'package:flutter_taobao/ui/page/test/test_page.dart';
@@ -57,6 +58,7 @@ class _GZXBottomNavigationBarState extends State<GZXBottomNavigationBar> {
         children: <Widget>[
 //          Index(),
 //        TestPage(),
+          ShoppingCartPage(),
           MessagePage(),
 
           HomePage(),

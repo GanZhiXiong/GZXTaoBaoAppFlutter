@@ -1,26 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_taobao/common/data/shopping_cart.dart';
 import 'package:flutter_taobao/common/model/conversation.dart';
+import 'package:flutter_taobao/common/model/shopping_cart.dart';
 import 'package:flutter_taobao/common/services/search.dart';
 import 'package:flutter_taobao/common/style/gzx_style.dart';
+import 'package:flutter_taobao/common/utils/common_utils.dart';
 import 'package:flutter_taobao/common/utils/navigator_utils.dart';
 import 'package:flutter_taobao/common/utils/screen_util.dart';
 import 'package:flutter_taobao/ui/widget/UserIconWidget.dart';
+import 'package:flutter_taobao/ui/widget/gzx_checkbox.dart';
 import 'package:flutter_taobao/ui/widget/pull_load/ListState.dart';
 import 'package:flutter_taobao/ui/widget/pull_load/PullLoadWidget.dart';
 import 'dart:math';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
+import 'package:flutter_taobao/ui/widget/shopping_cart_item.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class MessagePage extends StatefulWidget {
+class ShoppingCartPage extends StatefulWidget {
   @override
-  _MessagePageState createState() => _MessagePageState();
+  _ShoppingCartPageState createState() => _ShoppingCartPageState();
 }
 
-class _MessagePageState extends State<MessagePage>
-    with AutomaticKeepAliveClientMixin<MessagePage>, ListState<MessagePage>, WidgetsBindingObserver {
-  ConversationControlModel _conversationControlModel = new ConversationControlModel();
-  Manager manager = new Manager();
-  Gradient _mainGradient = const LinearGradient(colors: [Colors.white, Colors.white]);
+class _ShoppingCartPageState extends State<ShoppingCartPage>
+    with AutomaticKeepAliveClientMixin<ShoppingCartPage>, ListState<ShoppingCartPage>, WidgetsBindingObserver {
+  static const Color _backgroundColor = Color(0xFFf3f3f3);
+  Gradient _mainGradient = const LinearGradient(colors: [_backgroundColor, _backgroundColor]);
+  bool _isAllSelected = false;
+
+  GlobalKey _keyFilter = GlobalKey();
+  double _firstItemHeight = 0;
+
+  _afterLayout(_) {
+    _getPositions('_keyFilter', _keyFilter);
+    _getSizes('_keyFilter', _keyFilter);
+  }
+
+  _getPositions(log, GlobalKey globalKey) {
+    RenderBox renderBoxRed = globalKey.currentContext.findRenderObject();
+    var positionRed = renderBoxRed.localToGlobal(Offset.zero);
+    print("POSITION of $log: $positionRed ");
+  }
+
+  _getSizes(log, GlobalKey globalKey) {
+    RenderBox renderBoxRed = globalKey.currentContext.findRenderObject();
+    var sizeRed = renderBoxRed.size;
+    print("SIZE of $log: $sizeRed");
+
+    setState(() {
+      _firstItemHeight = sizeRed.height;
+    });
+  }
 
   @override
   didChangeAppLifecycleState(AppLifecycleState state) {
@@ -46,54 +76,92 @@ class _MessagePageState extends State<MessagePage>
     var pullLoadWidget = PullLoadWidget(
       pullLoadWidgetControl,
       (BuildContext context, int index) {
-        Conversation conversation = pullLoadWidgetControl.dataList[index];
+        ShoppingCartModel shoppingCartModel = pullLoadWidgetControl.dataList[index];
+        print('$index');
 
         if (index == 0) {
 //          return Container(color: Colors.red,height: 50,);
-          return TopItem(
-            topBarOpacity: _topBarOpacity,
-          );
-        }
-        if (conversation.titleColor == 0xff000000 &&
-            pullLoadWidgetControl.dataList[index - 1].titleColor != 0xff000000) {
           return Container(
-            color: Colors.white,
-//            margin: const EdgeInsets.only(top: 16),
-            child: Column(
-              children: <Widget>[
-                Container(
-                  color: Color(0xFFf1f2f1),
-                  height: 14,
-                ),
-                SizedBox(
-                  height: 16,
-                ),
-                Row(
-                  children: <Widget>[
-                    SizedBox(
-                      width: 12,
-                    ),
-                    Icon(
-                      GZXIcons.time_fill,
-                      color: Color(0xFFf4c723),
-                    ),
-                    SizedBox(
-                      width: 4,
-                    ),
-                    Text(
-                      '两周前的消息',
-                      style: TextStyle(color: Color(0xFF999999), fontWeight: FontWeight.w500),
-                    )
-                  ],
-                ),
-                _ConversationItem(conversation: pullLoadWidgetControl.dataList[index])
-              ],
-            ),
+            color: _backgroundColor,
+            height: _firstItemHeight + 48 + ScreenUtil.statusBarHeight + 30,
+            child: TopItem(
+                topBarOpacity: _topBarOpacity,
+//contentWidget: Container(height: 44,color: Colors.white,width: 100,),
+                contentWidget: Container(
+                  key: _keyFilter,
+                  child: ShoppingCarItemWidget(
+                    shoppingCartModel,
+                    color: Colors.transparent,
+                    addTap: (orderModel) {
+                      if (orderModel.quantity + 1 > orderModel.amountPurchasing) {
+                        Fluttertoast.showToast(msg: '该宝贝不能购买更多哦', gravity: ToastGravity.CENTER);
+                      } else {
+                        setState(() {
+                          orderModel.quantity++;
+                        });
+                      }
+                    },
+                    removeTap: (orderModel) {
+                      if (orderModel.quantity == 1) {
+                        Fluttertoast.showToast(msg: '受不了了，宝贝不能再减少了哦', gravity: ToastGravity.CENTER);
+                      } else {
+                        setState(() {
+                          orderModel.quantity--;
+                        });
+                      }
+                    },
+                    onSelectAllChanged: (value) {
+                      setState(() {
+                        shoppingCartModel.isSelected = value;
+                        shoppingCartModel.orderModels.forEach((item) {
+                          item.isSelected = value;
+                        });
+                      });
+                    },
+                    onSelectChanged: (orderModel, value) {
+                      setState(() {
+                        orderModel.isSelected = value;
+//                shoppingCartModel.isSelected=value;
+                      });
+                    },
+                  ),
+                )),
           );
         } else {
-          return Container(
-            color: Colors.white,
-            child: _ConversationItem(conversation: pullLoadWidgetControl.dataList[index]),
+          return ShoppingCarItemWidget(
+            shoppingCartModel,
+            addTap: (orderModel) {
+              if (orderModel.quantity + 1 > orderModel.amountPurchasing) {
+                Fluttertoast.showToast(msg: '该宝贝不能购买更多哦', gravity: ToastGravity.CENTER);
+              } else {
+                setState(() {
+                  orderModel.quantity++;
+                });
+              }
+            },
+            removeTap: (orderModel) {
+              if (orderModel.quantity == 1) {
+                Fluttertoast.showToast(msg: '受不了了，宝贝不能再减少了哦', gravity: ToastGravity.CENTER);
+              } else {
+                setState(() {
+                  orderModel.quantity--;
+                });
+              }
+            },
+            onSelectAllChanged: (value) {
+              setState(() {
+                shoppingCartModel.isSelected = value;
+                shoppingCartModel.orderModels.forEach((item) {
+                  item.isSelected = value;
+                });
+              });
+            },
+            onSelectChanged: (orderModel, value) {
+              setState(() {
+                orderModel.isSelected = value;
+//                shoppingCartModel.isSelected=value;
+              });
+            },
           );
         }
       },
@@ -145,73 +213,112 @@ class _MessagePageState extends State<MessagePage>
 
 //    return pullLoadWidget;
 
-    return SafeArea(
-      child: body,
-      top: false,
-    );
-    return Scaffold(
-      appBar: PreferredSize(
-          child: AppBar(
-            backgroundColor: Colors.transparent,
-            brightness: Brightness.dark,
-            elevation: 0,
-          ),
-          preferredSize: Size.fromHeight(0)),
-      body: MediaQuery.removePadding(
-        child: body,
-        removeTop: true,
-        context: context,
-      ),
-    );
-    return body;
-    return Scaffold(
-      appBar: PreferredSize(
-          child: AppBar(
-            brightness: Brightness.dark,
-            elevation: 0,
-          ),
-          preferredSize: Size.fromHeight(0)),
-      body: body,
-    );
+//    var selectedOrderModels =
+//        shoppingCartModels.map((item) => item.orderModels.where((i) => i.isSelected).）.toList();
+//    var totalAmount = selectedOrderModels.reduce((prev, i) => prev + i);
+    double totalAmount = 0;
+    int settlementCount = 0;
+    for (var value1 in shoppingCartModels) {
+      for (var value in value1.orderModels) {
+        if (value.isSelected) {
+          totalAmount += value.price * value.quantity;
+          settlementCount++;
+        }
+      }
+    }
 
-    return Scaffold(
-      backgroundColor: Colors.red,
-      body: MediaQuery.removePadding(
-        removeTop: true,
-        child: NotificationListener<ScrollNotification>(
-            onNotification: _onScroll,
-            child: Scrollbar(
-                child: Stack(
+    return SafeArea(
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            child: body,
+          ),
+          Container(
+            height: 44,
+            decoration: BoxDecoration(
+              border: Border(top: BorderSide(color: Color(0xFFededed), width: .3)),
+            ),
+            child: Row(
               children: <Widget>[
-                pullLoadWidget,
-                Offstage(
-                  offstage: !_isShowFloatingTopBar,
-                  child: Container(
-                    decoration: BoxDecoration(gradient: GZXColors.primaryGradient),
-                    height: 48 + ScreenUtil.statusBarHeight,
-                    width: ScreenUtil.screenWidth,
-//                margin: EdgeInsets.only(top: ScreenUtil.statusBarHeight),
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          height: ScreenUtil.statusBarHeight,
-                        ),
-                        Container(
-                          height: 48,
-                          child: _buildFloatingTopBar(),
-                        )
-                      ],
+                SizedBox(
+                  width: 16,
+                ),
+                Expanded(
+                  child: GZXCheckbox(
+                    value: _isAllSelected,
+                    onChanged: (value) {
+                      setState(() {
+                        _isAllSelected = value;
+                        shoppingCartModels.forEach((item) {
+                          item.isSelected = value;
+                          item.orderModels.forEach((i) {
+                            i.isSelected = value;
+                          });
+                        });
+                      });
+                    },
+                    spacing: 6,
+                    descriptionWidget: Text(
+                      '全选',
+                      style: TextStyle(color: Color(0xFF666666), fontSize: 12),
                     ),
                   ),
-                )
+                ),
+                totalAmount == 0
+                    ? Container()
+                    : Text(
+                        '已包邮',
+                        style: TextStyle(color: Color(0xFF666666), fontSize: 9),
+                      ),
+                SizedBox(
+                  width: 4,
+                ),
+                Text(
+                  '合计:',
+                  style: TextStyle(fontSize: 12),
+                ),
+                SizedBox(
+                  width: 8,
+                ),
+                Text(
+                  '￥',
+                  style: TextStyle(fontSize: 10, color: Color(0xFFff5410)),
+                ),
+                Text(
+                  '${CommonUtils.removeDecimalZeroFormat(totalAmount)}',
+                  style: TextStyle(fontSize: 14, color: Color(0xFFff5410)),
+                ),
+                SizedBox(
+                  width: 8,
+                ),
+                Container(
+                  height: 36,
+                  width: 100,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    gradient: GZXColors.primaryGradient,
+                    borderRadius: BorderRadius.all(Radius.circular(18)),
+                  ),
+                  child: Text(
+                    '结算($settlementCount)',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 8,
+                ),
               ],
-            ))),
-        context: context,
+            ),
+          )
+        ],
       ),
+      top: false,
     );
   }
 
-  Widget _buildFloatingTopBar() {
+  Widget _buildFloatingTopBar({int productNum = 0}) {
     return Stack(
       children: <Widget>[
         Container(
@@ -222,26 +329,12 @@ class _MessagePageState extends State<MessagePage>
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               GestureDetector(
-                child: Icon(
-                  GZXIcons.search_light,
+                  child: Text(
+                '管理',
+                style: TextStyle(
                   color: Colors.white,
                 ),
-              ),
-              SizedBox(
-                width: 16,
-              ),
-              GestureDetector(
-                child: Icon(
-                  GZXIcons.people_list_light,
-                  color: Colors.white,
-                ),
-              ),
-              SizedBox(
-                width: 16,
-              ),
-              GestureDetector(
-                child: Icon(GZXIcons.add_light, color: Colors.white),
-              ),
+              )),
               SizedBox(
                 width: 8,
               ),
@@ -250,7 +343,7 @@ class _MessagePageState extends State<MessagePage>
         ),
         Center(
           child: Text(
-            '消息',
+            productNum == 0 ? '购物车' : '购物车(${productNum})',
             textAlign: TextAlign.center,
             style: GZXConstant.appBarTitleWhiteTextStyle,
           ),
@@ -358,7 +451,7 @@ class _MessagePageState extends State<MessagePage>
 ////    _conversationControlModel.clear();
     await getIndexListData(page);
     setState(() {
-      pullLoadWidgetControl.needLoadMore = (mockConversation != null && mockConversation.length == 15);
+      pullLoadWidgetControl.needLoadMore = false;
     });
     isLoading = false;
 
@@ -391,28 +484,16 @@ class _MessagePageState extends State<MessagePage>
   void initState() {
     // TODO: implement initState
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(_afterLayout);
+
     FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
 
     WidgetsBinding.instance.addObserver(this);
 
-    print('_MessagePageState.didChangeDependencies');
-    mockConversation.addAll(preConversation);
-    pullLoadWidgetControl.dataList = mockConversation;
-    _conversationControlModel.clear();
-    getIndexListData(1);
-    setState(() => {pullLoadWidgetControl.needLoadMore = true});
+    pullLoadWidgetControl.dataList = shoppingCartModels;
+//    getIndexListData(1);
+    setState(() => {pullLoadWidgetControl.needLoadMore = false});
     // getIndexListData(1);
-  }
-
-  _stat() async {
-//    await FlutterStatusbarcolor.setStatusBarColor(Colors.green[400]);
-//    await FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
-
-//    if (useWhiteForeground(Colors.green[400])) {
-//      FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
-//    } else {
-//      FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
-//    }
   }
 
   @override
@@ -429,21 +510,9 @@ class _MessagePageState extends State<MessagePage>
 
   getIndexListData(page) async {
     try {
-      var response = await get('https://randomuser.me/api/?results=10');
-      List<Conversation> arr = [];
-      for (int i = 0; i < response['results'].length; i++) {
-        response['results'][i]['unReadMsgCount'] = i == Random().nextInt(10) ? Random().nextInt(20) : 0;
-        arr.add(Conversation.fromJson(response['results'][i]));
-        await _conversationControlModel.insert(Conversation.fromJson(response['results'][i]));
-      }
-      manager.setSate(true);
+      await Future.delayed(const Duration(seconds: 3));
       setState(() {
-        if (page == 1) {
-          mockConversation.clear();
-          mockConversation.addAll(preConversation);
-          _conversationControlModel.clear();
-        }
-        mockConversation.addAll(arr);
+        pullLoadWidgetControl.dataList = shoppingCartModels;
       });
     } catch (e) {
       print(e);
@@ -481,107 +550,91 @@ class _MessagePageState extends State<MessagePage>
 class TopItem extends StatelessWidget {
   final bool isShowFloatingTopBar;
   final double topBarOpacity;
+  final int productNum;
+  final Widget contentWidget;
   double _topBarHeight = 48;
 
-  TopItem({Key key, this.isShowFloatingTopBar = false, this.topBarOpacity = 1}) : super(key: key);
+  TopItem({Key key, this.isShowFloatingTopBar = false, this.topBarOpacity = 1, this.productNum = 0, this.contentWidget})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
 //      width: 50,
-      color: Colors.white,
-      height: ScreenUtil.screenHeight / 4 + 14,
-      child: Stack(children: <Widget>[
-        AnimatedPositioned(
-            curve: Curves.easeInOut,
-            duration: const Duration(milliseconds: 500),
-            left: 0,
-            top: 0,
-            child: Container(
-                decoration: new BoxDecoration(
-                  gradient: GZXColors.primaryGradient,
-                ),
-//                color: Theme.of(context).primaryColor,
-                width: ScreenUtil.screenWidth,
-                height: ScreenUtil.screenHeight / 4)),
-        Opacity(
-          opacity: topBarOpacity,
-          child: Container(
-            height: _topBarHeight,
-            margin: EdgeInsets.only(top: ScreenUtil.statusBarHeight),
-//          color: Colors.red,
-            child: _buildTopBar(),
+//        color: ,
+//        height: 367 + _topBarHeight + ScreenUtil.statusBarHeight + 30,
+//      height: ScreenUtil.screenHeight / 4 + 14,
+        child: Stack(children: <Widget>[
+//          AnimatedPositioned(
+//              curve: Curves.easeInOut,
+//              duration: const Duration(milliseconds: 500),
+//              left: 0,
+//              top: 0,
+//              height: ScreenUtil.screenHeight / 4,
+//              child: Container(
+//                  decoration: new BoxDecoration(
+//                    gradient: GZXColors.primaryGradient,
+//                  ),
+////                color: Theme.of(context).primaryColor,
+//                  width: ScreenUtil.screenWidth,
+//                  height: ScreenUtil.screenHeight / 4)),
+      Container(
+        child: Container(
+          decoration: new BoxDecoration(
+            gradient: GZXColors.primaryGradient,
           ),
-        ),
-        Positioned(
-            top: _topBarHeight + ScreenUtil.statusBarHeight,
-            child: Opacity(
-              opacity: topBarOpacity,
-              child: Row(
-                children: <Widget>[
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    '32条未读消息',
-                    style: TextStyle(color: Colors.white, fontSize: 12),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  CircleAvatar(
-                    radius: 10,
-                    backgroundColor: Color(0xFFfea54e),
-                    child: GestureDetector(
-                      child: Icon(
-                        GZXIcons.clear,
-                        color: Colors.white,
-                        size: 12,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )),
-        Positioned(
-//          top: _topBarHeight + ScreenUtil.statusBarHeight + 30,
-        bottom: -6,
+//                color: Theme.of(context).primaryColor,
           width: ScreenUtil.screenWidth,
-          height: 105,
-          child: Container(
-//            color: Colors.red,
-              margin: EdgeInsets.all(4),
-//              padding: EdgeInsets.only(top: 20,bottom: 20),
-              alignment: Alignment.center,
-              child: Card(
-                elevation: 2,
-                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12.0))), //设置圆角
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    _circleButton(Color(0xFF32b3fb), GZXIcons.deliver_fill, '交易物流', 2),
-                    _circleButton(Color(0xFFf9cd13), GZXIcons.notification_fill, '通知消息', 18),
-                    _circleButton(Color(0xFF7cdd22), GZXIcons.comment_fill_light, '互动消息', 5),
-                  ],
-                ),
-              )),
+          height: ScreenUtil.screenHeight / 4,
         ),
-//        AnimatedPositioned(
-//          duration: Duration(microseconds: 0),
-//          curve: Curves.easeInOut,
-//          top: 0,
-//          child: Container(
-////            color: Colors.red,
-//            height: _topBarHeight,
-//            width: ScreenUtil.screenWidth,
-//            margin: EdgeInsets.only(top: ScreenUtil.statusBarHeight),
-//            child: _buildFloatingTopBar(),
-//          ),
-//        )
-      ]),
-    );
+      ),
+      Opacity(
+        opacity: topBarOpacity,
+        child: Container(
+          height: _topBarHeight,
+          margin: EdgeInsets.only(top: ScreenUtil.statusBarHeight),
+//          color: Colors.red,
+          child: _buildTopBar(),
+        ),
+      ),
+      Positioned(
+          top: _topBarHeight + ScreenUtil.statusBarHeight,
+          child: Opacity(
+            opacity: topBarOpacity,
+            child: Row(
+              children: <Widget>[
+                SizedBox(
+                  width: 8,
+                ),
+                Text(
+                  '共${productNum}件宝贝',
+                  style: TextStyle(color: Colors.white, fontSize: 12),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+//                  CircleAvatar(
+//                    radius: 10,
+//                    backgroundColor: Color(0xFFfea54e),
+//                    child: GestureDetector(
+//                      child: Icon(
+//                        GZXIcons.clear,
+//                        color: Colors.white,
+//                        size: 12,
+//                      ),
+//                    ),
+//                  ),
+              ],
+            ),
+          )),
+
+//Container(height: 367,child: contentWidget,)
+      Positioned(
+          top: _topBarHeight + ScreenUtil.statusBarHeight + 30,
+          height: 367,
+          width: ScreenUtil.screenWidth,
+          child: contentWidget)
+    ]));
   }
 
   Widget _circleButton(Color imageBackgroundColor, IconData iconData, text, int unreadMessages) {
@@ -647,51 +700,20 @@ class TopItem extends StatelessWidget {
         ),
         Expanded(
           child: Text(
-            '消息',
+            '购物车',
             style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.white),
           ),
         ),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-//                              width: 18.0,
-          height: 24.0,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(22 / 2.0), color: Color(0xFFfb8f48)),
-          child: Row(
-            children: <Widget>[
-              Icon(
-                GZXIcons.search_light,
-                size: 14,
+        GestureDetector(
+            onTap: () {
+//            Fluttertoast.showToast(msg: '受不了了，宝贝不能再减少了哦');
+            },
+            child: Text(
+              '管理',
+              style: TextStyle(
                 color: Colors.white,
               ),
-              SizedBox(
-                width: 2,
-              ),
-              Text(
-                '搜索',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.white,
-                ),
-              )
-            ],
-          ),
-        ),
-        SizedBox(
-          width: 16,
-        ),
-        GestureDetector(
-          child: Icon(
-            GZXIcons.people_list_light,
-            color: Colors.white,
-          ),
-        ),
-        SizedBox(
-          width: 16,
-        ),
-        GestureDetector(
-          child: Icon(GZXIcons.add_light, color: Colors.white),
-        ),
+            )),
         SizedBox(
           width: 8,
         ),
