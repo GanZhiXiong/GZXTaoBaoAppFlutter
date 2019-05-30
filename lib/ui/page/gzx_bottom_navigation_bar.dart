@@ -8,6 +8,7 @@ import 'package:flutter_taobao/ui/page/test/test_page.dart';
 import 'package:flutter_taobao/ui/page/weitao/weitao_page.dart';
 
 import 'message/message_page.dart';
+import 'my/my_page.dart';
 
 class GZXBottomNavigationBar extends StatefulWidget {
   static final String sName = "home";
@@ -58,11 +59,13 @@ class _GZXBottomNavigationBarState extends State<GZXBottomNavigationBar> {
         children: <Widget>[
 //          Index(),
 //        TestPage(),
-          ShoppingCartPage(),
-          MessagePage(),
 
           HomePage(),
           WeiTaoPage(),
+          MessagePage(),
+          ShoppingCartPage(),
+          MyPage(),
+
 ////          new AmosHomePage(),
 ////          new CRMPage(),
 ////          new WebViewContainer(

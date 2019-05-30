@@ -236,6 +236,7 @@ class GZXIcons {
       'https://raw.githubusercontent.com/CarGuo/GSYGithubAppFlutter/master/static/images/logo.png';
 
   static const String tmall_easy_buy = 'static/images/tmall_easy_buy.png';
+  static const String huangjiaju = 'static/images/可爱猫.jpeg';
 
   static const IconData home = const IconData(0xe6b8, fontFamily: GZXIcons.FONT_FAMILY);
   static const IconData home_active = const IconData(0xe652, fontFamily: GZXIcons.FONT_FAMILY);

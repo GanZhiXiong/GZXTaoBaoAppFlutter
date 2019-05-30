@@ -319,6 +319,11 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
   }
 
   Widget _buildFloatingTopBar({int productNum = 0}) {
+    var list = shoppingCartModels.map((item) => item.orderModels.length).toList();
+    var count= list.reduce((value, element) {
+      print('reduce $value  $element}');
+      return value+element;
+    });
     return Stack(
       children: <Widget>[
         Container(
@@ -343,7 +348,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
         ),
         Center(
           child: Text(
-            productNum == 0 ? '购物车' : '购物车(${productNum})',
+            count == 0 ? '购物车' : '购物车(${count})',
             textAlign: TextAlign.center,
             style: GZXConstant.appBarTitleWhiteTextStyle,
           ),
