@@ -12,3 +12,5 @@
 ## 首页
 ![](https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/首页.gif)
 
+## 搜索宝贝
+![](https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/搜索宝贝.gif)
