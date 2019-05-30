@@ -47,7 +47,7 @@ class SearchResultListState extends State<SearchResultListPage>
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback(_afterLayout);
+//    WidgetsBinding.instance.addPostFrameCallback(_afterLayout);
 
     getSearchList(widget.keyword);
     super.initState();

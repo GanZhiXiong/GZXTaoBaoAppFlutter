@@ -22,7 +22,7 @@ class _GZXBottomNavigationBarState extends State<GZXBottomNavigationBar> {
   Color foreColor = GZXColors.tabBarDefaultForeColor;
   List tabItemForeColor = new List();
 
-  final _bottomNavigationColor = Colors.grey;
+  final _bottomNavigationColor = Color(0xFF585858);
   Color _bottomNavigationActiveColor = Colors.blue;
 
   int _currentIndex = 0;
@@ -166,7 +166,7 @@ class _GZXBottomNavigationBarState extends State<GZXBottomNavigationBar> {
     return Text(
       text,
       style: TextStyle(
-          color: _currentIndex == index ? _bottomNavigationActiveColor : _bottomNavigationColor, fontSize: 10),
+          color: _currentIndex == index ? _bottomNavigationActiveColor : _bottomNavigationColor, fontSize: 12),
     );
   }
 }

@@ -9,4 +9,6 @@
             android:gravity="center"
             android:src="@mipmap/launch_image" />
     </item> -->
+    //这样写可以通过图片铺满整个屏幕，不同屏幕可能会有拉伸
+    <item android:drawable="@mipmap/launch_image"></item>
 </layer-list>

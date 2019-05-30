@@ -70,20 +70,22 @@ class _ScrollPageState extends State<ScrollPage> {
 
   Widget _typeListWid() {
     return SliverFixedExtentList(
-        itemExtent: 50.0,
+        itemExtent: 350.0,
         delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return Container(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Text('推荐精彩内容 ${(index + 1)}',
-                        textAlign: TextAlign.left, style: TextStyle(color: Color(0xFF333333), fontSize: 15.0))),
-                Padding(padding: EdgeInsets.only(top: 4.0), child: Divider(color: Color(0xFF808080), height: 0.5))
-              ]));
-        }, childCount: gridData.length));
+//return          SearchResultListPage('iphone');
+
+//          return Container(
+//              child: Column(
+//                  mainAxisAlignment: MainAxisAlignment.center,
+//                  mainAxisSize: MainAxisSize.max,
+//                  crossAxisAlignment: CrossAxisAlignment.start,
+//                  children: <Widget>[
+//                Padding(
+//                    padding: EdgeInsets.all(10.0),
+//                    child: Text('推荐精彩内容 ${(index + 1)}',
+//                        textAlign: TextAlign.left, style: TextStyle(color: Color(0xFF333333), fontSize: 15.0))),
+//                Padding(padding: EdgeInsets.only(top: 4.0), child: Divider(color: Color(0xFF808080), height: 0.5))
+//              ]));
+        }, childCount: 1));
   }
 }

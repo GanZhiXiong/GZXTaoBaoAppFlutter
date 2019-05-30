@@ -25,8 +25,7 @@ class _WeiTaoPageState extends State<WeiTaoPage>
   List<PostModel> _postModels = [];
 
   //column1
-  Widget profileColumn(BuildContext context, PostModel post) =>
-      Row(
+  Widget profileColumn(BuildContext context, PostModel post) => Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           CircleAvatar(
@@ -34,30 +33,26 @@ class _WeiTaoPageState extends State<WeiTaoPage>
           ),
           Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      post.name,
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  post.name,
 //                  style: Theme.of(context).textTheme.body1.apply(fontWeightDelta: 100),
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                    ),
-                    SizedBox(
-                      height: 4.0,
-                    ),
-                    Text(
-                      post.postTime,
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .caption
-                          .apply(color: Colors.grey),
-                    )
-                  ],
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                 ),
-              ))
+                SizedBox(
+                  height: 4.0,
+                ),
+                Text(
+                  post.postTime,
+                  style: Theme.of(context).textTheme.caption.apply(color: Colors.grey),
+                )
+              ],
+            ),
+          ))
         ],
       );
 
@@ -90,11 +85,11 @@ class _WeiTaoPageState extends State<WeiTaoPage>
       children: <Widget>[
         Expanded(
             child: Text(
-              '${post.readCout}万阅读',
-              style: TextStyle(
-                color: Colors.grey,
-              ),
-            )),
+          '${post.readCout}万阅读',
+          style: TextStyle(
+            color: Colors.grey,
+          ),
+        )),
         GestureDetector(
           onTap: () {
             setState(() {
@@ -255,32 +250,30 @@ class _WeiTaoPageState extends State<WeiTaoPage>
   }
 
   //allposts dropdown
-  Widget bottomBar() =>
-      PreferredSize(
-          preferredSize: Size(double.infinity, 50.0),
-          child: Container(
-              color: Colors.black,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  height: 50.0,
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  color: Colors.white,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        "All Posts",
-                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
-                      ),
-                      Icon(Icons.arrow_drop_down)
-                    ],
+  Widget bottomBar() => PreferredSize(
+      preferredSize: Size(double.infinity, 50.0),
+      child: Container(
+          color: Colors.black,
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 50.0,
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              color: Colors.white,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    "All Posts",
+                    style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
                   ),
-                ),
-              )));
+                  Icon(Icons.arrow_drop_down)
+                ],
+              ),
+            ),
+          )));
 
-  Widget appBar() =>
-      SliverAppBar(
+  Widget appBar() => SliverAppBar(
         backgroundColor: Colors.black,
         elevation: 2.0,
         centerTitle: false,
@@ -292,8 +285,7 @@ class _WeiTaoPageState extends State<WeiTaoPage>
         bottom: bottomBar(),
       );
 
-  Widget bodyList(List<PostModel> posts) =>
-      SliverList(
+  Widget bodyList(List<PostModel> posts) => SliverList(
         delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
           print('SliverChildBuilderDelegate ${index}');
 
@@ -316,11 +308,11 @@ class _WeiTaoPageState extends State<WeiTaoPage>
         builder: (context, snapshot) {
           return snapshot.hasData
               ? CustomScrollView(
-            slivers: <Widget>[
+                  slivers: <Widget>[
 //              appBar(),
-              bodyList(snapshot.data),
-            ],
-          )
+                    bodyList(snapshot.data),
+                  ],
+                )
               : Center(child: CircularProgressIndicator());
         });
   }
@@ -338,7 +330,7 @@ class _WeiTaoPageState extends State<WeiTaoPage>
     'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558083021447&di=d7a90850b12b9fe07a4024be742c9dbc&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201603%2F13%2F20160313134239_5WNxA.png',
     'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558083412736&di=8fcd16ece63f60c53231e34d7d707564&imgtype=0&src=http%3A%2F%2Fs14.sinaimg.cn%2Fmw690%2F002Y7b5tgy6PyTRlDOZbd%26690',
     'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558083463426&di=7f4563d244f278746a8b52b712af1c19&imgtype=0&src=http%3A%2F%2Fs6.sinaimg.cn%2Fmiddle%2F97478a17hc9637acee3c5%26690',
-    'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558083503297&di=10680297f182bdaa5c5039a0b8693626&imgtype=0&src=http%3A%2F%2Fs1.sinaimg.cn%2Fmw690%2F001LVQHHty6OK05256E70%26690' ,
+    'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558083503297&di=10680297f182bdaa5c5039a0b8693626&imgtype=0&src=http%3A%2F%2Fs1.sinaimg.cn%2Fmw690%2F001LVQHHty6OK05256E70%26690',
     'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558083515575&di=d0399c0e4cce6b34e87b1ec2afdcf0e8&imgtype=0&src=http%3A%2F%2Fs6.sinaimg.cn%2Fmw690%2F00330iyazy7cdZAuidD85%26690',
     'https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1558073507&di=1e791bf6640d622d8dd26a0f2bba9529&src=http://s16.sinaimg.cn/mw690/4a6e5f25tx6C9p5o4i31f&690',
     'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1611177969,3782045888&fm=26&gp=0.jpg',
@@ -379,13 +371,13 @@ class _WeiTaoPageState extends State<WeiTaoPage>
           name: value,
 //          personName: _postModels.length.toString(),
           logoImage:
-          'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2094939883,1219286755&fm=179&app=42&f=PNG?w=121&h=140',
+              'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2094939883,1219286755&fm=179&app=42&f=PNG?w=121&h=140',
           address: '999万粉丝',
 //          message:
 //              '  华为P30，是华为公司旗下一款手机。手机搭载海思Kirin 980处理器，屏幕为6.1英寸，分辨率2340*1080像素。 摄像头最大30倍数码变焦。\n  2019年3月26日晚21时，华为P30系列在法国巴黎会议中心发布。2019年4月11日，HUAWEI P30系列在上海东方体育中心正式发布。',
           message: '',
           messageImage:
-          'https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D220/sign=a70945e5c51349547a1eef66664f92dd/fd039245d688d43f7e426c96731ed21b0ff43bef.jpg',
+              'https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D220/sign=a70945e5c51349547a1eef66664f92dd/fd039245d688d43f7e426c96731ed21b0ff43bef.jpg',
           readCout: _randomCount(),
           isLike: false,
           likesCount: _randomCount(),
@@ -405,7 +397,7 @@ class _WeiTaoPageState extends State<WeiTaoPage>
 //            'https://img.alicdn.com/bao/uploaded/i4/1800399917/O1CN01rvMy702N82Ira2AUp_!!0-item_pic.jpg_120x120.jpg',
 //            'https://img.alicdn.com/bao/uploaded/i2/1800399917/O1CN01ILu0X62N82JOT6WQb_!!0-item_pic.jpg_120x120.jpg'
 //          ]
-      );
+          );
       _postModels.add(postModel);
       print('_postModels.length ' + _postModels.length.toString());
 
@@ -467,19 +459,20 @@ class _WeiTaoPageState extends State<WeiTaoPage>
 ////                color: Theme.of(context).primaryColor,
 //                width: ScreenUtil.screenWidth,
 //                height: ScreenUtil.screenHeight / 4),
-            child: _topBackgroundImages[_selectedTabBarIndex]
-                .toString()
-                .length == 0 ? Container(
-                decoration: new BoxDecoration(
-                  gradient: const LinearGradient(colors: [Colors.orange, Colors.deepOrange]),
-                ),
+            child: _topBackgroundImages[_selectedTabBarIndex].toString().length == 0
+                ? Container(
+                    decoration: new BoxDecoration(
+                      gradient: const LinearGradient(colors: [Colors.orange, Colors.deepOrange]),
+                    ),
 //                color: Theme.of(context).primaryColor,
-                width: ScreenUtil.screenWidth,
-                height: ScreenUtil.screenHeight / 4) : CachedNetworkImage(
-              imageUrl:
-              _topBackgroundImages[_selectedTabBarIndex]
-              , width: ScreenUtil.screenWidth,
-              height: ScreenUtil.screenHeight / 4, fit: BoxFit.fill,),
+                    width: ScreenUtil.screenWidth,
+                    height: ScreenUtil.screenHeight / 4)
+                : CachedNetworkImage(
+                    imageUrl: _topBackgroundImages[_selectedTabBarIndex],
+                    width: ScreenUtil.screenWidth,
+                    height: ScreenUtil.screenHeight / 4,
+                    fit: BoxFit.fill,
+                  ),
           ),
           AnimatedPositioned(
             curve: Curves.easeInOut,
@@ -566,10 +559,9 @@ class _WeiTaoPageState extends State<WeiTaoPage>
 //            setState(() {});
               },
               tabs: _tabsTitle
-                  .map((i) =>
-                  Text(
-                    i,
-                  ))
+                  .map((i) => Text(
+                        i,
+                      ))
                   .toList()),
         ),
 //        SizedBox(
@@ -577,13 +569,13 @@ class _WeiTaoPageState extends State<WeiTaoPage>
 //        ),
         Expanded(
             child: TabBarView(
-              controller: _tabController,
-              children: _tabsTitle.map((value) {
-                return WeiTaoListPage(
-                  onNotification: _onScroll,
-                );
-              }).toList(),
-            ))
+          controller: _tabController,
+          children: _tabsTitle.map((value) {
+            return WeiTaoListPage(
+              onNotification: _onScroll,
+            );
+          }).toList(),
+        ))
       ],
     );
   }
@@ -688,10 +680,9 @@ class _WeiTaoPageState extends State<WeiTaoPage>
 //                          )))
 //                      .toList()
         tabs: _tabsTitle
-            .map((i) =>
-            Text(
-              i,
-            ))
+            .map((i) => Text(
+                  i,
+                ))
             .toList());
   }
 

@@ -30,7 +30,7 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin,AutomaticKeepAliveClientMixin<HomePage> {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin, AutomaticKeepAliveClientMixin<HomePage> {
   List<KingKongItem> kingKongItems;
 
   int _diffScaleNext = 0;
@@ -383,13 +383,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin,Autom
 //            ),
             Container(
               margin: EdgeInsets.only(left: 8, top: 0, right: 8, bottom: 10),
-              height: 60,
+              height: 70,
               child: ConstrainedBox(
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: CachedNetworkImage(
                       imageUrl:
-                          'https://gw.alicdn.com/tps/TB1U3r4PpXXXXX2apXXXXXXXXXX-990-50.png',
+                          'https://m.360buyimg.com/babel/s710x160_jfs/t1/49162/37/1059/38027/5cebd68eEf50ad170/5470b2bde7ae3823.png',
 //                  height: 44,
                       fit: BoxFit.fill,
                     )),
@@ -397,8 +397,35 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin,Autom
               ),
             ),
 
+//Expanded(child: Container(color: Colors.red,))
+//            Flexible(
+//              child: DefaultTabController(
+//                  length: 8,
+//                  initialIndex: 0,
+//                  child: Column(children: <Widget>[
+//                    KTabBarWidget(
+//                      tabController: _controller,
+//                      tabModels: _tabModels,
+//                      currentIndex: _currentIndex,
+//                    ),
+//                    Expanded(
+////                    child: TabBarView(children: <Widget>[
+////                      SearchResultListPage('iphone'),
+////                      SearchResultListPage('iphone'),
+////                      SearchResultListPage('iphone'),
+////                      SearchResultListPage('iphone'),
+////                      SearchResultListPage('iphone'),
+////                    ])
+//                        child: _hotWords.length == 0
+//                            ? Center(
+//                                child: CircularProgressIndicator(),
+//                              )
+//                            : TabBarView(controller: _controller, children: _searchResultListPages())),
+//                  ])),
+//            )
             Container(
-              width: ScreenUtil.screenWidth,
+//              width: ScreenUtil.screenWidth,
+              width: double.infinity,
               height: ScreenUtil.screenHeight - ScreenUtil.statusBarHeight - 38 - 58,
               child: DefaultTabController(
                   length: 8,

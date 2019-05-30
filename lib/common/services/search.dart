@@ -42,7 +42,12 @@ getSearchResult(String keyworld, [int page = 0]) async {
   String jsonString = body.substring(2, body.length - 2);
 
   //  debugPrint(jsonString.replaceAll('\\x2F', '/'));
-  var json = jsonDecode(jsonString.replaceAll(RegExp(r'\\x..'), '/'));
+  var json;
+  try{
+    json = jsonDecode(jsonString.replaceAll(RegExp(r'\\x..'), '/'));
+  }catch(e){
+    return [];
+  }
   return json['data']['searchm']['Paragraph'] as List;
 }
 
