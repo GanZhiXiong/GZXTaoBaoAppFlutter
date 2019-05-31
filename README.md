@@ -12,13 +12,13 @@
 ### 如果你觉得可能对你有帮助，请给个Star吧！
 ### 如你想接收更新消息，你可以Watch下，我会根据大家的关注度来抽时间尽快将代码开源！
 
-- [Paste Your Document In Here](#paste-your-document-in-here)
+- [1、2](#1、2)
   * [And a table of contents](#and-a-table-of-contents)
   * [On the right](#on-the-right)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
-# Paste Your Document In Here
+# 1、2
 
 ## And a table of contents
 
