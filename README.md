@@ -56,32 +56,30 @@ gif图片加载较慢，会有卡顿，而非APP卡顿，可以滑到下面直�
 # 示例图片
 <img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/首页.PNG" width="414" hegiht="736" align=center />
 
-![](https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/首页.PNG)
+<img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/首页1.PNG" width="414" hegiht="736" align=center />
 
-![](https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/首页1.PNG)
+<img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/搜索结果List.PNG" width="414" hegiht="736" align=center />
 
-![](https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/搜索结果List.PNG)
+<img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/搜索结果Grid.PNG" width="414" hegiht="736" align=center />
 
-![](https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/搜索结果Grid.PNG)
+<img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/搜索结果筛选.PNG" width="414" hegiht="736" align=center />
 
-![](https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/搜索结果筛选.PNG)
+<img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/搜索结果筛选1.PNG" width="414" hegiht="736" align=center />
 
-![](https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/搜索结果筛选1.PNG)
+<img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/微淘.PNG" width="414" hegiht="736" align=center />
 
-![](https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/微淘.PNG)
+<img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/微淘1.PNG" width="414" hegiht="736" align=center />
 
-![](https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/微淘1.PNG)
+<img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/消息.PNG" width="414" hegiht="736" align=center />
 
-![](https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/消息.PNG)
+<img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/聊天.PNG" width="414" hegiht="736" align=center />
 
-![](https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/聊天.PNG)
+<img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/购物车.PNG" width="414" hegiht="736" align=center />
 
-![](https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/购物车.PNG)
+<img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/我的淘宝.PNG" width="414" hegiht="736" align=center />
 
-![](https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/我的淘宝.PNG)
+<img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/我的淘宝1.PNG" width="414" hegiht="736" align=center />
 
-![](https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/我的淘宝1.PNG)
+<img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/搜索.PNG" width="414" hegiht="736" align=center />
 
-![](https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/搜索.PNG)
-
-![](https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/搜索关键字列表.PNG)
+<img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/搜索关键字列表.PNG" width="414" hegiht="736" align=center />
