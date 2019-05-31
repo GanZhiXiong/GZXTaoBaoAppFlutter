@@ -54,6 +54,8 @@ gif图片加载较慢，会有卡顿，而非APP卡顿，可以滑到下面直�
 ![](https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/我的淘宝.gif)
 
 # 示例图片
+<img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/首页.PNG" width="414" hegiht="736" align=center />
+
 ![](https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/首页.PNG)
 
 ![](https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/首页1.PNG)
