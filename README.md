@@ -32,7 +32,7 @@ Apk二维码，请手机扫描下载安装
 - [ ] IM
 - [ ] 直播
 - [ ] ..........
-# sdf
+
 # Gif效果图  
 gif图片加载较慢，会有卡顿，而非APP卡顿，可以滑到下面直接看示例图片
 ## 首页 搜索宝贝
@@ -47,8 +47,7 @@ gif图片加载较慢，会有卡顿，而非APP卡顿，可以滑到下面直�
 # 示例图片
 <img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/首页.PNG" width="414" hegiht="736" align=center />  <img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/首页1.PNG" width="414" hegiht="736" align=center />
 
-<img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/搜索结果List.PNG" width="414" hegiht="736" align=center />
-<img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/搜索结果Grid.PNG" width="414" hegiht="736" align=center />
+<img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/搜索结果List.PNG" width="414" hegiht="736" align=center /><img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/搜索结果Grid.PNG" width="414" hegiht="736" align=center />
 
 <img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/搜索结果筛选.PNG" width="414" hegiht="736" align=center /> <img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/搜索结果筛选1.PNG" width="414" hegiht="736" align=center />
 
