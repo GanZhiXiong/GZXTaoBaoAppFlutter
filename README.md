@@ -10,8 +10,9 @@
 如果你觉得可能对你有帮助，请给个Star吧，如你想接收更新消息，你可以Watch下，我会根据我的时间和大家的关注度来尽快将代码开源！
 
 # 导航
-- [Android版下载](#Android版下载)
-- [Gif效果图](#Gif效果图)
+- [App下载](#app下载)
+- [待办事项](#待办事项)
+- [Gif效果图](#gif效果图)
   - [首页](#首页)   
   - [搜索宝贝](#搜索宝贝)
   - [微淘](#微淘)
@@ -20,14 +21,20 @@
   - [我的淘宝](#我的淘宝)
 - [示例图片](#示例图片)
 
-# Android版下载
+# App下载
 Apk二维码，请手机扫描下载安装
+
 ![](https://www.pgyer.com/app/qrcode/gou_android)
 
-
-
-# Gif预览图  
-gif图片加载较慢，会有卡顿，而非APP卡顿，可以滑到下面直接看预览图
+没有上架到App Store，这种仿App肯定很难审核通过
+# 待办事项
+- [ ] 代码整理，性能优化
+- [ ] IM
+- [ ] 直播
+- [ ] ..........
+# sdf
+# Gif效果图  
+gif图片加载较慢，会有卡顿，而非APP卡顿，可以滑到下面直接看示例图片
 ## 首页
 ![](https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/首页.gif)
 
@@ -46,7 +53,7 @@ gif图片加载较慢，会有卡顿，而非APP卡顿，可以滑到下面直�
 ## 我的淘宝
 ![](https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/我的淘宝.gif)
 
-# 效果图
+# 示例图片
 ![](https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/首页.png)
 
 ![](https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/首页1.png)
