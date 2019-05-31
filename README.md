@@ -12,30 +12,13 @@
 ### 如果你觉得可能对你有帮助，请给个Star吧！
 ### 如你想接收更新消息，你可以Watch下，我会根据大家的关注度来抽时间尽快将代码开源！
 
-- [1 2](#1-2)
-  * [And a table of contents](#and-a-table-of-contents)
-  * [On the right](#on-the-right)
-
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
-# 1 2
-
-## And a table of contents
-
-will be generated
-
-## On the right
-
-side of this page.
-
-
 # 导航
 - [App下载](#app下载)
 - [待办事项](#待办事项)
 - [Gif效果图](#gif效果图)
-  - [首页、搜索宝贝](#首页、搜索宝贝)   
-  - [微淘、消息](#微淘、消息)
-  - [购物车、我的淘宝](#购物车、我的淘宝)
+  - [首页 搜索宝贝](#首页-搜索宝贝)   
+  - [微淘 消息](#微淘-消息)
+  - [购物车 我的淘宝](#购物车-我的淘宝)
 - [示例图片](#示例图片)
 
 # App下载
