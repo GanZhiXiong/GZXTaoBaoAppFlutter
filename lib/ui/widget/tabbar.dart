@@ -57,6 +57,9 @@ class _KTabBarWidgetState extends State<KTabBarWidget> {
                       children: <Widget>[
                         Column(
                           children: <Widget>[
+                            SizedBox(
+                              height: 3,
+                            ),
                             Text(i.title),
                             SizedBox(
                               height: 3,

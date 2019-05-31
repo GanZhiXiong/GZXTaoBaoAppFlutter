@@ -16,7 +16,7 @@ PODS:
     - FMDB (~> 2.7.2)
 
 DEPENDENCIES:
-  - Flutter (from `.symlinks/flutter/ios-release`)
+  - Flutter (from `.symlinks/flutter/ios`)
   - flutter_statusbarcolor (from `.symlinks/plugins/flutter_statusbarcolor/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
@@ -29,7 +29,7 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   Flutter:
-    :path: ".symlinks/flutter/ios-release"
+    :path: ".symlinks/flutter/ios"
   flutter_statusbarcolor:
     :path: ".symlinks/plugins/flutter_statusbarcolor/ios"
   fluttertoast:

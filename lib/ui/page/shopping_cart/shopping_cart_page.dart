@@ -73,6 +73,49 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
 // change the status bar color to material color [green-400]
 //    _stat();
 
+    var firstItemWidget= ShoppingCarItemWidget(
+        shoppingCartModels[0],
+        color: Colors.transparent,
+        addTap: (orderModel) {
+          if (orderModel.quantity + 1 > orderModel.amountPurchasing) {
+            Fluttertoast.showToast(msg: '该宝贝不能购买更多哦', gravity: ToastGravity.CENTER);
+          } else {
+            setState(() {
+              orderModel.quantity++;
+            });
+          }
+        },
+        removeTap: (orderModel) {
+          if (orderModel.quantity == 1) {
+            Fluttertoast.showToast(msg: '受不了了，宝贝不能再减少了哦', gravity: ToastGravity.CENTER);
+          } else {
+            setState(() {
+              orderModel.quantity--;
+            });
+          }
+        },
+        onSelectAllChanged: (value) {
+          setState(() {
+            shoppingCartModels[0].isSelected = value;
+            shoppingCartModels[0].orderModels.forEach((item) {
+              item.isSelected = value;
+            });
+          });
+        },
+        onSelectChanged: (orderModel, value) {
+          setState(() {
+            orderModel.isSelected = value;
+//                shoppingCartModel.isSelected=value;
+          });
+        },
+    );
+
+    var testWidget=Container(
+      color: Colors.red,
+      key: _keyFilter,
+//      height: _firstItemHeight + 50,
+      child:firstItemWidget);
+
     var pullLoadWidget = PullLoadWidget(
       pullLoadWidgetControl,
       (BuildContext context, int index) {
@@ -81,51 +124,68 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
 
         if (index == 0) {
 //          return Container(color: Colors.red,height: 50,);
+//          return Stack(
+//            children: <Widget>[
+//              TopItem(
+//                topBarOpacity: _topBarOpacity,
+//              ),
+//              Positioned(
+//                top: 80,
+//                  child: Container(
+//                    color: Colors.red,
+//                width: double.infinity,
+//                height: 500,
+//              ))
+//            ],
+//          );
           return Container(
             color: _backgroundColor,
-            height: _firstItemHeight + 48 + ScreenUtil.statusBarHeight + 30,
+//          color: Colors.red,
+            height: _firstItemHeight + 48 + ScreenUtil.statusBarHeight+20 ,
             child: TopItem(
                 topBarOpacity: _topBarOpacity,
+                contentWidgetHeight: _firstItemHeight,
 //contentWidget: Container(height: 44,color: Colors.white,width: 100,),
                 contentWidget: Container(
-                  key: _keyFilter,
-                  child: ShoppingCarItemWidget(
-                    shoppingCartModel,
-                    color: Colors.transparent,
-                    addTap: (orderModel) {
-                      if (orderModel.quantity + 1 > orderModel.amountPurchasing) {
-                        Fluttertoast.showToast(msg: '该宝贝不能购买更多哦', gravity: ToastGravity.CENTER);
-                      } else {
-                        setState(() {
-                          orderModel.quantity++;
-                        });
-                      }
-                    },
-                    removeTap: (orderModel) {
-                      if (orderModel.quantity == 1) {
-                        Fluttertoast.showToast(msg: '受不了了，宝贝不能再减少了哦', gravity: ToastGravity.CENTER);
-                      } else {
-                        setState(() {
-                          orderModel.quantity--;
-                        });
-                      }
-                    },
-                    onSelectAllChanged: (value) {
-                      setState(() {
-                        shoppingCartModel.isSelected = value;
-                        shoppingCartModel.orderModels.forEach((item) {
-                          item.isSelected = value;
-                        });
-                      });
-                    },
-                    onSelectChanged: (orderModel, value) {
-                      setState(() {
-                        orderModel.isSelected = value;
+//              color: _backgroundColor,
+//              key: _keyFilter,
+//              height: _firstItemHeight + 50,
+              child:ShoppingCarItemWidget(
+                shoppingCartModels[0],
+                color: Colors.transparent,
+                addTap: (orderModel) {
+                  if (orderModel.quantity + 1 > orderModel.amountPurchasing) {
+                    Fluttertoast.showToast(msg: '该宝贝不能购买更多哦', gravity: ToastGravity.CENTER);
+                  } else {
+                    setState(() {
+                      orderModel.quantity++;
+                    });
+                  }
+                },
+                removeTap: (orderModel) {
+                  if (orderModel.quantity == 1) {
+                    Fluttertoast.showToast(msg: '受不了了，宝贝不能再减少了哦', gravity: ToastGravity.CENTER);
+                  } else {
+                    setState(() {
+                      orderModel.quantity--;
+                    });
+                  }
+                },
+                onSelectAllChanged: (value) {
+                  setState(() {
+                    shoppingCartModels[0].isSelected = value;
+                    shoppingCartModels[0].orderModels.forEach((item) {
+                      item.isSelected = value;
+                    });
+                  });
+                },
+                onSelectChanged: (orderModel, value) {
+                  setState(() {
+                    orderModel.isSelected = value;
 //                shoppingCartModel.isSelected=value;
-                      });
-                    },
-                  ),
-                )),
+                  });
+                },
+              )))
           );
         } else {
           return ShoppingCarItemWidget(
@@ -182,6 +242,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
             child: Scrollbar(
                 child: Stack(
               children: <Widget>[
+
                 Container(
                   child: pullLoadWidget,
                 ),
@@ -230,6 +291,10 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
     return SafeArea(
       child: Column(
         children: <Widget>[
+          Offstage(
+            child: testWidget,
+            offstage: true,
+          ),
           Expanded(
             child: body,
           ),
@@ -320,9 +385,9 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
 
   Widget _buildFloatingTopBar({int productNum = 0}) {
     var list = shoppingCartModels.map((item) => item.orderModels.length).toList();
-    var count= list.reduce((value, element) {
+    var count = list.reduce((value, element) {
       print('reduce $value  $element}');
-      return value+element;
+      return value + element;
     });
     return Stack(
       children: <Widget>[
@@ -557,9 +622,16 @@ class TopItem extends StatelessWidget {
   final double topBarOpacity;
   final int productNum;
   final Widget contentWidget;
+  final double contentWidgetHeight;
   double _topBarHeight = 48;
 
-  TopItem({Key key, this.isShowFloatingTopBar = false, this.topBarOpacity = 1, this.productNum = 0, this.contentWidget})
+  TopItem(
+      {Key key,
+      this.isShowFloatingTopBar = false,
+      this.topBarOpacity = 1,
+      this.productNum = 0,
+      this.contentWidget,
+      this.contentWidgetHeight})
       : super(key: key);
 
   @override
@@ -636,7 +708,7 @@ class TopItem extends StatelessWidget {
 //Container(height: 367,child: contentWidget,)
       Positioned(
           top: _topBarHeight + ScreenUtil.statusBarHeight + 30,
-          height: 367,
+          height: contentWidgetHeight,
           width: ScreenUtil.screenWidth,
           child: contentWidget)
     ]));

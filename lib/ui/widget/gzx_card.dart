@@ -29,6 +29,7 @@ class GZXCard extends StatelessWidget {
   final double contentPaddingBottom;
   final List<Widget> customChildren;
   final double childAspectRatio;
+  final TextStyle buttonTextStyle;
 
   const GZXCard({
     Key key,
@@ -46,7 +47,7 @@ class GZXCard extends StatelessWidget {
     this.contentPaddingBottom = 12,
     this.customChildren,
     this.childAspectRatio = 7 / 6,
-    this.leftTopTitleLeftImageName,
+    this.leftTopTitleLeftImageName, this.buttonTextStyle=const TextStyle(color: Color(0xFF666666)),
   }) : super(key: key);
 
   @override
@@ -197,7 +198,7 @@ class GZXCard extends StatelessWidget {
         ),
         Text(
           title ??= imageName,
-          style: TextStyle(color: Color(0xFF666666)),
+          style: buttonTextStyle,
         )
       ],
     );

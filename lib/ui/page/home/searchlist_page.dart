@@ -60,7 +60,7 @@ class SearchResultListState extends State<SearchResultListPage>
     _goodsSortConditions.add(GoodsSortCondition(name: '信用', isSelected: false));
     _goodsSortConditions.add(GoodsSortCondition(name: '价格降序', isSelected: false));
     _goodsSortConditions.add(GoodsSortCondition(name: '价格升序', isSelected: false));
-    _selectGoodsSortCondition=_goodsSortConditions[0];
+    _selectGoodsSortCondition = _goodsSortConditions[0];
   }
 
   _afterLayout(_) {
@@ -105,7 +105,7 @@ class SearchResultListState extends State<SearchResultListPage>
               value.isSelected = false;
             }
             goodsSortCondition.isSelected = true;
-            _selectGoodsSortCondition=goodsSortCondition;
+            _selectGoodsSortCondition = goodsSortCondition;
 
             _hideDropDownItemWidget();
           },
@@ -228,10 +228,10 @@ class SearchResultListState extends State<SearchResultListPage>
 
   Widget _buildDrapDownWidget() {
     RenderBox renderBoxRed;
-    double top=0;
+    double top = 0;
     if (_dropDownHeight != 0) {
       renderBoxRed = _keyFilter.currentContext.findRenderObject();
-      top=renderBoxRed.size.height;
+      top = renderBoxRed.size.height;
     }
 //    print('SearchResultListState._buildDrapDownWidget ${renderBoxRed.size}' );
     return Positioned(
@@ -289,9 +289,11 @@ class SearchResultListState extends State<SearchResultListPage>
   void getSearchList(String keyword) async {
     var data = await getSearchResult(keyword, page++);
     SearchResultListModal list = SearchResultListModal.fromJson(data);
-    setState(() {
-      listData.data.addAll(list.data);
-    });
+    if (mounted) {
+      setState(() {
+        listData.data.addAll(list.data);
+      });
+    }
   }
 
   _showDropDownItemWidget() {
@@ -358,20 +360,36 @@ class SearchResultListState extends State<SearchResultListPage>
             ),
             GestureDetector(
               onTap: () {
+                print('_isList = !_isList');
                 setState(() {
                   _isList = !_isList;
                 });
               },
               child: Container(
 //                color: Colors.red,
-                width: 30,
-                height: 24,
+                width: 36,
+                height: 34,
                 child: Icon(
                   _isList ? GZXIcons.list : GZXIcons.cascades,
                   size: 18,
                 ),
               ),
             ),
+//            Container(
+//              color: Colors.red,
+//              child: IconButton(
+////                padding: EdgeInsets.all(1),
+//                  icon: Icon(
+//                    _isList ? GZXIcons.list : GZXIcons.cascades,
+//                    size: 18,
+//                  ),
+//                  onPressed: () {
+//                    print('_isList = !_isList');
+//                    setState(() {
+//                      _isList = !_isList;
+//                    });
+//                  }),
+//            ),
             GestureDetector(
               child: Padding(
                 padding: EdgeInsets.only(right: 20),

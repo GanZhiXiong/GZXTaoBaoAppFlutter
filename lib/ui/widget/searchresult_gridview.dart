@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_taobao/common/model/search.dart';
 import 'package:flutter_taobao/common/utils/common_utils.dart';
@@ -29,9 +30,10 @@ class SearchResultGridViewWidget extends StatelessWidget {
         fit: BoxFit.cover,
       );
 
-  Widget productGrid(List<SearchResultItemModal> data) => GridView.count(
+  Widget productGrid(List<SearchResultItemModal> data) => GridView.builder(
 //    primary: false,
 //    shrinkWrap: true,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: MediaQuery.of(_context).orientation == Orientation.portrait ? 2 : 3,
         // 左右间隔
         crossAxisSpacing: 8,
@@ -39,72 +41,85 @@ class SearchResultGridViewWidget extends StatelessWidget {
         mainAxisSpacing: 8,
         //宽高比 默认1
         childAspectRatio: 3 / 4,
+      ),
 //        shrinkWrap: true,
-        children: data.map((product) {
-          if ((data.indexOf(product) + 4) >= list.data.length) {
-            getNextPage();
-          }
-          return Container(
+      itemCount: list.data.length,
+//        children: data.map((product) {
+      itemBuilder: (BuildContext context, int index) {
+        var product = list.data[index];
+        if ((index + 4) == list.data.length) {
+          print(
+              'SearchResultGridViewWidget.productGrid next page,current data count ${data.length},current index $index');
+          getNextPage();
+        }
+        return Container(
 //            color: Colors.blue ,
-              child: Padding(
+            child: Padding(
 //                  padding: const EdgeInsets.only(left: 4,right: 4,top: 4,bottom: 4),
-            padding: const EdgeInsets.all(0),
+          padding: const EdgeInsets.all(0),
 //            child: InkWell(
 //              splashColor: Colors.yellow,
 //        onDoubleTap: () => showSnackBar(),
-            child: Material(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(5),
-              clipBehavior: Clip.antiAlias,
+          child: Material(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(5),
+            clipBehavior: Clip.antiAlias,
 //                      elevation: 2.0,
-              child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
 //                        fit: StackFit.expand,
-                children: <Widget>[
-                  Expanded(
-                    child: ConstrainedBox(
-                      child: Image.network(
-                        product.imageUrl,
-//        height: 100,
-                        fit: BoxFit.fill,
-                      ),
-                      constraints: new BoxConstraints.expand(),
+              children: <Widget>[
+                Expanded(
+                  child: ConstrainedBox(
+//                    child: Image.network(
+//                      product.imageUrl,
+////        height: 100,
+//                      fit: BoxFit.fill,
+//                    ),
+                    child: CachedNetworkImage(
+                      fadeInDuration: Duration(milliseconds: 0),
+                      fadeOutDuration: Duration(milliseconds: 0),
+                      fit: BoxFit.fill,
+                      imageUrl: product.imageUrl,
                     ),
+                    constraints: new BoxConstraints.expand(),
                   ),
+                ),
 
 //                          SizedBox(
 //                            height: 10,
 //                          ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8, top: 0, right: 8, bottom: 0),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8, top: 0, right: 8, bottom: 0),
 //                      child: Text('AOC 23423234234 27英寸'),
-                    child: Text(
-                      product.wareName,
-                      maxLines: 2,
-                      style: TextStyle(fontSize: 12),
-                    ),
+                  child: Text(
+                    product.wareName,
+                    maxLines: 2,
+                    style: TextStyle(fontSize: 12),
                   ),
-                  SizedBox(
-                    height: 2,
-                  ),
-                  Row(children: <Widget>[
+                ),
+                SizedBox(
+                  height: 2,
+                ),
+                Row(
+                  children: <Widget>[
                     product.coupon == null
                         ? SizedBox()
                         : Container(
-                      margin: const EdgeInsets.only(left: 8, top: 0, right: 0, bottom: 0),
-                      child: Text(
+                            margin: const EdgeInsets.only(left: 8, top: 0, right: 0, bottom: 0),
+                            child: Text(
 //                              item.coupon,
 //                        '满88减5',
-                        product.coupon,
-                        style: TextStyle(color: Color(0xFFff692d), fontSize: 10),
-                      ),
+                              product.coupon,
+                              style: TextStyle(color: Color(0xFFff692d), fontSize: 10),
+                            ),
 //                            padding: EdgeInsets.symmetric(horizontal: 3),
 //                            margin: EdgeInsets.only(left: 4),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(3)),
-                          border: Border.all(width: 1, color: Color(0xFFff692d))),
-                    ),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(3)),
+                                border: Border.all(width: 1, color: Color(0xFFff692d))),
+                          ),
                     Container(
                       margin: const EdgeInsets.only(left: 8, top: 0, right: 0, bottom: 0),
                       child: Text(
@@ -117,57 +132,59 @@ class SearchResultGridViewWidget extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(3)),
                           border: Border.all(width: 1, color: Color(0xFFffd589))),
                     )
-                  ],),
-                  SizedBox(
-                    height: 18,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        '￥',
-                        style: TextStyle(fontSize: 10, color: Color(0xFFff5410)),
-                      ),
-                      Text(
-                        '${CommonUtils.removeDecimalZeroFormat(double.parse(product.price))}',
+                  ],
+                ),
+                SizedBox(
+                  height: 18,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      '￥',
+                      style: TextStyle(fontSize: 10, color: Color(0xFFff5410)),
+                    ),
+                    Text(
+                      '${CommonUtils.removeDecimalZeroFormat(double.parse(product.price))}',
 //                          '27.5',
-                        style: TextStyle(fontSize: 16, color: Color(0xFFff5410)),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: Text(
-                          '${product.commentcount}人评价',
+                      style: TextStyle(fontSize: 16, color: Color(0xFFff5410)),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: Text(
+                        '${product.commentcount}人评价',
 //                            '23234人评价',
 //                          product
-                          style: TextStyle(fontSize: 10, color: Color(0xFF979896)),
-                        ),
+                        style: TextStyle(fontSize: 10, color: Color(0xFF979896)),
                       ),
-                      Icon(
-                        Icons.more_horiz,
-                        size: 15,
-                        color: Color(0xFF979896),
-                      ),
-                      SizedBox(
-                        width: 8,
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 8,
-                  )
+                    ),
+                    Icon(
+                      Icons.more_horiz,
+                      size: 15,
+                      color: Color(0xFF979896),
+                    ),
+                    SizedBox(
+                      width: 8,
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 8,
+                )
 //                          descStack(product),
 //                          ratingStack(product.rating),
 //                          Container( child: imageStack(product.image),),
-                ],
-              ),
-//              ),
+              ],
             ),
-          ));
-        }).toList(),
-      );
+//              ),
+          ),
+        ));
+      });
+
+//  );
 }

@@ -383,16 +383,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin, Auto
 //            ),
             Container(
               margin: EdgeInsets.only(left: 8, top: 0, right: 8, bottom: 10),
-              height: 70,
+              height: 80,
               child: ConstrainedBox(
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: CachedNetworkImage(
-                      imageUrl:
-                          'https://m.360buyimg.com/babel/s710x160_jfs/t1/49162/37/1059/38027/5cebd68eEf50ad170/5470b2bde7ae3823.png',
-//                  height: 44,
-                      fit: BoxFit.fill,
-                    )),
+//                    child: CachedNetworkImage(
+//                      imageUrl:
+//                          'https://m.360buyimg.com/babel/s710x160_jfs/t1/49162/37/1059/38027/5cebd68eEf50ad170/5470b2bde7ae3823.png',
+////                  height: 44,
+//                      fit: BoxFit.fill,
+//                    )
+                child: Image.asset('static/images/618.png',fit: BoxFit.fill,),
+                ),
                 constraints: new BoxConstraints.expand(),
               ),
             ),

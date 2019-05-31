@@ -157,6 +157,8 @@ class _WeiTaoPageState extends State<WeiTaoPage>
 //        print(index);
 //        return Image.network(item, fit: BoxFit.fill,);
         return CachedNetworkImage(
+          fadeInDuration: Duration(milliseconds: 0),
+          fadeOutDuration: Duration(milliseconds: 0),
 //          color: Colors.blue,
           imageUrl: item,
 //        imageUrl: 'https://res.vmallres.com/pimages//product/6901443293742/group//428_428_1555465554342.png' ,
@@ -444,6 +446,14 @@ class _WeiTaoPageState extends State<WeiTaoPage>
     super.build(context);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
 
+    var firstTopBackgroundWidget = Container(
+        decoration: new BoxDecoration(
+          gradient: const LinearGradient(colors: [Colors.orange, Colors.deepOrange]),
+        ),
+//                color: Theme.of(context).primaryColor,
+        width: ScreenUtil.screenWidth,
+        height: ScreenUtil.screenHeight / 4);
+
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -460,14 +470,24 @@ class _WeiTaoPageState extends State<WeiTaoPage>
 //                width: ScreenUtil.screenWidth,
 //                height: ScreenUtil.screenHeight / 4),
             child: _topBackgroundImages[_selectedTabBarIndex].toString().length == 0
-                ? Container(
-                    decoration: new BoxDecoration(
-                      gradient: const LinearGradient(colors: [Colors.orange, Colors.deepOrange]),
-                    ),
-//                color: Theme.of(context).primaryColor,
-                    width: ScreenUtil.screenWidth,
-                    height: ScreenUtil.screenHeight / 4)
+                ? firstTopBackgroundWidget
                 : CachedNetworkImage(
+                    fadeInDuration: Duration(milliseconds: 0),
+                    fadeOutDuration: Duration(milliseconds: 0),
+//                    placeholder: (context, url) {
+//                      return firstTopBackgroundWidget;
+//                    },
+                    placeholder: (context, url) {
+                      return _selectedTabBarIndex == 1
+                          ? firstTopBackgroundWidget
+                          : CachedNetworkImage(
+                              fadeInDuration: Duration(milliseconds: 0),
+                              fadeOutDuration: Duration(milliseconds: 0),
+                              imageUrl: _topBackgroundImages[_selectedTabBarIndex - 1],
+                              width: ScreenUtil.screenWidth,
+                              height: ScreenUtil.screenHeight / 4,
+                              fit: BoxFit.fill);
+                    },
                     imageUrl: _topBackgroundImages[_selectedTabBarIndex],
                     width: ScreenUtil.screenWidth,
                     height: ScreenUtil.screenHeight / 4,

@@ -27,7 +27,9 @@ class _WeiTaoListPageState extends State<WeiTaoListPage> with AutomaticKeepAlive
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           CircleAvatar(
-            backgroundImage: NetworkImage(post.logoImage),
+//            backgroundImage: NetworkImage(post.logoImage),
+          backgroundColor: Colors.white,
+          backgroundImage: Image.network(post.logoImage,fit: BoxFit.fill,).image,
           ),
           Expanded(
               child: Padding(
@@ -142,26 +144,33 @@ class _WeiTaoListPageState extends State<WeiTaoListPage> with AutomaticKeepAlive
   }
 
   Widget _buildPhotosWidget(PostModel post) {
-    return GridView.count(
-      padding: const EdgeInsets.all(0),
-      primary: false,
+    return GridView.builder(
+        padding: const EdgeInsets.all(0),
+        primary: false,
 //      scrollDirection: Axis.horizontal,
-      shrinkWrap: true,
-      crossAxisSpacing: 6,
-      mainAxisSpacing: 6,
-      crossAxisCount: 3,
-      children: post.photos.map((item) {
+        shrinkWrap: true,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisSpacing: 6,
+          mainAxisSpacing: 6,
+          crossAxisCount: 3,
+        ),
+        itemCount: post.photos.length,
+//    children: post.photos.map((item) {
+        itemBuilder: (BuildContext context, int index) {
+          var item = post.photos[index];
 //        int index = post.photos.indexOf(item);
 //        print(index);
 //        return Image.network(item, fit: BoxFit.fill,);
-        return CachedNetworkImage(
+          return CachedNetworkImage(
+            fadeInDuration: Duration(milliseconds: 0),
+            fadeOutDuration: Duration(milliseconds: 0),
 //          color: Colors.blue,
-          imageUrl: item,
+            imageUrl: item,
 //        imageUrl: 'https://res.vmallres.com/pimages//product/6901443293742/group//428_428_1555465554342.png' ,
-          fit: BoxFit.fill,
-        );
-      }).toList(),
-    );
+            fit: BoxFit.fill,
+          );
+        });
+//    );
   }
 
   //post cards
@@ -288,11 +297,12 @@ class _WeiTaoListPageState extends State<WeiTaoListPage> with AutomaticKeepAlive
 //          print('SliverChildBuilderDelegate ${index}');
 
           if (index + 3 == posts.length) {
-            print('_getDynamic');
+            print('weitao,current data count ${posts.length},current index $index');
+
             _getDynamic();
           }
           return Padding(
-            padding: const EdgeInsets.only(left: 6,top: 3,right: 6,bottom: 3),
+            padding: const EdgeInsets.only(left: 6, top: 3, right: 6, bottom: 3),
             child: postCard(context, posts[index]),
           );
         }, childCount: posts.length),
@@ -325,11 +335,11 @@ class _WeiTaoListPageState extends State<WeiTaoListPage> with AutomaticKeepAlive
 //    }
 
 //    ScrollNotification scroll = notification as ScrollNotification;
-  if(scroll.metrics.axisDirection==AxisDirection.down){
-    print('donw');
-  }else if(scroll.metrics.axisDirection==AxisDirection.up){
-    print('up');
-  }
+    if (scroll.metrics.axisDirection == AxisDirection.down) {
+      print('donw');
+    } else if (scroll.metrics.axisDirection == AxisDirection.up) {
+      print('up');
+    }
     // 当前滑动距离
     double currentExtent = scroll.metrics.pixels;
     print('当前滑动距离 ${currentExtent}');
@@ -425,7 +435,16 @@ class _WeiTaoListPageState extends State<WeiTaoListPage> with AutomaticKeepAlive
   Future<SearchResultItemModal> _getMessage(String keyword) async {
     var data = await getSearchResult(keyword, 0);
     SearchResultListModal list = SearchResultListModal.fromJson(data);
-    return list.data.first;
+//    print(list.data.first);
+    if (list.data == null || list.data.length == 0) {
+      return SearchResultItemModal(
+          wareName: '华为 P30',
+//          imageUrl:
+//              'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2094939883,1219286755&fm=179&app=42&f=PNG?w=121&h=140'
+              );
+    } else {
+      return list.data.first;
+    }
   }
 
   int _randomCount() {

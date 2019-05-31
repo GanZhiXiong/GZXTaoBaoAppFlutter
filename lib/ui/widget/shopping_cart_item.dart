@@ -11,28 +11,30 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 typedef AddTop<T> = void Function(T value);
 typedef RemoveTop<T> = void Function(T value);
-typedef OnSelectChanged<T,A> = void Function(T value,A value1);
+typedef OnSelectChanged<T, A> = void Function(T value, A value1);
 
 class ShoppingCarItemWidget extends StatelessWidget {
   final ShoppingCartModel shoppingCartModel;
   final AddTop<OrderModel> addTap;
   final RemoveTop<OrderModel> removeTap;
   final ValueChanged<bool> onSelectAllChanged;
-  final OnSelectChanged<OrderModel,bool> onSelectChanged;
-final Color color;
+  final OnSelectChanged<OrderModel, bool> onSelectChanged;
+  final Color color;
+
   const ShoppingCarItemWidget(
     this.shoppingCartModel, {
     Key key,
     this.addTap,
     this.removeTap,
     this.onSelectAllChanged,
-    this.onSelectChanged, this.color=const Color(0xFFf3f3f3),
+    this.onSelectChanged,
+    this.color = const Color(0xFFf3f3f3),
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var body = Container(
-      padding: EdgeInsets.symmetric(vertical: 2,horizontal: 4),
+      padding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
       color: color,
 //            child: _ConversationItem(conversation: pullLoadWidgetControl.dataList[index]
       child: Card(
@@ -123,7 +125,7 @@ final Color color;
 
               shoppingCartModel.discounts == null
                   ? Container()
-                  : Row(
+                  :  Row(
                       children: <Widget>[
                         SizedBox(
                           width: 40,
@@ -141,10 +143,11 @@ final Color color;
                         SizedBox(
                           width: 4,
                         ),
-                        Text(
+                        Expanded(
+                            child: Text(
                           shoppingCartModel.discounts,
                           style: TextStyle(fontSize: 12),
-                        ),
+                        )),
                       ],
                     )
             ],
@@ -162,9 +165,10 @@ class GZXOrderWidget extends StatelessWidget {
   final ShoppingCartModel shoppingCartModel;
   final GestureTapCallback addTap;
   final GestureTapCallback removeTap;
-  final OnSelectChanged<OrderModel,bool> onSelectChanged;
+  final OnSelectChanged<OrderModel, bool> onSelectChanged;
 
-  const GZXOrderWidget({Key key, this.orderModel, this.shoppingCartModel, this.addTap, this.removeTap, this.onSelectChanged})
+  const GZXOrderWidget(
+      {Key key, this.orderModel, this.shoppingCartModel, this.addTap, this.removeTap, this.onSelectChanged})
       : super(key: key);
 
   @override
@@ -174,8 +178,8 @@ class GZXOrderWidget extends StatelessWidget {
         children: <Widget>[
           GZXCheckbox(
             value: orderModel.isSelected,
-            onChanged: (value){
-              onSelectChanged(orderModel,value);
+            onChanged: (value) {
+              onSelectChanged(orderModel, value);
             },
           ),
           SizedBox(

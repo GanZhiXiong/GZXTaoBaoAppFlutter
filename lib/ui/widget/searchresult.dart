@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_taobao/common/model/search.dart';
 import 'package:flutter_taobao/common/style/color.dart';
@@ -25,6 +26,7 @@ class SearchResultListWidget extends StatelessWidget {
             itemBuilder: (BuildContext context, int i) {
               SearchResultItemModal item = list.data[i];
               if ((i + 3) == list.data.length) {
+                print('SearchResultListWidget.build next page,current data count ${list.data.length}');
                 getNextPage();
               }
               return Container(
@@ -33,12 +35,22 @@ class SearchResultListWidget extends StatelessWidget {
                 child: Row(
                   children: <Widget>[
                     ClipRRect(
-                        borderRadius: BorderRadius.circular(6.0),
-                        child: Image.network(
-                          item.imageUrl,
-                          width: ScreenUtil().L(120),
-                          height: ScreenUtil().L(120),
-                        )),
+                      borderRadius: BorderRadius.circular(6.0),
+//                        child: Image.network(
+////                          item.imageUrl,
+//                          'http://img10.360buyimg.com/mobilecms/s270x270_jfs/t1/23943/7/13139/130737/5c9dbe4bEd77d9e09/a371d9345e1774e2.jpg',
+//                          width: ScreenUtil().L(120),
+//                          height: ScreenUtil().L(120),
+//                        )
+                      child: CachedNetworkImage(
+                        fadeInDuration: Duration(milliseconds: 0),
+                        fadeOutDuration: Duration(milliseconds: 0),
+                        fit: BoxFit.fill,
+                        imageUrl: item.imageUrl,
+                        width: ScreenUtil().L(120),
+                        height: ScreenUtil().L(120),
+                      ),
+                    ),
                     SizedBox(
                       width: 10,
                     ),
