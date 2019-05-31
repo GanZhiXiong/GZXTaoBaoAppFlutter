@@ -38,10 +38,10 @@ gif图片加载较慢，会有卡顿，而非APP卡顿，可以滑到下面直�
 ## 首页 搜索宝贝
 <img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/首页.gif" width="414" hegiht="736" align=center /><img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/搜索宝贝.gif" width="414" hegiht="736" align=center />
 
-## 微淘、消息
+## 微淘 消息
 <img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/微淘.gif" width="414" hegiht="736" align=center /><img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/消息.gif" width="414" hegiht="736" align=center />
 
-## 购物车、我的淘宝
+## 购物车 我的淘宝
 <img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/购物车.gif" width="414" hegiht="736" align=center /><img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/我的淘宝.gif" width="414" hegiht="736" align=center />
 
 # 示例图片
