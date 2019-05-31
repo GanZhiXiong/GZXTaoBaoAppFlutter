@@ -1,8 +1,5 @@
-# GZXTaoBaoAppFlutter
+#  Flutter淘宝App
 > ***让一部分人先看见未来***
-
-###  **这是一个用Flutter开发仿淘宝的App**
-
 前一阵子写了几个基于Flutter开发的App，其中一个已上架到App Store。为了练手和挑战，我利用空闲时间，用Flutter写了一个仿淘宝的App。
 
 本代码使用更少的第三库，自造轮子可以更深层次的了解Flutter和Dart。
