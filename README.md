@@ -12,7 +12,7 @@
 ### 如果你觉得可能对你有帮助，请给个Star吧！
 ### 如你想接收更新消息，你可以Watch下，我会根据大家的关注度来抽时间尽快将代码开源！
 
-- [1、2](#1、2)
+- [1、2](#1-2)
   * [And a table of contents](#and-a-table-of-contents)
   * [On the right](#on-the-right)
 
