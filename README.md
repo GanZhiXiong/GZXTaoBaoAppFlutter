@@ -3,12 +3,17 @@
 
 前一阵子写了几个基于Flutter开发的App，其中一个已上架到App Store。为了练手和挑战，我利用空闲时间，用Flutter写了一个仿淘宝的App。
 
-本代码使用更少的第三库，自造轮子可以更深层次的了解Flutter和Dart。
+> 本代码使用更少的第三库，自造轮子可以更深层次的了解Flutter和Dart。
 
-由于代码尚未整理，且尚有些许不规范，以及个人时间有限，待有时间了我会尽快开源代码。
+> 由于代码尚未整理，且尚有些许不规范，以及个人时间有限，待有时间了我会尽快开源代码。
 
 ### 如果你觉得可能对你有帮助，麻烦给个Star吧！
 ### 如你想接收更新消息，你可以Watch下，我会根据大家的关注度来抽时间尽快将代码开源！
+
+### 相关Repository  
+[自定义功能强大的下拉筛选菜单flutter package，支持iOS和Android](https://github.com/GanZhiXiong/gzx_dropdown_menu)
+### 相关文章  
+[掘金](https://juejin.im/user/5cf10106518825189f6fa229/posts)
 
 # 导航
 - [App下载](#app下载)
