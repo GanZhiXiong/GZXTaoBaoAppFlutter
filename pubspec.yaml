@@ -11,7 +11,7 @@ description: A new Flutter application.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 1.0.1
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -24,17 +24,29 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   flutter_swiper: ^1.1.6
+  connectivity: ^0.4.3+1
   http: ^0.12.0+2
+  dio: ^2.1.4
   cached_network_image: ^0.8.0
   flutter_spinkit: "^3.1.0"
   # 本地存储、收藏功能
   shared_preferences: ^0.5.1
   flutter_statusbarcolor: ^0.2.0
   fluttertoast: ^3.1.0
+  json_annotation: ^2.4.0
+  pub_semver: ^1.4.2
+  package_info: ^0.4.0+3
+  url_launcher: ^5.0.2
+
+  gzx_dropdown_menu:
+    git:
+      url: https://github.com/GanZhiXiong/gzx_dropdown_menu.git
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  json_serializable: ^3.0.0
+
 
 
 # For information on the generic Dart part of this file, see the

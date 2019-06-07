@@ -8,8 +8,10 @@ import 'package:flutter_taobao/ui/page/gzx_bottom_navigation_bar.dart';
 import 'package:flutter_taobao/ui/page/home/searchlist_page.dart';
 import 'package:flutter_taobao/ui/page/test/AnimateExpanded.dart';
 import 'package:flutter_taobao/ui/page/test/ExpansionList.dart';
+import 'package:flutter_taobao/ui/page/test/SliverWithTabBar.dart';
 import 'package:flutter_taobao/ui/page/test/act_page.dart';
 import 'package:flutter_taobao/ui/page/test/gridview_height_page.dart';
+import 'package:flutter_taobao/ui/page/test/gzx_dropdown_menu_test_page.dart';
 import 'package:flutter_taobao/ui/page/test/my_home_page.dart';
 import 'package:flutter_taobao/ui/page/test/scroll_page.dart';
 import 'package:flutter_taobao/ui/page/test/scroll_page1.dart';
@@ -28,8 +30,7 @@ void main() async {
   db = Provider.db;
   if (Platform.isAndroid) {
     // 以下两行 设置android状态栏为透明的沉浸。写在组件渲染之后，是为了在渲染后进行set赋值，覆盖状态栏，写在渲染之前MaterialApp组件会覆盖掉这个值。
-    SystemUiOverlayStyle systemUiOverlayStyle =
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+    SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor: Colors.transparent);
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
 
@@ -62,6 +63,8 @@ class MyApp extends StatelessWidget {
 //        primaryColor: GZXColors.primarySwatch,
       ),
       home: GZXBottomNavigationBar(),
+//    home:  SliverWithTabBar(),
+//      home: GZXDropDownMenuTestPage(),
 //    home: TextFieldTestPage(),
 //    home: MyHomePage1(),
 //    home: GridViewHeightPage(title: '',),

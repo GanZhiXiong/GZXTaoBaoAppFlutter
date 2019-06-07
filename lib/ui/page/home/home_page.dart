@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_taobao/common/dao/app_dao.dart';
 import 'package:flutter_taobao/common/data/home.dart';
 import 'package:flutter_taobao/common/model/kingkong.dart';
 import 'package:flutter_taobao/common/model/product.dart';
@@ -25,6 +26,48 @@ import 'package:flutter_taobao/ui/widget/topbar.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
+class PageOne extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        Image.asset(
+          'static/images/618.png',
+          width: 300.0,
+          fit: BoxFit.contain,
+        ),
+        Image.asset(
+          'static/images/card.png',
+          width: 300.0,
+          fit: BoxFit.contain,
+        ),
+      ],
+    ));
+  }
+}
+
+class PageTwo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemExtent: 250.0,
+      itemBuilder: (context, index) => Container(
+            padding: EdgeInsets.all(10.0),
+            child: Material(
+              elevation: 4.0,
+              borderRadius: BorderRadius.circular(5.0),
+              color: index % 2 == 0 ? Colors.cyan : Colors.deepOrange,
+              child: Center(
+                child: Text(index.toString()),
+              ),
+            ),
+          ),
+    );
+  }
+}
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -46,6 +89,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin, Auto
 
   Timer _countdownTimer;
 
+  Size _sizeRed;
+
   String get hoursString {
     Duration duration = _animationController.duration * _animationController.value;
     return '${(duration.inHours)..toString().padLeft(2, '0')}';
@@ -61,6 +106,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin, Auto
     return '${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
   }
 
+  ScrollController _scrollController = ScrollController();
+  ScrollController _scrollViewController;
+  GlobalKey _keyFilter = GlobalKey();
+
   void initData() async {
     List querys = await getHotSugs();
     setState(() {
@@ -68,10 +117,35 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin, Auto
     });
   }
 
+  _afterLayout(_) {
+    _getPositions('_keyFilter', _keyFilter);
+    _getSizes('_keyFilter', _keyFilter);
+
+//    _getPositions('_keyDropDownItem', _keyDropDownItem);
+//    _getSizes('_keyDropDownItem', _keyDropDownItem);
+  }
+
+  _getPositions(log, GlobalKey globalKey) {
+    RenderBox renderBoxRed = globalKey.currentContext.findRenderObject();
+    var positionRed = renderBoxRed.localToGlobal(Offset.zero);
+    print("POSITION of $log: $positionRed ");
+  }
+
+  _getSizes(log, GlobalKey globalKey) {
+    RenderBox renderBoxRed = globalKey.currentContext.findRenderObject();
+    _sizeRed = renderBoxRed.size;
+    setState(() {});
+    print("SIZE of $log: $_sizeRed");
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback(_afterLayout);
+
+    AppDao.getNewsVersion(context, false);
 
     kingKongItems = KingKongList.fromJson(menueDataJson['items']).items;
 
@@ -93,6 +167,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin, Auto
     _controller = TabController(vsync: this, length: 8);
     _controller.addListener(_handleTabSelection);
 
+    _scrollViewController = ScrollController(initialScrollOffset: 0.0);
+
 //    _countdownTimer = new Timer.periodic(new Duration(seconds: 3), (timer) {
 ////      print('countdownTimer.tick');
 //      setState(() {
@@ -106,12 +182,260 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin, Auto
     _countdownTimer?.cancel();
     _countdownTimer = null;
 
+    _scrollViewController.dispose();
+
     // TODO: implement dispose
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+//    return ListView(
+////      shrinkWrap: true,
+////      physics: ClampingScrollPhysics(),
+//      children: <Widget>[
+//        Container(
+//          color: Colors.red,
+//          height: 500,
+//        ),
+////        SearchResultListPage('iphone'),
+//
+////        ListView(
+////          shrinkWrap: true,
+////          physics: ClampingScrollPhysics(),
+////          children: <Widget>[
+////            Container(
+////              color: Colors.blue,
+////              height: 500,
+////            )
+////          ],
+////        )
+//      ],
+//    );
+    var v = Column(
+      children: <Widget>[
+        _buildHotSearchWidget(),
+        _buildSwiperImageWidget(),
+        _buildSwiperButtonWidget(),
+        _buildRecommendedCard(),
+        _buildAdvertisingWidget(),
+      ],
+    );
+
+    var body = NestedScrollView(
+      controller: _scrollViewController,
+      headerSliverBuilder: (BuildContext context, bool boxIsScrolled) {
+        return <Widget>[
+//            Container(
+//              color: Colors.red,
+//              height: 100,
+//              width: 300,
+//            ),
+//              TabBar(
+//                controller: _tabController,
+//                tabs: <Widget>[
+//                  Tab(
+//                    text: "Home",
+//                    icon: Icon(Icons.home),
+//                  ),
+//                  Tab(
+//                    text: "Help",
+//                    icon: Icon(Icons.help),
+//                  ),
+//                ],
+//              )
+          SliverAppBar(
+//                expandedHeight: 0,
+//                title: Text('Tab Controller'),
+            pinned: true,
+            floating: true,
+            forceElevated: boxIsScrolled,
+            backgroundColor: GZXColors.mainBackgroundColor,
+            flexibleSpace: FlexibleSpaceBar(
+              collapseMode: CollapseMode.pin,
+              background: Column(
+//                  key: _keyFilter,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  v
+//                    _buildHotSearchWidget(),
+//                    _buildSwiperImageWidget(),
+//                  _buildSwiperButtonWidget(),
+//                  _buildRecommendedCard(),
+//                  _buildAdvertisingWidget(),
+//                    Container(
+//                      height: 200.0,
+//                      width: double.infinity,
+//                      color: Colors.grey,
+//                      child: FlutterLogo(),
+//                    ),
+//                    Padding(
+//                      padding: const EdgeInsets.all(10.0),
+//                      child: Text(
+//                        'Business Office',
+//                        style: TextStyle(fontSize: 25.0),
+//                        textAlign: TextAlign.left,
+//                      ),
+//                    ),
+//                    Padding(
+//                      padding: const EdgeInsets.all(10.0),
+//                      child: Text(
+//                        'Open now\nStreet Address, 299\nCity, State',
+//                        style: TextStyle(fontSize: 15.0),
+//                        textAlign: TextAlign.left,
+//                      ),
+//                    ),
+//                    Padding(
+//                      padding: const EdgeInsets.only(right: 10.0),
+//                      child: Row(
+//                        mainAxisAlignment: MainAxisAlignment.end,
+//                        children: <Widget>[
+//                          Icon(Icons.share),
+//                          Padding(
+//                            padding: const EdgeInsets.only(left: 10.0),
+//                            child: Icon(Icons.favorite),
+//                          ),
+//                        ],
+//                      ),
+//                    )
+                ],
+              ),
+            ),
+            expandedHeight: (_sizeRed == null ? ScreenUtil.screenHeight : _sizeRed.height) + 50.0,
+//expandedHeight: 500,
+//                expandedHeight: 800.0,
+//              expandedHeight: 300,
+//              flexibleSpace: ListView(
+//                children: <Widget>[
+//                  _buildHotSearchWidget(),
+//                  _buildSwiperImageWidget(),
+////                  _buildSwiperButtonWidget(),
+////                  _buildRecommendedCard(),
+////                  _buildAdvertisingWidget(),
+//                ],
+//              ),
+//                flexibleSpace: Column(
+//                  children: <Widget>[
+//                    Container(
+//                      child: Image.asset(
+//                        'static/images/618.png',
+//                        width: double.infinity,
+//                         repeat: ImageRepeat.repeat,
+//                         height: double.infinity,
+//                      ),
+//                    ),
+//                    SizedBox(height: 50,)
+//                  ],
+//                ),
+//                bottom: TabBar(
+//                  controller: _tabController,
+//                  tabs: <Widget>[
+//                    Tab(
+//                      text: "Home",
+//                      icon: Icon(Icons.home),
+//                    ),
+//                    Tab(
+//                      text: "Help",
+//                      icon: Icon(Icons.help),
+//                    ),
+//                  ],
+//                ),
+//                bottom: PreferredSize(
+////                  preferredSize: Size(200, 200),
+//                  child: Container(
+////                    height: 200,
+//                    child: Column(
+//                      children: <Widget>[
+//                        _buildHotSearchWidget(),
+////                        Container(color: Colors.red,height: 100,),
+//                        KTabBarWidget(
+//                          tabController: _controller,
+//                          tabModels: _tabModels,
+//                          currentIndex: _currentIndex,
+//                        ),
+//                      ],
+//                    ),
+//                  ),
+//                ),
+            bottom: PreferredSize(
+              preferredSize: Size(double.infinity, 46),
+              child: KTabBarWidget(
+                tabController: _controller,
+                tabModels: _tabModels,
+                currentIndex: _currentIndex,
+              ),
+            ),
+          )
+        ];
+      },
+      body: _hotWords.length == 0
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : TabBarView(controller: _controller, children: _searchResultListPages()),
+//        body: TabBarView(
+//          children: <Widget>[
+////                PageOne(),
+//            SearchResultListPage(
+//              'iphone',
+//              isList: true,
+//            ),
+//            PageTwo(),
+//          ],
+//          controller: _controller,
+//        )
+    );
+    return Scaffold(
+        backgroundColor: GZXColors.mainBackgroundColor,
+        appBar: PreferredSize(
+            child: AppBar(
+              brightness: Brightness.dark,
+              elevation: 0,
+            ),
+            preferredSize: Size.fromHeight(0)),
+        body: Column(
+          children: <Widget>[
+            Offstage(
+              offstage: true,
+              child: Container(
+                child: v,
+                key: _keyFilter,
+              ),
+            ),
+//        SizedBox(height: ScreenUtil.statusBarHeight,),
+            HomeTopBar(
+              searchHintTexts: searchHintTexts,
+            ),
+//                  _buildSwiperImageWidget(),
+//                  _buildSwiperButtonWidget(),
+//                  _buildRecommendedCard(),
+//                  _buildAdvertisingWidget(),
+            Expanded(child: body),
+          ],
+        ));
+    return Container(
+//      height: 700.0,
+      child: Scaffold(
+        appBar: PreferredSize(
+            child: AppBar(
+              brightness: Brightness.dark,
+              elevation: 0,
+            ),
+            preferredSize: Size.fromHeight(0)),
+//        body: ,
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.control_point),
+          onPressed: () {
+            _controller.animateTo(1, curve: Curves.bounceInOut, duration: Duration(milliseconds: 10));
+            _scrollViewController.jumpTo(_scrollViewController.position.maxScrollExtent);
+          },
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build1(BuildContext context) {
     super.build(context);
     print('_HomePageState.build');
     //test
@@ -127,6 +451,178 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin, Auto
       print(CommonUtils.removeDecimalZeroFormat(d));
     }
 
+//    return DefaultTabController(
+//        length: 8,
+//        initialIndex: 0,
+//        child: Column(children: <Widget>[
+//          HomeTopBar(
+//            searchHintTexts: searchHintTexts,
+//          ),
+//          _buildHotSearchWidget(),
+//          _buildSwiperImageWidget(),
+////          _buildSwiperButtonWidget(),
+////          _buildRecommendedCard(),
+//          _buildAdvertisingWidget(),
+//          KTabBarWidget(
+//            tabController: _controller,
+//            tabModels: _tabModels,
+//            currentIndex: _currentIndex,
+//          ),
+//          Expanded(
+////                    child: TabBarView(children: <Widget>[
+////                      SearchResultListPage('iphone'),
+////                      SearchResultListPage('iphone'),
+////                      SearchResultListPage('iphone'),
+////                      SearchResultListPage('iphone'),
+////                      SearchResultListPage('iphone'),
+////                    ])
+//              child: _hotWords.length == 0
+//                  ? Center(
+//                child: CircularProgressIndicator(),
+//              )
+//                  : TabBarView(controller: _controller, children: _searchResultListPages())),
+//        ]));
+    var scrollWidget = new CustomScrollView(controller: _scrollController, slivers: <Widget>[
+//      HomeTopBar(
+//        searchHintTexts: searchHintTexts,
+//      ),
+      new SliverList(
+//            key: globalKey,
+          delegate: new SliverChildBuilderDelegate((BuildContext context, int index) {
+        return Column(
+          children: <Widget>[
+            _buildHotSearchWidget(),
+            _buildSwiperImageWidget(),
+            _buildSwiperButtonWidget(),
+            _buildRecommendedCard(),
+            _buildAdvertisingWidget(),
+            Container(
+//              width: ScreenUtil.screenWidth,
+              width: double.infinity,
+              height: ScreenUtil.screenHeight - ScreenUtil.statusBarHeight - 38 - 58,
+              child: DefaultTabController(
+                  length: 8,
+                  initialIndex: 0,
+                  child: Column(children: <Widget>[
+                    KTabBarWidget(
+                      tabController: _controller,
+                      tabModels: _tabModels,
+                      currentIndex: _currentIndex,
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Expanded(
+//                    child: TabBarView(children: <Widget>[
+//                      SearchResultListPage('iphone'),
+//                      SearchResultListPage('iphone'),
+//                      SearchResultListPage('iphone'),
+//                      SearchResultListPage('iphone'),
+//                      SearchResultListPage('iphone'),
+//                    ])
+                        child: _hotWords.length == 0
+                            ? Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : TabBarView(controller: _controller, children: _searchResultListPages())),
+                  ])),
+            )
+//              DefaultTabController(
+//                  length: 8,
+//                  initialIndex: 0,
+//                  child: Column(children: <Widget>[
+//                    KTabBarWidget(
+//                      tabController: _controller,
+//                      tabModels: _tabModels,
+//                      currentIndex: _currentIndex,
+//                    ),
+//                    Expanded(
+////                    child: TabBarView(children: <Widget>[
+////                      SearchResultListPage('iphone'),
+////                      SearchResultListPage('iphone'),
+////                      SearchResultListPage('iphone'),
+////                      SearchResultListPage('iphone'),
+////                      SearchResultListPage('iphone'),
+////                    ])
+//                        child: _hotWords.length == 0
+//                            ? Center(
+//                          child: CircularProgressIndicator(),
+//                        )
+//                            : TabBarView(controller: _controller, children: _searchResultListPages())),
+//                  ]))
+          ],
+        );
+      }, childCount: 1)),
+
+//      new SliverList(
+//          delegate: new SliverChildBuilderDelegate((BuildContext context, int index) {
+////            return SearchResultListPage('iphone');
+//
+//        return Container(
+////              width: ScreenUtil.screenWidth,
+//          width: double.infinity,
+//          height: ScreenUtil.screenHeight - ScreenUtil.statusBarHeight - 38 - 58,
+//          child: DefaultTabController(
+//              length: 8,
+//              initialIndex: 0,
+//              child: Column(children: <Widget>[
+//                KTabBarWidget(
+//                  tabController: _controller,
+//                  tabModels: _tabModels,
+//                  currentIndex: _currentIndex,
+//                ),
+//                SizedBox(
+//                  height: 8,
+//                ),
+//                Expanded(
+////                    child: TabBarView(children: <Widget>[
+////                      SearchResultListPage('iphone'),
+////                      SearchResultListPage('iphone'),
+////                      SearchResultListPage('iphone'),
+////                      SearchResultListPage('iphone'),
+////                      SearchResultListPage('iphone'),
+////                    ])
+//                    child: _hotWords.length == 0
+//                        ? Center(
+//                            child: CircularProgressIndicator(),
+//                          )
+//                        : TabBarView(controller: _controller, children: _searchResultListPages())),
+//              ])),
+//        );
+////            return Text('234');
+////        var d= DefaultTabController(
+////            length: 8,
+////            initialIndex: 0,
+////            child: Column(children: <Widget>[
+////              KTabBarWidget(
+////                tabController: _controller,
+////                tabModels: _tabModels,
+////                currentIndex: _currentIndex,
+////              ),
+//////                  Expanded(
+//////                    child:
+////                    TabBarView(children: <Widget>[
+////                      SearchResultListPage('iphone'),
+////                      SearchResultListPage('iphone'),
+////                      SearchResultListPage('iphone'),
+////                      SearchResultListPage('iphone'),
+////                      SearchResultListPage('iphone'),
+////                      SearchResultListPage('iphone'),
+////                      SearchResultListPage('iphone'),
+////                      SearchResultListPage('iphone'),
+////                    ]
+////                    )
+//////                      child: _hotWords.length == 0
+//////                          ? Center(
+//////                        child: CircularProgressIndicator(),
+//////                      )
+//////                          : TabBarView(controller: _controller, children: _searchResultListPages())),
+//////              Expanded(child: TabBarView(controller: _controller, children: _searchResultListPages()))
+////            ]));
+////        return Container(width: 300, height: 300,child: d,);
+//      }, childCount: 0)),
+    ]);
+
     return new Scaffold(
       backgroundColor: GZXColors.mainBackgroundColor,
       appBar: PreferredSize(
@@ -140,11 +636,53 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin, Auto
           HomeTopBar(
             searchHintTexts: searchHintTexts,
           ),
-          Expanded(
-            child: _buildBody(),
-          ),
+          Expanded(child: scrollWidget),
         ],
       ),
+//      new SliverPersistentHeader(
+//        delegate: new DropdownSliverChildBuilderDelegate(
+//            builder: (BuildContext context) {
+//              return new Container(
+//                  color: Theme.of(context).scaffoldBackgroundColor,
+//                  child: buildDropdownHeader(onTap: this._onTapHead));
+//            }),
+//        pinned: true,
+//        floating: true,
+//      ),
+//      new SliverList(
+//          delegate: new SliverChildBuilderDelegate(
+//                  (BuildContext context, int index) {
+//                return new Container(
+//                  color: Theme.of(context).scaffoldBackgroundColor,
+//                  child: new Image.asset(
+//                    "images/body.jpg",
+//                    fit: BoxFit.fill,
+//                  ),
+//                );
+//              }, childCount: 10)),
+//      ]
+//    )
+//    ,
+//      body: Column(
+//        children: <Widget>[
+//          HomeTopBar(
+//            searchHintTexts: searchHintTexts,
+//          ),
+////          _buildBody(),
+//          Expanded(
+//            child: _buildBody(),
+//          ),
+//          Expanded(
+//              child: ListView.builder(
+//                primary: false,
+//                shrinkWrap: true,
+//                itemBuilder: (BuildContext context, int index) {
+//                  return Text('1111');
+//                },
+//                itemCount: 100,
+//              ))
+//        ],
+//      ),
 //    body:   DefaultTabController(
 //        length: 8,
 //        initialIndex: 0,
@@ -167,293 +705,230 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin, Auto
     return widgets;
   }
 
-  Widget _buildBody() {
-    return NotificationListener<ScrollNotification>(
-//      onNotification: _onScroll,
-      child: ListView(
-//          primary: false,
-//          shrinkWrap: true,
-          padding: EdgeInsets.all(0),
-          children: <Widget>[
-//          Wrap(children: _builderTag(_searchHintTexts), spacing: 10.0),
-            Container(
-              color: Theme.of(context).primaryColor,
+  Widget _buildHotSearchWidget() {
+    return Container(
+      color: Theme.of(context).primaryColor,
+      child: Row(
+        children: <Widget>[
+          SizedBox(
+            width: 10,
+          ),
+          Text(
+            '热搜：',
+            style: TextStyle(color: Colors.white, fontSize: 13),
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              padding: EdgeInsets.symmetric(horizontal: 0),
               child: Row(
-                children: <Widget>[
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    '热搜：',
-                    style: TextStyle(color: Colors.white, fontSize: 13),
-                  ),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      padding: EdgeInsets.symmetric(horizontal: 0),
-                      child: Row(
-                        children: searchHintTexts.map((String item) {
-                          return GestureDetector(
-                            onTap: () {
-                              NavigatorUtils.gotoSearchGoodsResultPage(context, item);
-                            },
-                            child: Container(
-                              margin: EdgeInsets.all(4),
-                              height: 20,
-                              child: new Material(
-                                borderRadius: BorderRadius.circular(10.0),
+                children: searchHintTexts.map((String item) {
+                  return GestureDetector(
+                    onTap: () {
+                      NavigatorUtils.gotoSearchGoodsResultPage(context, item);
+                    },
+                    child: Container(
+                      margin: EdgeInsets.all(4),
+                      height: 20,
+                      child: new Material(
+                        borderRadius: BorderRadius.circular(10.0),
 //              shadowColor: Colo rs.blue.shade200,
 //              elevation: 5.0,
-                                color: Color(0xFFfe8524),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 8, right: 8),
-                                  child: Center(
-                                    child: Text(
-                                      item,
-                                      style: TextStyle(color: Colors.white, fontSize: 13),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                        color: Color(0xFFfe8524),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8, right: 8),
+                          child: Center(
+                            child: Text(
+                              item,
+                              style: TextStyle(color: Colors.white, fontSize: 13),
                             ),
-                          );
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
 //            return Text(item);
 //            return _KingKongItemWidget(
 //              item: item,
 //            );
-                        }).toList(),
-                      ),
-                    ),
-                  )
-                ],
+                }).toList(),
               ),
             ),
-            Container(
-              height: 150.0,
-              child: Swiper(
-                /// 初始的时候下标位置
-                index: 0,
+          )
+        ],
+      ),
+    );
+  }
 
-                /// 无限轮播模式开关
-                loop: true,
+  Widget _buildSwiperImageWidget() {
+    return Container(
+      height: 150.0,
+      child: Swiper(
+        /// 初始的时候下标位置
+        index: 0,
 
-                ///
-                itemBuilder: (context, index) {
+        /// 无限轮播模式开关
+        loop: true,
+
+        ///
+        itemBuilder: (context, index) {
 //                return Image.network(
 //                  _banner_images[index],
 //                  fit: BoxFit.fill,
 //                );
-                  return Container(
-                      height: 150,
+          return GestureDetector(
+            onTap: () {
+//              _scrollController.jumpTo(_scrollController.offset +50);
+            },
+            child: Container(
+                height: 150,
 //        width: 200,
 //                    color: Colors.white,
-                      child: ClipPath(
-                          clipper: new ArcClipper(),
-                          child: Stack(children: <Widget>[
-                            Container(
-                              height: 150,
+                child: ClipPath(
+                    clipper: new ArcClipper(),
+                    child: Stack(children: <Widget>[
+                      Container(
+                        height: 150,
 //                  width: double.infinity,
-                              child: CachedNetworkImage(
-                                fit: BoxFit.fill,
-                                imageUrl: banner_images[index],
+                        child: CachedNetworkImage(
+                          fadeOutDuration: const Duration(milliseconds: 300),
+                          fadeInDuration: const Duration(milliseconds: 700),
+                          fit: BoxFit.fill,
+                          imageUrl: banner_images[index],
 //                              placeholder: (context, url) => new CircularProgressIndicator(),
-                                errorWidget: (context, url, error) => new Icon(Icons.error),
-                              ),
-                            )
-                          ])));
-                },
+                          errorWidget: (context, url, error) => new Icon(Icons.error),
+                        ),
+                      )
+                    ]))),
+          );
+        },
 
-                ///
-                itemCount: banner_images.length,
+        ///
+        itemCount: banner_images.length,
 
-                /// 设置 new SwiperPagination() 展示默认分页指示器
-                pagination: SwiperPagination(),
+        /// 设置 new SwiperPagination() 展示默认分页指示器
+        pagination: SwiperPagination(),
 
-                /// 设置 new SwiperControl() 展示默认分页按钮
-                // control: SwiperControl(),
+        /// 设置 new SwiperControl() 展示默认分页按钮
+        // control: SwiperControl(),
 
-                /// 自动播放开关.
-                autoplay: true,
+        /// 自动播放开关.
+        autoplay: true,
 
-                /// 动画时间，单位是毫秒
-                duration: 300,
+        /// 动画时间，单位是毫秒
+        duration: 300,
 
-                /// 当用户点击某个轮播的时候调用
-                onTap: (index) {
-                  LogUtil.v("你点击了第$index个");
-                },
+        /// 当用户点击某个轮播的时候调用
+        onTap: (index) {
+          LogUtil.v("你点击了第$index个");
+        },
 
-                /// 滚动方向，设置为Axis.vertical如果需要垂直滚动
-                scrollDirection: Axis.horizontal,
+        /// 滚动方向，设置为Axis.vertical如果需要垂直滚动
+        scrollDirection: Axis.horizontal,
+      ),
+    );
+  }
+
+  Widget _buildSwiperButtonWidget() {
+    return Container(
+//      height: 175,
+    height: ScreenUtil().L(80)*2+15,
+//      color: Colors.red,
+      child: Swiper(
+        /// 初始的时候下标位置
+        index: 0,
+
+        /// 无限轮播模式开关
+        loop: true,
+
+        ///
+        itemBuilder: (context, index) {
+          List data = [];
+          for (var i = (index * 2) * 5; i < (index * 2) * 5 + 5; ++i) {
+            //0-4,5-9,10-14,15-19
+            if (i >= kingKongItems.length) {
+              break;
+            }
+            data.add(kingKongItems[i]);
+          }
+          List data1 = [];
+          for (var i = (index * 2 + 1) * 5; i < (index * 2 + 1) * 5 + 5; ++i) {
+            //0-4,5-9,10-14,15-19
+            if (i >= kingKongItems.length) {
+              break;
+            }
+            data1.add(kingKongItems[i]);
+          }
+
+          return Column(
+            children: <Widget>[
+              HomeKingKongWidget(
+                data: data,
+                fontColor: (menueDataJson['config'] as dynamic)['color'],
+                bgurl: (menueDataJson['config'] as dynamic)['pic_url'],
               ),
-            ),
-//          HomeKingKongWidget(
-//            data: KingKongList.fromJson(menueDataJson['items']),
-//            fontColor: (menueDataJson['config'] as dynamic)['color'],
-//            bgurl: (menueDataJson['config'] as dynamic)['pic_url'],
-//          ),
-            Container(
-              height: 200.0,
-              child: Swiper(
-                /// 初始的时候下标位置
-                index: 0,
-
-                /// 无限轮播模式开关
-                loop: true,
-
-                ///
-                itemBuilder: (context, index) {
-                  List data = [];
-                  for (var i = (index * 2) * 5; i < (index * 2) * 5 + 5; ++i) {
-                    //0-4,5-9,10-14,15-19
-                    if (i >= kingKongItems.length) {
-                      break;
-                    }
-                    data.add(kingKongItems[i]);
-                  }
-                  List data1 = [];
-                  for (var i = (index * 2 + 1) * 5; i < (index * 2 + 1) * 5 + 5; ++i) {
-                    //0-4,5-9,10-14,15-19
-                    if (i >= kingKongItems.length) {
-                      break;
-                    }
-                    data1.add(kingKongItems[i]);
-                  }
-
-                  return Column(
-                    children: <Widget>[
-                      HomeKingKongWidget(
-                        data: data,
-                        fontColor: (menueDataJson['config'] as dynamic)['color'],
-                        bgurl: (menueDataJson['config'] as dynamic)['pic_url'],
-                      ),
-                      HomeKingKongWidget(
-                        data: data1,
-                        fontColor: (menueDataJson['config'] as dynamic)['color'],
-                        bgurl: (menueDataJson['config'] as dynamic)['pic_url'],
-                      ),
-                    ],
-                  );
-                },
-
-                ///
-                itemCount: (kingKongItems.length / 10).toInt() + (kingKongItems.length % 10 > 0 ? 1 : 0),
-
-                /// 设置 new SwiperPagination() 展示默认分页指示器
-                pagination: new SwiperPagination(
-                    alignment: Alignment.bottomCenter,
-                    builder: RectSwiperPaginationBuilder(
-                        color: Color(0xFFd3d7de),
-                        activeColor: Theme.of(context).primaryColor,
-                        size: Size(18, 3),
-                        activeSize: Size(18, 3),
-                        space: 0)),
-
-                /// 设置 new SwiperControl() 展示默认分页按钮
-                // control: SwiperControl(),
-
-                /// 自动播放开关.
-                autoplay: false,
-
-                /// 动画时间，单位是毫秒
-                duration: 300,
-
-                /// 当用户点击某个轮播的时候调用
-                onTap: (index) {
-                  LogUtil.v("你点击了第$index个");
-                },
-
-                /// 滚动方向，设置为Axis.vertical如果需要垂直滚动
-                scrollDirection: Axis.horizontal,
+              HomeKingKongWidget(
+                data: data1,
+                fontColor: (menueDataJson['config'] as dynamic)['color'],
+                bgurl: (menueDataJson['config'] as dynamic)['pic_url'],
               ),
-            ),
-            _buildRecommendedCard(),
+            ],
+          );
+        },
 
-//            Padding(
-//              padding: EdgeInsets.only(left: 8, top: 0, right: 8, bottom: 8),
-//              child: ClipRRect(
-//                borderRadius: BorderRadius.circular(16),
-//                child: CachedNetworkImage(
-//                  imageUrl:
-//                      'https://img.alicdn.com/imgextra/i4/1637289231/O1CN01emxYFy2I3qba9sBZg_!!1637289231.jpg_1080x1800Q90s50.jpg',
-//                  height: 44,
-//width: ScreenUtil.screenWidth,
-//                ),
-//              ),
-//            ),
-            Container(
-              margin: EdgeInsets.only(left: 8, top: 0, right: 8, bottom: 10),
-              height: 80,
-              child: ConstrainedBox(
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
+        ///
+        itemCount: (kingKongItems.length / 10).toInt() + (kingKongItems.length % 10 > 0 ? 1 : 0),
+
+        /// 设置 new SwiperPagination() 展示默认分页指示器
+        pagination: new SwiperPagination(
+            alignment: Alignment.bottomCenter,
+            builder: RectSwiperPaginationBuilder(
+                color: Color(0xFFd3d7de),
+                activeColor: Theme.of(context).primaryColor,
+                size: Size(18, 3),
+                activeSize: Size(18, 3),
+                space: 0)),
+
+        /// 设置 new SwiperControl() 展示默认分页按钮
+        // control: SwiperControl(),
+
+        /// 自动播放开关.
+        autoplay: false,
+
+        /// 动画时间，单位是毫秒
+        duration: 300,
+
+        /// 当用户点击某个轮播的时候调用
+        onTap: (index) {
+          LogUtil.v("你点击了第$index个");
+        },
+
+        /// 滚动方向，设置为Axis.vertical如果需要垂直滚动
+        scrollDirection: Axis.horizontal,
+      ),
+    );
+  }
+
+  Widget _buildAdvertisingWidget() {
+    return Container(
+      margin: EdgeInsets.only(left: 8, top: 0, right: 8, bottom: 10),
+      height: 80,
+      child: ConstrainedBox(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
 //                    child: CachedNetworkImage(
 //                      imageUrl:
 //                          'https://m.360buyimg.com/babel/s710x160_jfs/t1/49162/37/1059/38027/5cebd68eEf50ad170/5470b2bde7ae3823.png',
 ////                  height: 44,
 //                      fit: BoxFit.fill,
 //                    )
-                child: Image.asset('static/images/618.png',fit: BoxFit.fill,),
-                ),
-                constraints: new BoxConstraints.expand(),
-              ),
-            ),
-
-//Expanded(child: Container(color: Colors.red,))
-//            Flexible(
-//              child: DefaultTabController(
-//                  length: 8,
-//                  initialIndex: 0,
-//                  child: Column(children: <Widget>[
-//                    KTabBarWidget(
-//                      tabController: _controller,
-//                      tabModels: _tabModels,
-//                      currentIndex: _currentIndex,
-//                    ),
-//                    Expanded(
-////                    child: TabBarView(children: <Widget>[
-////                      SearchResultListPage('iphone'),
-////                      SearchResultListPage('iphone'),
-////                      SearchResultListPage('iphone'),
-////                      SearchResultListPage('iphone'),
-////                      SearchResultListPage('iphone'),
-////                    ])
-//                        child: _hotWords.length == 0
-//                            ? Center(
-//                                child: CircularProgressIndicator(),
-//                              )
-//                            : TabBarView(controller: _controller, children: _searchResultListPages())),
-//                  ])),
-//            )
-            Container(
-//              width: ScreenUtil.screenWidth,
-              width: double.infinity,
-              height: ScreenUtil.screenHeight - ScreenUtil.statusBarHeight - 38 - 58,
-              child: DefaultTabController(
-                  length: 8,
-                  initialIndex: 0,
-                  child: Column(children: <Widget>[
-                    KTabBarWidget(
-                      tabController: _controller,
-                      tabModels: _tabModels,
-                      currentIndex: _currentIndex,
-                    ),
-                    Expanded(
-//                    child: TabBarView(children: <Widget>[
-//                      SearchResultListPage('iphone'),
-//                      SearchResultListPage('iphone'),
-//                      SearchResultListPage('iphone'),
-//                      SearchResultListPage('iphone'),
-//                      SearchResultListPage('iphone'),
-//                    ])
-                        child: _hotWords.length == 0
-                            ? Center(
-                                child: CircularProgressIndicator(),
-                              )
-                            : TabBarView(controller: _controller, children: _searchResultListPages())),
-                  ])),
-            )
-          ]),
+          child: Image.asset(
+            'static/images/618.png',
+            fit: BoxFit.fill,
+          ),
+        ),
+        constraints: new BoxConstraints.expand(),
+      ),
     );
   }
 
@@ -471,10 +946,37 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin, Auto
   List<Widget> _searchResultListPages() {
     List<Widget> pages = [];
     for (var i = 0; i < 8; ++i) {
-      var page = SearchResultListPage(_hotWords[i]);
+      var page = SearchResultListPage(
+        _hotWords[i],
+        onNotification: _onScroll,
+        isList: false,
+        isRecommended: true,
+      );
       pages.add(page);
     }
     return pages;
+  }
+
+  double _lastScrollPixels = 0;
+
+  bool _onScroll(ScrollNotification scroll) {
+    return false;
+    double currentExtent = scroll.metrics.pixels;
+    double offset = currentExtent - _lastScrollPixels;
+    print('_HomePageState._onScroll  $currentExtent  $offset  _scrollController.offset:${_scrollController.offset}');
+
+    if (currentExtent < 0 && currentExtent < _lastScrollPixels) {
+      _scrollController.jumpTo(_scrollController.offset - offset.abs());
+//      _scrollController
+//          .animateTo(_scrollController.offset +currentExtent,
+//          duration: new Duration(milliseconds: 150), curve: Curves.ease)
+//          .whenComplete(() {
+////      controller.show(index);
+//      });
+    }
+    _lastScrollPixels = currentExtent;
+
+    return false;
   }
 
   Widget _buildRecommendedCard() {

@@ -13,13 +13,20 @@ class GoodsSortCondition {
   GoodsSortCondition({this.name, this.isSelected}) {}
 }
 
-class SearchResultListPage extends StatefulWidget {
+class SearchResultListPage<T extends ScrollNotification> extends StatefulWidget {
   final String keyword;
   final bool isList;
   final bool isShowFilterWidget;
   final VoidCallback onTapfilter;
+  final NotificationListenerCallback<T> onNotification;
+  final bool isRecommended;
 
-  SearchResultListPage(this.keyword, {this.isList = false, this.onTapfilter, this.isShowFilterWidget = false});
+  SearchResultListPage(this.keyword,
+      {this.isList = false,
+      this.onTapfilter,
+      this.isShowFilterWidget = false,
+      this.onNotification,
+      this.isRecommended = false});
 
   @override
   State<StatefulWidget> createState() => SearchResultListState();
@@ -60,6 +67,7 @@ class SearchResultListState extends State<SearchResultListPage>
     _goodsSortConditions.add(GoodsSortCondition(name: '信用', isSelected: false));
     _goodsSortConditions.add(GoodsSortCondition(name: '价格降序', isSelected: false));
     _goodsSortConditions.add(GoodsSortCondition(name: '价格升序', isSelected: false));
+
     _selectGoodsSortCondition = _goodsSortConditions[0];
   }
 
@@ -90,6 +98,8 @@ class SearchResultListState extends State<SearchResultListPage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     _dropDownItem = ListView.separated(
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
@@ -110,6 +120,7 @@ class SearchResultListState extends State<SearchResultListPage>
             _hideDropDownItemWidget();
           },
           child: Container(
+//            color: Colors.blue,
             height: 40,
             child: Row(
               children: <Widget>[
@@ -161,11 +172,13 @@ class SearchResultListState extends State<SearchResultListPage>
     );
 
     var hideWidget = Container(
+      color: Colors.red,
       key: _keyDropDownItem,
       child: _dropDownItem,
     );
 //_getSizes();
-    super.build(context);
+//    return hideWidget;
+//    return Scaffold(body: Container(color: Colors.blue,child: hideWidget,),);
 //    return Scaffold(
 //        appBar: AppBar(
 //            brightness: Brightness.light,
@@ -183,6 +196,10 @@ class SearchResultListState extends State<SearchResultListPage>
     var resultWidget = _isList
         ? SearchResultListWidget(listData, getNextPage: () => getSearchList(widget.keyword))
         : SearchResultGridViewWidget(listData, getNextPage: () => getSearchList(widget.keyword));
+
+    if (widget.isRecommended) {
+      return resultWidget;
+    }
 
     return Scaffold(
         backgroundColor: GZXColors.mainBackgroundColor,
@@ -202,9 +219,11 @@ class SearchResultListState extends State<SearchResultListPage>
                   ),
                   Expanded(
                     child: Container(
-                      color: _isList ? Colors.white : GZXColors.mainBackgroundColor,
-                      child: resultWidget,
-                    ),
+                        color: _isList ? Colors.white : GZXColors.mainBackgroundColor,
+                        child: NotificationListener<ScrollNotification>(
+                          onNotification: _onScroll,
+                          child: resultWidget,
+                        )),
                   ),
 //                  _dropDownItem
                 ],
@@ -224,6 +243,61 @@ class SearchResultListState extends State<SearchResultListPage>
           ),
         ));
 //    );
+  }
+
+  bool _onScroll(ScrollNotification scroll) {
+    if (widget.onNotification != null) {
+      widget.onNotification(scroll);
+    }
+    // 当前滑动距离
+    double currentExtent = scroll.metrics.pixels;
+    double maxExtent = scroll.metrics.maxScrollExtent;
+//    print('SearchResultListState._onScroll $currentExtent $maxExtent');
+    return false;
+  }
+
+  Widget _buildDrapDownWidget1() {
+    RenderBox renderBoxRed;
+    double top = 0;
+    if (_dropDownHeight != 0) {
+      renderBoxRed = _keyFilter.currentContext.findRenderObject();
+      top = renderBoxRed.size.height;
+    }
+
+//    print('SearchResultListState._buildDrapDownWidget ${renderBoxRed.size}' );
+    return AnimatedPositioned(
+        curve: Curves.fastLinearToSlowEaseIn,
+        duration: const Duration(milliseconds: 300),
+        width: MediaQuery.of(context).size.width,
+        top: top,
+//    top: 50,
+        left: 0,
+        child: Column(
+          children: <Widget>[
+            Container(
+              color: Colors.white,
+              width: MediaQuery.of(context).size.width,
+//                color: Colors.white,
+//                height: animation.value,
+//              height: _animation == null ? 0 : _animation.value,
+              height: _dropDownHeight,
+              child: _dropDownItem,
+            ),
+            _mask()
+          ],
+        )
+//      height: _animation == null ? 0 : _animation.value,
+//
+//      child: Container(
+////      color: Color.fromRGBO(0, 0, 0, 0.1),
+//      color: Colors.blue,
+//        width: MediaQuery.of(context).size.width,
+////                color: Colors.white,
+//                height: MediaQuery.of(context).size.height,
+//
+//        child: _dropDownItem,
+//      ),
+        );
   }
 
   Widget _buildDrapDownWidget() {
@@ -299,7 +373,30 @@ class SearchResultListState extends State<SearchResultListPage>
   _showDropDownItemWidget() {
     final RenderBox dropDownItemRenderBox = _keyDropDownItem.currentContext.findRenderObject();
 
-    _dropDownHeight = dropDownItemRenderBox.size.height;
+//    _dropDownHeight = dropDownItemRenderBox.size.height;
+    _dropDownHeight = 160;
+    _isShowDropDownItemWidget = !_isShowDropDownItemWidget;
+    _isShowMask = !_isShowMask;
+
+    _animation = new Tween(begin: 0.0, end: _dropDownHeight).animate(_controller)
+      ..addListener(() {
+        //这行如果不写，没有动画效果
+        setState(() {});
+      });
+
+    if (_animation.status == AnimationStatus.completed) {
+      _controller.reverse();
+    } else {
+      _controller.forward();
+    }
+  }
+
+  _showDropDownItemWidget1() {
+    final RenderBox dropDownItemRenderBox = _keyDropDownItem.currentContext.findRenderObject();
+
+    _dropDownHeight = _dropDownHeight == 0 ? dropDownItemRenderBox.size.height : 0;
+    setState(() {});
+    return;
     _isShowDropDownItemWidget = !_isShowDropDownItemWidget;
     _isShowMask = !_isShowMask;
 

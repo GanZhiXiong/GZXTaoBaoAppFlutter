@@ -19,6 +19,7 @@ import 'dart:math';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:flutter_taobao/ui/widget/shopping_cart_item.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:package_info/package_info.dart';
 
 class MyPage extends StatefulWidget {
   @override
@@ -33,6 +34,7 @@ class _MyPageState extends State<MyPage>
 
   GlobalKey _keyFilter = GlobalKey();
   double _firstItemHeight = 0;
+  BuildContext _context;
 
   _afterLayout(_) {
     _getPositions('_keyFilter', _keyFilter);
@@ -65,6 +67,8 @@ class _MyPageState extends State<MyPage>
 
   @override
   Widget build(BuildContext context) {
+    _context = context;
+
     super.build(context); // 如果不加这句，从子页面回来会重新加载didChangeDependencies()方法
 
     var pullLoadWidget = PullLoadWidget(
@@ -144,7 +148,7 @@ class _MyPageState extends State<MyPage>
       shrinkWrap: true,
       children: <Widget>[
         GZXCard(
-          childAspectRatio:((ScreenUtil.screenWidth -24)/ 5 )/ 70,
+          childAspectRatio: ((ScreenUtil.screenWidth - 24) / 5) / 70,
           color: _backgroundColor,
           leftTopTitle: '我的订单',
           rightTopTitle: '查看全部订单',
@@ -160,7 +164,7 @@ class _MyPageState extends State<MyPage>
         GZXCard(
           isShowTitleBar: false,
           color: _backgroundColor,
-          buttonTextStyle: TextStyle(color: Colors.red,fontSize: 12),
+          buttonTextStyle: TextStyle(color: Colors.red, fontSize: 12),
           underPicturesOnTextButtonModel: [
             UnderPicturesOnTextButtonModel('主会场', null, 34, 34),
             UnderPicturesOnTextButtonModel('我的狂欢', null, 34, 34),
@@ -852,12 +856,14 @@ class TopItem extends StatelessWidget {
   final int productNum;
   final Widget contentWidget;
   double _topBarHeight = 48;
+  BuildContext _context;
 
   TopItem({Key key, this.isShowFloatingTopBar = false, this.topBarOpacity = 1, this.productNum = 0, this.contentWidget})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    _context = context;
     return Container(
 //      width: 50,
 //        color: ,
@@ -918,79 +924,82 @@ class TopItem extends StatelessWidget {
                         _underDigitalTextOn(14, '红包卡券'),
                       ],
                     ),
-                    SizedBox(height: 10,)
+                    SizedBox(
+                      height: 10,
+                    )
                   ],
                 ),
               ),
-              Stack(children: <Widget>[
-                Container(
-                  height: 20,
-                  decoration: BoxDecoration(gradient: GZXColors.primaryGradient),
-    ),
-                Container(
+              Stack(
+                children: <Widget>[
+                  Container(
+                    height: 20,
+                    decoration: BoxDecoration(gradient: GZXColors.primaryGradient),
+                  ),
+                  Container(
 //                    decoration: BoxDecoration(gradient: GZXColors.primaryGradient),
 
 //            color: Colors.red,
-                    padding: EdgeInsets.all(4),
+                      padding: EdgeInsets.all(4),
 //              padding: EdgeInsets.only(top: 20,bottom: 20),
-                    alignment: Alignment.center,
-                    child: Card(
-                      elevation: 0,
-                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12.0))),
-                      //设置圆角
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Image.asset(
-                              'static/images/88vip.png',
-                              height: 40,
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(left: 14),
-                              decoration: BoxDecoration(
-                                border: Border(left: BorderSide(color: Color(0xFFedeeed), width: 1)),
-//                              color: Colors.red,
+                      alignment: Alignment.center,
+                      child: Card(
+                        elevation: 0,
+                        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12.0))),
+                        //设置圆角
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Image.asset(
+                                'static/images/88vip.png',
+                                height: 40,
                               ),
-                              child: Row(
-                                children: <Widget>[
+                              Container(
+                                padding: EdgeInsets.only(left: 14),
+                                decoration: BoxDecoration(
+                                  border: Border(left: BorderSide(color: Color(0xFFedeeed), width: 1)),
+//                              color: Colors.red,
+                                ),
+                                child: Row(
+                                  children: <Widget>[
 //                                Container(
 //                                  height: 40,
 //                                  color: Color(0xFFedeeed),
 //                                  width: 1,
 //                                  padding: EdgeInsets.all(0),
 //                                ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text(
-                                        '兑天猫超市5元代金券',
-                                        style: TextStyle(color: Color(0xFF666666)),
-                                      ),
-                                      SizedBox(
-                                        height: 4,
-                                      ),
-                                      Text(
-                                        '会员专享 每周可兑',
-                                        style: TextStyle(color: Color(0xFF666666), fontSize: 12),
-                                      )
-                                    ],
-                                  )
-                                ],
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          '兑天猫超市5元代金券',
+                                          style: TextStyle(color: Color(0xFF666666)),
+                                        ),
+                                        SizedBox(
+                                          height: 4,
+                                        ),
+                                        Text(
+                                          '会员专享 每周可兑',
+                                          style: TextStyle(color: Color(0xFF666666), fontSize: 12),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                            Image.asset(
-                              'static/images/card.png',
-                              height: 44,
-                            ),
-                          ],
+                              Image.asset(
+                                'static/images/card.png',
+                                height: 44,
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ))
-              ],)
-
+                      ))
+                ],
+              )
             ],
           ),
         ),
@@ -1169,9 +1178,16 @@ class TopItem extends StatelessWidget {
               SizedBox(
                 width: 10,
               ),
-              Icon(
-                Icons.settings,
-                color: Colors.white,
+              GestureDetector(
+                onTap: () async {
+                  PackageInfo packageInfo = await PackageInfo.fromPlatform();
+                  var appVersion = packageInfo.version;
+                  CommonUtils.showPromptDialog(_context, '', '当前版本V$appVersion');
+                },
+                child: Icon(
+                  Icons.settings,
+                  color: Colors.white,
+                ),
               ),
             ],
           ),

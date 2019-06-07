@@ -10,7 +10,7 @@ class _ScrollPageState extends State<ScrollPage> {
   List<int> gridData = List<int>();
 
   _setGridData() {
-    for (int i = 0; i < 15; i++) {
+    for (int i = 0; i < 50; i++) {
       gridData.add(i);
     }
   }
@@ -22,7 +22,13 @@ class _ScrollPageState extends State<ScrollPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: Text('方案一')), body: _bodyWid());
+    return Scaffold(appBar: AppBar(title: Text('方案一'),actions: <Widget>[
+      IconButton(icon: Icon(Icons.arrow_upward), onPressed: (){
+        setState(() {
+          
+        });
+      })
+    ],), body: _bodyWid());
   }
 
   Widget _bodyWid() {
@@ -60,6 +66,16 @@ class _ScrollPageState extends State<ScrollPage> {
         gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 4, mainAxisSpacing: 8.0, crossAxisSpacing: 8.0, childAspectRatio: 4.0),
         delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+          if (index + 8 == gridData.length) {
+            for (int i = 0; i < 50; i++) {
+              gridData.add(i);
+            }
+            try {
+              setState(() {});
+            } catch (e) {
+
+            }
+          }
           return Container(
 //              height: 64.0,
               decoration: BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.circular(3.0)),

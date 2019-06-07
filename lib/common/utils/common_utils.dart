@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_taobao/common/services/address.dart';
 import 'package:quiver/strings.dart';
 import 'dart:math' as math;
+import 'package:url_launcher/url_launcher.dart';
+import 'navigator_utils.dart';
 
 class CommonUtils {
   static final double MILLIS_LIMIT = 1000.0;
@@ -104,5 +107,56 @@ class CommonUtils {
       return (nowTime.year - compareTime.year).toString() + '年前';
     }
     return 'time error';
+  }
+
+  ///版本更新
+  static Future<Null> showUpdateDialog(
+      BuildContext context, String contentMsg) {
+    return NavigatorUtils.showGSYDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: new Text('版本更新'),
+            content: new Text(contentMsg),
+            actions: <Widget>[
+              new FlatButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: new Text('取消')),
+              new FlatButton(
+                  onPressed: () {
+                    launch(Address.updateUrl);
+                    Navigator.pop(context);
+                  },
+                  child: new Text('确定')),
+            ],
+          );
+        });
+  }
+
+  static Future<Null> showPromptDialog(
+      BuildContext context,String title, String contentMsg) {
+    return NavigatorUtils.showGSYDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: new Text(title),
+            content: new Text(contentMsg),
+            actions: <Widget>[
+//              new FlatButton(
+//                  onPressed: () {
+//                    Navigator.pop(context);
+//                  },
+//                  child: new Text('取消')),
+              new FlatButton(
+                  onPressed: () {
+//                    launch(Address.updateUrl);
+                    Navigator.pop(context);
+                  },
+                  child: new Text('确定')),
+            ],
+          );
+        });
   }
 }

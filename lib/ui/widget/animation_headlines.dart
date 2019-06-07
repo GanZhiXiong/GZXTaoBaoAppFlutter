@@ -20,9 +20,11 @@ class _AnimationHeadlinesWidgetState extends State<AnimationHeadlinesWidget> {
 
     Timer _countdownTimer = new Timer.periodic(new Duration(seconds: 3), (timer) {
 //      print('countdownTimer.tick');
-      setState(() {
-      _diffScaleNext++;
-      });
+      if(mounted){
+        setState(() {
+          _diffScaleNext++;
+        });
+      }
     });
 
   }
