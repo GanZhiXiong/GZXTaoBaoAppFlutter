@@ -7,8 +7,8 @@
 
 > 由于代码尚未整理，且尚有些许不规范，以及个人时间有限，待有时间了我会尽快开源代码。
 
-### 如果你觉得可能对你有帮助，麻烦给个Star吧！
-### 如你想接收更新消息，你可以Watch下，我会根据大家的关注度来抽时间尽快将代码开源！
+## 麻烦给个Star吧！我会根据大家的关注度和个人时间尽快将代码开源！
+### 如你想接收更新消息，你可以Watch下。
 
 ### 相关Repository  
 [自定义功能强大的下拉筛选菜单flutter package，支持iOS和Android](https://github.com/GanZhiXiong/gzx_dropdown_menu)
