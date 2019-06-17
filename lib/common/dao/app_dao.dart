@@ -69,7 +69,7 @@ class AppDao {
         if (Config.DEBUG) {
           print("newsHad " + result.toString());
         }
-        if (result <= 0) {
+        if (result > 0) {
           CommonUtils.showUpdateDialog(context, 'V' + release.name + "\n" + release.body);
         } else {
           if (showTip) Fluttertoast.showToast(msg: '当前没有新版本');
