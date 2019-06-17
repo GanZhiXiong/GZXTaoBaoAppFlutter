@@ -5,7 +5,7 @@ import 'package:flutter_taobao/common/data/message.dart';
 import 'package:flutter_taobao/common/model/conversation.dart';
 import 'package:flutter_taobao/common/style/gzx_style.dart';
 import 'package:flutter_taobao/common/utils/navigator_utils.dart';
-import 'package:flutter_taobao/ui/widget/UserIconWidget.dart';
+import 'package:flutter_taobao/ui/widget/GZXUserIconWidget.dart';
 import 'package:flutter_taobao/ui/widget/gzx_search_card.dart';
 
 class GZXChatPage extends StatefulWidget {
@@ -31,7 +31,7 @@ class _GZXChatPageState extends State<GZXChatPage> with TickerProviderStateMixin
     FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
 
     ChatItem message = new ChatItem(
-      _conversation.describtion  , 1, new AnimationController(vsync: this, duration: Duration(milliseconds: 500)));
+        _conversation.describtion, 1, new AnimationController(vsync: this, duration: Duration(milliseconds: 500)));
     items.add(message);
     message.animationController.forward();
   }
@@ -85,28 +85,24 @@ class _GZXChatPageState extends State<GZXChatPage> with TickerProviderStateMixin
           Row(
             children: <Widget>[
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8,vertical: 4),
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                     gradient: GZXColors.primaryGradient, borderRadius: BorderRadius.all(Radius.circular(10))),
 //                height: 30,
-                child: Text('店铺',style: TextStyle(fontSize: 11),),
+                child: Text(
+                  '店铺',
+                  style: TextStyle(fontSize: 11),
+                ),
               ),
             ],
           ),
-IconButton(icon: Icon(GZXIcons.friend_settings_light,color: Colors.black,size: 20,), onPressed: null),
-//          Row(
-//            children: <Widget>[
-//              Container(
-//      width: 24,
-//        height: 24,
-////             padding: EdgeInsets.all(0),
-//                decoration: BoxDecoration(
-//                    gradient: GZXColors.primaryGradient, borderRadius: BorderRadius.all(Radius.circular(12))),
-//                alignment: Alignment.center,
-//                child: Text('店铺'),
-//              ),
-//            ],
-//          )
+          IconButton(
+              icon: Icon(
+                GZXIcons.friend_settings_light,
+                color: Colors.black,
+                size: 20,
+              ),
+              onPressed: null),
         ],
       ),
       body: new Container(
@@ -172,10 +168,6 @@ IconButton(icon: Icon(GZXIcons.friend_settings_light,color: Colors.black,size: 2
                                   ),
                                 ),
                               );
-//            return Text(item);
-//            return _KingKongItemWidget(
-//              item: item,
-//            );
                             }).toList(),
                           ),
                         ),
@@ -206,31 +198,6 @@ IconButton(icon: Icon(GZXIcons.friend_settings_light,color: Colors.black,size: 2
                           ),
                         ),
                       ),
-//                      Expanded(
-//                          child: Container(
-//                        padding: EdgeInsets.only(top: 8.0, bottom: 8.0, left: 5.0),
-//                        decoration: BoxDecoration(
-//                            borderRadius: BorderRadius.all(
-//                              Radius.circular(5.0),
-//                            ),
-//                            color: Colors.white),
-//                        child: TextField(
-//                          controller: controller,
-//                          decoration: InputDecoration.collapsed(hintText: null),
-//                          autocorrect: true,
-//                          //是否自动更正
-//                          autofocus: false,
-//                          textAlign: TextAlign.start,
-//                          style: TextStyle(color: Colors.black),
-//                          cursorColor: Colors.green,
-//                          onChanged: (text) {
-//                            //内容改变的回调
-//                            print('change=================== $text');
-//                          },
-//                          onSubmitted: _handleSubmitted,
-//                          enabled: true, //是否禁用
-//                        ),
-//                      )),
                       new Container(
                         margin: new EdgeInsets.only(left: 6, right: 8),
                         child: GestureDetector(
@@ -274,7 +241,7 @@ class ChatContentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // 头像组件
-    Widget userImage = new UserIconWidget(
+    Widget userImage = new GZXUserIconWidget(
         padding:
             EdgeInsets.only(top: 0.0, right: (chatItem.type == 0 ? 0.0 : 5.0), left: (chatItem.type == 0 ? 5.0 : 0.0)),
         width: 35.0,

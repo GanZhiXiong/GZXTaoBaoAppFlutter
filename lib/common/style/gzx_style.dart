@@ -51,7 +51,30 @@ class GZXColors {
     },
   );
 
-  static Gradient primaryGradient=const LinearGradient(colors: [Colors.orange, Colors.deepOrange]);
+  static Gradient primaryGradient = const LinearGradient(colors: [Colors.orange, Colors.deepOrange]);
+
+  static const Color themeColor = Color.fromRGBO(132, 95, 63, 1.0);
+  static const Color floorTitleColor = Color.fromRGBO(51, 51, 51, 1);
+  static const Color searchBarBgColor = Color.fromRGBO(240, 240, 240, 1.0);
+  static const Color searchBarTxtColor = Color(0xFFCDCDCD);
+  static const Color divideLineColor = Color.fromRGBO(245, 245, 245, 1.0);
+  static const Color categoryDefaultColor = Color(0xFF666666);
+  static const Color priceColor = Color.fromRGBO(182, 9, 9, 1.0);
+  static const Color pinweicorverSubtitleColor = Color.fromRGBO(153, 153, 153, 1.0);
+  static const Color pinweicorverBtbgColor = themeColor;
+  static const Color pinweicorverBtTxtColor = Color(0xFFFFFFFF);
+  static const Color tabtxtColor = Color.fromRGBO(88, 88, 88, 1.0);
+  static const Color cartDisableColor = Color.fromRGBO(221, 221, 221, 1.0);
+  static const Color cartItemChangenumBtColor = Color.fromRGBO(153, 153, 153, 1.0);
+  static const Color cartItemCountTxtColor = Color.fromRGBO(102, 102, 102, 1.0);
+  static const Color cartBottomBgColor = Color(0xFFFFFFFF);
+  static const Color goPayBtBgColor = themeColor;
+  static const Color goPayBtTxtColor = Color(0xFFFFFFFF);
+  static const Color searchAppBarBgColor = Color(0xFFFFFFFF);
+
+  static const Color bottomBarbgColor = Color.fromRGBO(250, 250, 250, 1.0);
+
+  static const Color searchRecomendDividerColor = Color(0xFFdedede);
 }
 
 ///文本样式
@@ -65,14 +88,11 @@ class GZXConstant {
   static const smallTextSize = 14.0;
   static const minTextSize = 12.0;
 
-  static TextStyle appBarTitleWhiteTextStyle = TextStyle(
-      fontSize: 18, color: Colors.white);
+  static TextStyle appBarTitleWhiteTextStyle = TextStyle(fontSize: 18, color: Colors.white);
 
-  static TextStyle appBarTitleBlackTextStyle = TextStyle(
-      fontSize: 16, color: Colors.black);
+  static TextStyle appBarTitleBlackTextStyle = TextStyle(fontSize: 16, color: Colors.black);
 
-  static TextStyle searchResultItemCommentCountStyle = TextStyle(
-      fontSize: 12, color: Color(0xFF999999));
+  static TextStyle searchResultItemCommentCountStyle = TextStyle(fontSize: 12, color: Color(0xFF999999));
 
   static const minText = TextStyle(
     color: Color(GZXColors.subLightTextColor),
@@ -273,74 +293,27 @@ class GZXIcons {
   static const IconData clear = const IconData(0xe601, fontFamily: FONT_FAMILY);
   static const IconData deliver_fill = const IconData(0xe7f6, fontFamily: FONT_FAMILY);
   static const IconData comment_light = const IconData(0xe7e3, fontFamily: FONT_FAMILY);
-  static const IconData comment_fill_light= const IconData(0xe7e4, fontFamily: FONT_FAMILY);
+  static const IconData comment_fill_light = const IconData(0xe7e4, fontFamily: FONT_FAMILY);
   static const IconData notification = const IconData(0xe66b, fontFamily: FONT_FAMILY);
   static const IconData notification_fill = const IconData(0xe66a, fontFamily: FONT_FAMILY);
 
-  static const IconData emoji= const IconData(0xe64a, fontFamily: FONT_FAMILY);
+  static const IconData emoji = const IconData(0xe64a, fontFamily: FONT_FAMILY);
   static const IconData round_add = const IconData(0xe6d9, fontFamily: FONT_FAMILY);
   static const IconData round_add_light = const IconData(0xe7a7, fontFamily: FONT_FAMILY);
 
-  static const IconData sound= const IconData(0xe77b, fontFamily: FONT_FAMILY);
-  static const IconData sound_light= const IconData(0xe7a8, fontFamily: FONT_FAMILY);
+  static const IconData sound = const IconData(0xe77b, fontFamily: FONT_FAMILY);
+  static const IconData sound_light = const IconData(0xe7a8, fontFamily: FONT_FAMILY);
 
-  static const IconData emoji_light= const IconData(0xe7a1, fontFamily: FONT_FAMILY);
-  static const IconData friend_settings_light= const IconData(0xe7fe, fontFamily: FONT_FAMILY);
+  static const IconData emoji_light = const IconData(0xe7a1, fontFamily: FONT_FAMILY);
+  static const IconData friend_settings_light = const IconData(0xe7fe, fontFamily: FONT_FAMILY);
 
-  static const IconData shop= const IconData(0xe676, fontFamily: FONT_FAMILY);
+  static const IconData shop = const IconData(0xe676, fontFamily: FONT_FAMILY);
   static const IconData shop_fill = const IconData(0xe697, fontFamily: FONT_FAMILY);
-  static const IconData shop_light= const IconData(0xe7b8, fontFamily: FONT_FAMILY);
-  static const IconData tmall= const IconData(0xe65a, fontFamily: FONT_FAMILY);
+  static const IconData shop_light = const IconData(0xe7b8, fontFamily: FONT_FAMILY);
+  static const IconData tmall = const IconData(0xe65a, fontFamily: FONT_FAMILY);
 
 //  static const IconData message = const IconData(0xe779, fontFamily: FONT_FAMILY);
   static const IconData appreciate_light = const IconData(0xe7e1, fontFamily: FONT_FAMILY);
   static const IconData appreciate_fill_light = const IconData(0xe7e2, fontFamily: FONT_FAMILY);
   static const IconData people_list_light = const IconData(0xe7db, fontFamily: FONT_FAMILY);
-
-  static const IconData MORE = const IconData(0xe674, fontFamily: GZXIcons.FONT_FAMILY);
-  static const IconData SEARCH = const IconData(0xe61c, fontFamily: GZXIcons.FONT_FAMILY);
-
-  static const IconData MAIN_DT = const IconData(0xe684, fontFamily: GZXIcons.FONT_FAMILY);
-  static const IconData MAIN_QS = const IconData(0xe818, fontFamily: GZXIcons.FONT_FAMILY);
-  static const IconData MAIN_MY = const IconData(0xe6d0, fontFamily: GZXIcons.FONT_FAMILY);
-  static const IconData MAIN_SEARCH = const IconData(0xe61c, fontFamily: GZXIcons.FONT_FAMILY);
-
-  static const IconData LOGIN_USER = const IconData(0xe666, fontFamily: GZXIcons.FONT_FAMILY);
-  static const IconData LOGIN_PW = const IconData(0xe60e, fontFamily: GZXIcons.FONT_FAMILY);
-
-  static const IconData REPOS_ITEM_USER = const IconData(0xe63e, fontFamily: GZXIcons.FONT_FAMILY);
-  static const IconData REPOS_ITEM_STAR = const IconData(0xe643, fontFamily: GZXIcons.FONT_FAMILY);
-  static const IconData REPOS_ITEM_FORK = const IconData(0xe67e, fontFamily: GZXIcons.FONT_FAMILY);
-  static const IconData REPOS_ITEM_ISSUE = const IconData(0xe661, fontFamily: GZXIcons.FONT_FAMILY);
-
-  static const IconData REPOS_ITEM_STARED = const IconData(0xe698, fontFamily: GZXIcons.FONT_FAMILY);
-  static const IconData REPOS_ITEM_WATCH = const IconData(0xe681, fontFamily: GZXIcons.FONT_FAMILY);
-  static const IconData REPOS_ITEM_WATCHED = const IconData(0xe629, fontFamily: GZXIcons.FONT_FAMILY);
-  static const IconData REPOS_ITEM_DIR = Icons.folder;
-  static const IconData REPOS_ITEM_FILE = const IconData(0xea77, fontFamily: GZXIcons.FONT_FAMILY);
-  static const IconData REPOS_ITEM_NEXT = const IconData(0xe610, fontFamily: GZXIcons.FONT_FAMILY);
-
-  static const IconData USER_ITEM_COMPANY = const IconData(0xe63e, fontFamily: GZXIcons.FONT_FAMILY);
-  static const IconData USER_ITEM_LOCATION = const IconData(0xe7e6, fontFamily: GZXIcons.FONT_FAMILY);
-  static const IconData USER_ITEM_LINK = const IconData(0xe670, fontFamily: GZXIcons.FONT_FAMILY);
-  static const IconData USER_NOTIFY = const IconData(0xe600, fontFamily: GZXIcons.FONT_FAMILY);
-
-  static const IconData ISSUE_ITEM_ISSUE = const IconData(0xe661, fontFamily: GZXIcons.FONT_FAMILY);
-  static const IconData ISSUE_ITEM_COMMENT = const IconData(0xe6ba, fontFamily: GZXIcons.FONT_FAMILY);
-  static const IconData ISSUE_ITEM_ADD = const IconData(0xe662, fontFamily: GZXIcons.FONT_FAMILY);
-
-  static const IconData ISSUE_EDIT_H1 = Icons.filter_1;
-  static const IconData ISSUE_EDIT_H2 = Icons.filter_2;
-  static const IconData ISSUE_EDIT_H3 = Icons.filter_3;
-  static const IconData ISSUE_EDIT_BOLD = Icons.format_bold;
-  static const IconData ISSUE_EDIT_ITALIC = Icons.format_italic;
-  static const IconData ISSUE_EDIT_QUOTE = Icons.format_quote;
-  static const IconData ISSUE_EDIT_CODE = Icons.format_shapes;
-  static const IconData ISSUE_EDIT_LINK = Icons.insert_link;
-
-  static const IconData NOTIFY_ALL_READ = const IconData(0xe62f, fontFamily: GZXIcons.FONT_FAMILY);
-
-  static const IconData PUSH_ITEM_EDIT = Icons.mode_edit;
-  static const IconData PUSH_ITEM_ADD = Icons.add_box;
-  static const IconData PUSH_ITEM_MIN = Icons.indeterminate_check_box;
 }

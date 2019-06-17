@@ -56,30 +56,6 @@ class _WeiTaoPageState extends State<WeiTaoPage>
         ],
       );
 
-  //column last
-//  Widget actionColumn(Post post) => FittedBox(
-//    fit: BoxFit.contain,
-//    child: ButtonBar(
-//      alignment: MainAxisAlignment.center,
-//      children: <Widget>[
-//        LabelIcon(
-//          label: "${post.likesCount} Likes",
-//          icon: FontAwesomeIcons.solidThumbsUp,
-//          iconColor: Colors.green,
-//        ),
-//        LabelIcon(
-//          label: "${post.commentsCount} Comments",
-//          icon: FontAwesomeIcons.comment,
-//          iconColor: Colors.blue,
-//        ),
-//        Text(
-//          post.postTime,
-//          style: TextStyle(fontFamily: UIData.ralewayFont),
-//        )
-//      ],
-//    ),
-//  );
-
   Widget actionColumn(PostModel post) {
     return Row(
       children: <Widget>[
@@ -118,14 +94,7 @@ class _WeiTaoPageState extends State<WeiTaoPage>
           width: 25,
         ),
         GestureDetector(
-          onTap: () {
-//            post.isLike=!post.isLike;
-//            if(post.isLike){
-//              post.likesCount++;
-//            }else{
-//              post.likesCount--;
-//            }
-          },
+          onTap: () {},
           child: Row(
             children: <Widget>[
               Icon(
@@ -153,9 +122,6 @@ class _WeiTaoPageState extends State<WeiTaoPage>
       mainAxisSpacing: 6,
       crossAxisCount: 3,
       children: post.photos.map((item) {
-//        int index = post.photos.indexOf(item);
-//        print(index);
-//        return Image.network(item, fit: BoxFit.fill,);
         return CachedNetworkImage(
           fadeInDuration: Duration(milliseconds: 0),
           fadeOutDuration: Duration(milliseconds: 0),
@@ -191,10 +157,6 @@ class _WeiTaoPageState extends State<WeiTaoPage>
               ),
             ),
           ),
-//          SizedBox(
-//            height: 10.0,
-//          ),
-//          Expanded(child: _buildPhotosWidget(post),),
           Padding(
             padding: const EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 0),
             child: Stack(
@@ -204,27 +166,10 @@ class _WeiTaoPageState extends State<WeiTaoPage>
                       borderRadius: BorderRadius.all(Radius.circular(8)),
 //                    color: Colors.red,
                     ),
-//            padding: const EdgeInsets.only(left: 16,right: 16,bottom: 16),
-//              color: Colors.red,
-//                  child: _buildPhotosWidget(post),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
                       child: _buildPhotosWidget(post),
                     )),
-//                Positioned(
-//                    top: 0,
-//                    left: 0,
-//                    height: 100,
-//                    width: 100,
-//                    child: Container(
-//                      decoration: BoxDecoration(
-//                        borderRadius: BorderRadius.all(Radius.circular(16)),
-//                        color: Colors.transparent,
-//                      ),
-////            padding: const EdgeInsets.only(left: 16,right: 16,bottom: 16),
-////              color: Colors.red,
-////                child: _buildPhotosWidget(post),
-//                    ))
               ],
             ),
           ),
@@ -462,13 +407,6 @@ class _WeiTaoPageState extends State<WeiTaoPage>
             duration: const Duration(milliseconds: 500),
             left: 0,
             top: _topBackgroundTop,
-//            child: Container(
-//                decoration: new BoxDecoration(
-//                  gradient: const LinearGradient(colors: [Colors.orange, Colors.deepOrange]),
-//                ),
-////                color: Theme.of(context).primaryColor,
-//                width: ScreenUtil.screenWidth,
-//                height: ScreenUtil.screenHeight / 4),
             child: _topBackgroundImages[_selectedTabBarIndex].toString().length == 0
                 ? firstTopBackgroundWidget
                 : CachedNetworkImage(
@@ -508,26 +446,6 @@ class _WeiTaoPageState extends State<WeiTaoPage>
             ),
 //            child: _buildTopBar(),
           ),
-//          Positioned(
-//            left: 0,
-//            top: ScreenUtil.statusBarHeight + 10+48+12,
-//            width: ScreenUtil.screenWidth,
-//            height: 48,
-//            child: Container(
-//              child: _buildTabBar(),
-////              height: 48,
-//            ),
-//          ),
-//          Expanded(
-//              child: TabBarView(
-//                children: <Widget>[
-//                  SearchSuggestPage(),
-//                  SearchSuggestPage(),
-//                  SearchSuggestPage(),
-//                ],
-//              ))
-
-//          bodySliverList()
           AnimatedPositioned(
             curve: Curves.easeInOut,
             duration: const Duration(milliseconds: 500),
@@ -537,12 +455,7 @@ class _WeiTaoPageState extends State<WeiTaoPage>
             width: ScreenUtil.screenWidth,
             height: ScreenUtil.screenHeight - (ScreenUtil.screenHeight / 4) / 2,
             child: Container(
-//              color: Colors.blue,
-//              child: bodySliverList(),
-//              child: bodySliverList(),
               child: DefaultTabController(length: _tabsTitle.length, child: _buildContentWidget()),
-//              width: ScreenUtil.screenWidth,
-//              height: ScreenUtil.screenHeight,
             ),
           )
         ],
@@ -684,21 +597,6 @@ class _WeiTaoPageState extends State<WeiTaoPage>
 //
 //            setState(() {});
         },
-//                  tabs: _tabsTitle
-//                      .map((i) => Container(
-//                          color: Colors.red,
-//                          alignment: Alignment.center,
-////width: 30,
-////                      padding: EdgeInsets.symmetric(vertical: 10),
-////                  padding: EdgeInsets.only(left: (ScreenUtil.screenWidth-30*3)/4),
-//                          margin: EdgeInsets.only(left: (ScreenUtil.screenWidth - 30 * 3) / 4),
-//                          child: new Text(
-//                            i,
-//                            style: TextStyle(fontSize: 12),
-////                        style: GSYConstant.smallTextWhite,
-//                            maxLines: 1,
-//                          )))
-//                      .toList()
         tabs: _tabsTitle
             .map((i) => Text(
                   i,

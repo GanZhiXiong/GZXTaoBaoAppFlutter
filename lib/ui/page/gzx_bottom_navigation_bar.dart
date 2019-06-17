@@ -57,37 +57,11 @@ class _GZXBottomNavigationBarState extends State<GZXBottomNavigationBar> {
       body: PageView(
         controller: _controller,
         children: <Widget>[
-//          Index(),
-//        TestPage(),
-
           HomePage(),
           WeiTaoPage(),
           MessagePage(),
           ShoppingCartPage(),
           MyPage(),
-
-////          new AmosHomePage(),
-////          new CRMPage(),
-////          new WebViewContainer(
-////            AmosOdooApi.serverURL,
-////            title: 'CRM',
-////          ),
-//          MessagePage(),
-//          new WebViewContainer(
-//            AmosOdooApi.serverURL+'/web#home',
-//            title: 'ERP',
-//            isNeedAppBar: false,
-//          ),
-//
-////          new CRMPage(),
-//
-////          new ERPPage(),
-////          new MyPage(),
-////          new ContactPage2(title: 'dswe',),
-////          new ContactPage(),
-//          new ContactPage1(),
-//          new SettingsOnePage(),
-//          new MyPage()
         ],
         physics: NeverScrollableScrollPhysics(),
       ),

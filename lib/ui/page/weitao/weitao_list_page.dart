@@ -23,83 +23,54 @@ class _WeiTaoListPageState extends State<WeiTaoListPage> with AutomaticKeepAlive
   List<PostModel> _postModels = [];
 
   //column1
-  Widget profileColumn(BuildContext context, PostModel post) =>
-      Row(
+  Widget profileColumn(BuildContext context, PostModel post) => Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          post.logoImage == null||post.toString().length==0 ? Container():CircleAvatar(
+          post.logoImage == null || post.toString().length == 0
+              ? Container()
+              : CircleAvatar(
 //            backgroundImage: NetworkImage(post.logoImage),
-            backgroundColor: Colors.white,
-            backgroundImage: Image
-                .network(
-              post.logoImage,
-              fit: BoxFit.fill,
-            )
-                .image,
-          ),
+                  backgroundColor: Colors.white,
+                  backgroundImage: Image.network(
+                    post.logoImage,
+                    fit: BoxFit.fill,
+                  ).image,
+                ),
           Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      post.name,
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  post.name,
 //                  style: Theme.of(context).textTheme.body1.apply(fontWeightDelta: 100),
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                    ),
-                    SizedBox(
-                      height: 4.0,
-                    ),
-                    Text(
-                      post.postTime,
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .caption
-                          .apply(color: Colors.grey),
-                    )
-                  ],
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                 ),
-              ))
+                SizedBox(
+                  height: 4.0,
+                ),
+                Text(
+                  post.postTime,
+                  style: Theme.of(context).textTheme.caption.apply(color: Colors.grey),
+                )
+              ],
+            ),
+          ))
         ],
       );
-
-  //column last
-//  Widget actionColumn(Post post) => FittedBox(
-//    fit: BoxFit.contain,
-//    child: ButtonBar(
-//      alignment: MainAxisAlignment.center,
-//      children: <Widget>[
-//        LabelIcon(
-//          label: "${post.likesCount} Likes",
-//          icon: FontAwesomeIcons.solidThumbsUp,
-//          iconColor: Colors.green,
-//        ),
-//        LabelIcon(
-//          label: "${post.commentsCount} Comments",
-//          icon: FontAwesomeIcons.comment,
-//          iconColor: Colors.blue,
-//        ),
-//        Text(
-//          post.postTime,
-//          style: TextStyle(fontFamily: UIData.ralewayFont),
-//        )
-//      ],
-//    ),
-//  );
 
   Widget actionColumn(PostModel post) {
     return Row(
       children: <Widget>[
         Expanded(
             child: Text(
-              '${post.readCout}万阅读',
-              style: TextStyle(
-                color: Colors.grey,
-              ),
-            )),
+          '${post.readCout}万阅读',
+          style: TextStyle(
+            color: Colors.grey,
+          ),
+        )),
         GestureDetector(
           onTap: () {
             setState(() {
@@ -206,10 +177,6 @@ class _WeiTaoListPageState extends State<WeiTaoListPage> with AutomaticKeepAlive
               ),
             ),
           ),
-//          SizedBox(
-//            height: 10.0,
-//          ),
-//          Expanded(child: _buildPhotosWidget(post),),
           Padding(
             padding: const EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 0),
             child: Stack(
@@ -219,44 +186,13 @@ class _WeiTaoListPageState extends State<WeiTaoListPage> with AutomaticKeepAlive
                       borderRadius: BorderRadius.all(Radius.circular(8)),
 //                    color: Colors.red,
                     ),
-//            padding: const EdgeInsets.only(left: 16,right: 16,bottom: 16),
-//              color: Colors.red,
-//                  child: _buildPhotosWidget(post),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
                       child: _buildPhotosWidget(post),
                     )),
-//                Positioned(
-//                    top: 0,
-//                    left: 0,
-//                    height: 100,
-//                    width: 100,
-//                    child: Container(
-//                      decoration: BoxDecoration(
-//                        borderRadius: BorderRadius.all(Radius.circular(16)),
-//                        color: Colors.transparent,
-//                      ),
-////            padding: const EdgeInsets.only(left: 16,right: 16,bottom: 16),
-////              color: Colors.red,
-////                child: _buildPhotosWidget(post),
-//                    ))
               ],
             ),
           ),
-//        Container(height: 400,width: 400,color: Colors.red, child: _buildPhotosWidget(post),),
-
-//          post.messageImage != null
-//              ? Image.network(
-//                  post.messageImage,
-//                  fit: BoxFit.cover,
-//                )
-//              : Container(),
-//          post.messageImage != null
-//              ? Container()
-//              : Divider(
-//                  color: Colors.grey.shade300,
-//                  height: 8.0,
-//                ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: actionColumn(post),
@@ -267,32 +203,30 @@ class _WeiTaoListPageState extends State<WeiTaoListPage> with AutomaticKeepAlive
   }
 
   //allposts dropdown
-  Widget bottomBar() =>
-      PreferredSize(
-          preferredSize: Size(double.infinity, 50.0),
-          child: Container(
-              color: Colors.black,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  height: 50.0,
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  color: Colors.white,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        "All Posts",
-                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
-                      ),
-                      Icon(Icons.arrow_drop_down)
-                    ],
+  Widget bottomBar() => PreferredSize(
+      preferredSize: Size(double.infinity, 50.0),
+      child: Container(
+          color: Colors.black,
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 50.0,
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              color: Colors.white,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    "All Posts",
+                    style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
                   ),
-                ),
-              )));
+                  Icon(Icons.arrow_drop_down)
+                ],
+              ),
+            ),
+          )));
 
-  Widget appBar() =>
-      SliverAppBar(
+  Widget appBar() => SliverAppBar(
         backgroundColor: Colors.black,
         elevation: 2.0,
         centerTitle: false,
@@ -304,8 +238,7 @@ class _WeiTaoListPageState extends State<WeiTaoListPage> with AutomaticKeepAlive
         bottom: bottomBar(),
       );
 
-  Widget bodyList(List<PostModel> posts) =>
-      SliverList(
+  Widget bodyList(List<PostModel> posts) => SliverList(
         delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
 //          print('SliverChildBuilderDelegate ${index}');
 
@@ -329,14 +262,14 @@ class _WeiTaoListPageState extends State<WeiTaoListPage> with AutomaticKeepAlive
         builder: (context, snapshot) {
           return snapshot.hasData
               ? NotificationListener<ScrollNotification>(
-            onNotification: widget.onNotification,
-            child: CustomScrollView(
-              slivers: <Widget>[
+                  onNotification: widget.onNotification,
+                  child: CustomScrollView(
+                    slivers: <Widget>[
 //              appBar(),
-                bodyList(snapshot.data),
-              ],
-            ),
-          )
+                      bodyList(snapshot.data),
+                    ],
+                  ),
+                )
               : Center(child: CircularProgressIndicator());
         });
   }
@@ -383,9 +316,7 @@ class _WeiTaoListPageState extends State<WeiTaoListPage> with AutomaticKeepAlive
 
   void _getDynamic() async {
     List querys = await getHotSugs();
-//    setState(() {
-//      _hotWords = querys;
-//    });
+
     for (var value in querys) {
       PostModel postModel = PostModel(
           name: value,
@@ -398,7 +329,7 @@ class _WeiTaoListPageState extends State<WeiTaoListPage> with AutomaticKeepAlive
 //              '  华为P30，是华为公司旗下一款手机。手机搭载海思Kirin 980处理器，屏幕为6.1英寸，分辨率2340*1080像素。 摄像头最大30倍数码变焦。\n  2019年3月26日晚21时，华为P30系列在法国巴黎会议中心发布。2019年4月11日，HUAWEI P30系列在上海东方体育中心正式发布。',
           message: '',
           messageImage:
-          'https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D220/sign=a70945e5c51349547a1eef66664f92dd/fd039245d688d43f7e426c96731ed21b0ff43bef.jpg',
+              'https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D220/sign=a70945e5c51349547a1eef66664f92dd/fd039245d688d43f7e426c96731ed21b0ff43bef.jpg',
           readCout: _randomCount(),
           isLike: false,
           likesCount: _randomCount(),
@@ -418,7 +349,7 @@ class _WeiTaoListPageState extends State<WeiTaoListPage> with AutomaticKeepAlive
 //            'https://img.alicdn.com/bao/uploaded/i4/1800399917/O1CN01rvMy702N82Ira2AUp_!!0-item_pic.jpg_120x120.jpg',
 //            'https://img.alicdn.com/bao/uploaded/i2/1800399917/O1CN01ILu0X62N82JOT6WQb_!!0-item_pic.jpg_120x120.jpg'
 //          ]
-      );
+          );
       _postModels.add(postModel);
 //      print('_postModels.length ' + _postModels.length.toString());
 

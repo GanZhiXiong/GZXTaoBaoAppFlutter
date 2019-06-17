@@ -85,6 +85,7 @@ class CommonUtils {
       return getDateStr(date);
     }
   }
+
   static String getTimeDuration(String comTime) {
     var nowTime = DateTime.now();
     var compareTime = DateTime.parse(comTime);
@@ -110,8 +111,7 @@ class CommonUtils {
   }
 
   ///版本更新
-  static Future<Null> showUpdateDialog(
-      BuildContext context, String contentMsg) {
+  static Future<Null> showUpdateDialog(BuildContext context, String contentMsg) {
     return NavigatorUtils.showGSYDialog(
         context: context,
         builder: (BuildContext context) {
@@ -135,8 +135,7 @@ class CommonUtils {
         });
   }
 
-  static Future<Null> showPromptDialog(
-      BuildContext context,String title, String contentMsg) {
+  static Future<Null> showPromptDialog(BuildContext context, String title, String contentMsg) {
     return NavigatorUtils.showGSYDialog(
         context: context,
         builder: (BuildContext context) {

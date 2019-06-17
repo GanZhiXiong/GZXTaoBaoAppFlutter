@@ -12,17 +12,13 @@ import 'package:flutter_taobao/common/style/gzx_style.dart';
 import 'package:flutter_taobao/common/utils/log_util.dart';
 import 'package:flutter_taobao/common/utils/navigator_utils.dart';
 import 'package:flutter_taobao/common/utils/screen_util.dart';
-import 'package:flutter_taobao/common/utils/common_utils.dart';
-import 'package:flutter_taobao/ui/page/home/products_page.dart';
 import 'package:flutter_taobao/ui/page/home/searchlist_page.dart';
 import 'package:flutter_taobao/ui/tools/arc_clipper.dart';
-import 'package:flutter_taobao/ui/widget/animation/diff_scale_text.dart';
 import 'package:flutter_taobao/ui/widget/animation_headlines.dart';
-import 'package:flutter_taobao/ui/widget/item_tag.dart';
 import 'package:flutter_taobao/ui/widget/menue.dart';
 import 'package:flutter_taobao/ui/widget/recommed.dart';
-import 'package:flutter_taobao/ui/widget/tabbar.dart';
-import 'package:flutter_taobao/ui/widget/topbar.dart';
+import 'package:flutter_taobao/ui/widget/gzx_tabbar.dart';
+import 'package:flutter_taobao/ui/widget/gzx_topbar.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -168,13 +164,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin, Auto
     _controller.addListener(_handleTabSelection);
 
     _scrollViewController = ScrollController(initialScrollOffset: 0.0);
-
-//    _countdownTimer = new Timer.periodic(new Duration(seconds: 3), (timer) {
-////      print('countdownTimer.tick');
-//      setState(() {
-//        _diffScaleNext++;
-//      });
-//    });
   }
 
   @override
@@ -190,28 +179,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin, Auto
 
   @override
   Widget build(BuildContext context) {
-//    return ListView(
-////      shrinkWrap: true,
-////      physics: ClampingScrollPhysics(),
-//      children: <Widget>[
-//        Container(
-//          color: Colors.red,
-//          height: 500,
-//        ),
-////        SearchResultListPage('iphone'),
-//
-////        ListView(
-////          shrinkWrap: true,
-////          physics: ClampingScrollPhysics(),
-////          children: <Widget>[
-////            Container(
-////              color: Colors.blue,
-////              height: 500,
-////            )
-////          ],
-////        )
-//      ],
-//    );
     var v = Column(
       children: <Widget>[
         _buildHotSearchWidget(),
@@ -226,27 +193,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin, Auto
       controller: _scrollViewController,
       headerSliverBuilder: (BuildContext context, bool boxIsScrolled) {
         return <Widget>[
-//            Container(
-//              color: Colors.red,
-//              height: 100,
-//              width: 300,
-//            ),
-//              TabBar(
-//                controller: _tabController,
-//                tabs: <Widget>[
-//                  Tab(
-//                    text: "Home",
-//                    icon: Icon(Icons.home),
-//                  ),
-//                  Tab(
-//                    text: "Help",
-//                    icon: Icon(Icons.help),
-//                  ),
-//                ],
-//              )
           SliverAppBar(
-//                expandedHeight: 0,
-//                title: Text('Tab Controller'),
             pinned: true,
             floating: true,
             forceElevated: boxIsScrolled,
@@ -256,110 +203,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin, Auto
               background: Column(
 //                  key: _keyFilter,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  v
-//                    _buildHotSearchWidget(),
-//                    _buildSwiperImageWidget(),
-//                  _buildSwiperButtonWidget(),
-//                  _buildRecommendedCard(),
-//                  _buildAdvertisingWidget(),
-//                    Container(
-//                      height: 200.0,
-//                      width: double.infinity,
-//                      color: Colors.grey,
-//                      child: FlutterLogo(),
-//                    ),
-//                    Padding(
-//                      padding: const EdgeInsets.all(10.0),
-//                      child: Text(
-//                        'Business Office',
-//                        style: TextStyle(fontSize: 25.0),
-//                        textAlign: TextAlign.left,
-//                      ),
-//                    ),
-//                    Padding(
-//                      padding: const EdgeInsets.all(10.0),
-//                      child: Text(
-//                        'Open now\nStreet Address, 299\nCity, State',
-//                        style: TextStyle(fontSize: 15.0),
-//                        textAlign: TextAlign.left,
-//                      ),
-//                    ),
-//                    Padding(
-//                      padding: const EdgeInsets.only(right: 10.0),
-//                      child: Row(
-//                        mainAxisAlignment: MainAxisAlignment.end,
-//                        children: <Widget>[
-//                          Icon(Icons.share),
-//                          Padding(
-//                            padding: const EdgeInsets.only(left: 10.0),
-//                            child: Icon(Icons.favorite),
-//                          ),
-//                        ],
-//                      ),
-//                    )
-                ],
+                children: <Widget>[v],
               ),
             ),
             expandedHeight: (_sizeRed == null ? ScreenUtil.screenHeight : _sizeRed.height) + 50.0,
-//expandedHeight: 500,
-//                expandedHeight: 800.0,
-//              expandedHeight: 300,
-//              flexibleSpace: ListView(
-//                children: <Widget>[
-//                  _buildHotSearchWidget(),
-//                  _buildSwiperImageWidget(),
-////                  _buildSwiperButtonWidget(),
-////                  _buildRecommendedCard(),
-////                  _buildAdvertisingWidget(),
-//                ],
-//              ),
-//                flexibleSpace: Column(
-//                  children: <Widget>[
-//                    Container(
-//                      child: Image.asset(
-//                        'static/images/618.png',
-//                        width: double.infinity,
-//                         repeat: ImageRepeat.repeat,
-//                         height: double.infinity,
-//                      ),
-//                    ),
-//                    SizedBox(height: 50,)
-//                  ],
-//                ),
-//                bottom: TabBar(
-//                  controller: _tabController,
-//                  tabs: <Widget>[
-//                    Tab(
-//                      text: "Home",
-//                      icon: Icon(Icons.home),
-//                    ),
-//                    Tab(
-//                      text: "Help",
-//                      icon: Icon(Icons.help),
-//                    ),
-//                  ],
-//                ),
-//                bottom: PreferredSize(
-////                  preferredSize: Size(200, 200),
-//                  child: Container(
-////                    height: 200,
-//                    child: Column(
-//                      children: <Widget>[
-//                        _buildHotSearchWidget(),
-////                        Container(color: Colors.red,height: 100,),
-//                        KTabBarWidget(
-//                          tabController: _controller,
-//                          tabModels: _tabModels,
-//                          currentIndex: _currentIndex,
-//                        ),
-//                      ],
-//                    ),
-//                  ),
-//                ),
             bottom: PreferredSize(
               preferredSize: Size(double.infinity, 46),
-              child: KTabBarWidget(
+              child: GZXTabBarWidget(
                 tabController: _controller,
                 tabModels: _tabModels,
                 currentIndex: _currentIndex,
@@ -373,17 +223,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin, Auto
               child: CircularProgressIndicator(),
             )
           : TabBarView(controller: _controller, children: _searchResultListPages()),
-//        body: TabBarView(
-//          children: <Widget>[
-////                PageOne(),
-//            SearchResultListPage(
-//              'iphone',
-//              isList: true,
-//            ),
-//            PageTwo(),
-//          ],
-//          controller: _controller,
-//        )
     );
     return Scaffold(
         backgroundColor: GZXColors.mainBackgroundColor,
@@ -402,307 +241,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin, Auto
                 key: _keyFilter,
               ),
             ),
-//        SizedBox(height: ScreenUtil.statusBarHeight,),
-            HomeTopBar(
+            GZXTopBar(
               searchHintTexts: searchHintTexts,
             ),
-//                  _buildSwiperImageWidget(),
-//                  _buildSwiperButtonWidget(),
-//                  _buildRecommendedCard(),
-//                  _buildAdvertisingWidget(),
             Expanded(child: body),
           ],
         ));
-    return Container(
-//      height: 700.0,
-      child: Scaffold(
-        appBar: PreferredSize(
-            child: AppBar(
-              brightness: Brightness.dark,
-              elevation: 0,
-            ),
-            preferredSize: Size.fromHeight(0)),
-//        body: ,
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.control_point),
-          onPressed: () {
-            _controller.animateTo(1, curve: Curves.bounceInOut, duration: Duration(milliseconds: 10));
-            _scrollViewController.jumpTo(_scrollViewController.position.maxScrollExtent);
-          },
-        ),
-      ),
-    );
-  }
-
-  @override
-  Widget build1(BuildContext context) {
-    super.build(context);
-    print('_HomePageState.build');
-    //test
-    {
-      int i = 21;
-      int j = (i / 10).toInt() + (i % 10 > 0 ? 1 : 0);
-//    print(j);
-      String str = '12.54500';
-      double d = double.parse(str);
-      print(d);
-      print(d.round());
-      print(d.truncateToDouble());
-      print(CommonUtils.removeDecimalZeroFormat(d));
-    }
-
-//    return DefaultTabController(
-//        length: 8,
-//        initialIndex: 0,
-//        child: Column(children: <Widget>[
-//          HomeTopBar(
-//            searchHintTexts: searchHintTexts,
-//          ),
-//          _buildHotSearchWidget(),
-//          _buildSwiperImageWidget(),
-////          _buildSwiperButtonWidget(),
-////          _buildRecommendedCard(),
-//          _buildAdvertisingWidget(),
-//          KTabBarWidget(
-//            tabController: _controller,
-//            tabModels: _tabModels,
-//            currentIndex: _currentIndex,
-//          ),
-//          Expanded(
-////                    child: TabBarView(children: <Widget>[
-////                      SearchResultListPage('iphone'),
-////                      SearchResultListPage('iphone'),
-////                      SearchResultListPage('iphone'),
-////                      SearchResultListPage('iphone'),
-////                      SearchResultListPage('iphone'),
-////                    ])
-//              child: _hotWords.length == 0
-//                  ? Center(
-//                child: CircularProgressIndicator(),
-//              )
-//                  : TabBarView(controller: _controller, children: _searchResultListPages())),
-//        ]));
-    var scrollWidget = new CustomScrollView(controller: _scrollController, slivers: <Widget>[
-//      HomeTopBar(
-//        searchHintTexts: searchHintTexts,
-//      ),
-      new SliverList(
-//            key: globalKey,
-          delegate: new SliverChildBuilderDelegate((BuildContext context, int index) {
-        return Column(
-          children: <Widget>[
-            _buildHotSearchWidget(),
-            _buildSwiperImageWidget(),
-            _buildSwiperButtonWidget(),
-            _buildRecommendedCard(),
-            _buildAdvertisingWidget(),
-            Container(
-//              width: ScreenUtil.screenWidth,
-              width: double.infinity,
-              height: ScreenUtil.screenHeight - ScreenUtil.statusBarHeight - 38 - 58,
-              child: DefaultTabController(
-                  length: 8,
-                  initialIndex: 0,
-                  child: Column(children: <Widget>[
-                    KTabBarWidget(
-                      tabController: _controller,
-                      tabModels: _tabModels,
-                      currentIndex: _currentIndex,
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Expanded(
-//                    child: TabBarView(children: <Widget>[
-//                      SearchResultListPage('iphone'),
-//                      SearchResultListPage('iphone'),
-//                      SearchResultListPage('iphone'),
-//                      SearchResultListPage('iphone'),
-//                      SearchResultListPage('iphone'),
-//                    ])
-                        child: _hotWords.length == 0
-                            ? Center(
-                                child: CircularProgressIndicator(),
-                              )
-                            : TabBarView(controller: _controller, children: _searchResultListPages())),
-                  ])),
-            )
-//              DefaultTabController(
-//                  length: 8,
-//                  initialIndex: 0,
-//                  child: Column(children: <Widget>[
-//                    KTabBarWidget(
-//                      tabController: _controller,
-//                      tabModels: _tabModels,
-//                      currentIndex: _currentIndex,
-//                    ),
-//                    Expanded(
-////                    child: TabBarView(children: <Widget>[
-////                      SearchResultListPage('iphone'),
-////                      SearchResultListPage('iphone'),
-////                      SearchResultListPage('iphone'),
-////                      SearchResultListPage('iphone'),
-////                      SearchResultListPage('iphone'),
-////                    ])
-//                        child: _hotWords.length == 0
-//                            ? Center(
-//                          child: CircularProgressIndicator(),
-//                        )
-//                            : TabBarView(controller: _controller, children: _searchResultListPages())),
-//                  ]))
-          ],
-        );
-      }, childCount: 1)),
-
-//      new SliverList(
-//          delegate: new SliverChildBuilderDelegate((BuildContext context, int index) {
-////            return SearchResultListPage('iphone');
-//
-//        return Container(
-////              width: ScreenUtil.screenWidth,
-//          width: double.infinity,
-//          height: ScreenUtil.screenHeight - ScreenUtil.statusBarHeight - 38 - 58,
-//          child: DefaultTabController(
-//              length: 8,
-//              initialIndex: 0,
-//              child: Column(children: <Widget>[
-//                KTabBarWidget(
-//                  tabController: _controller,
-//                  tabModels: _tabModels,
-//                  currentIndex: _currentIndex,
-//                ),
-//                SizedBox(
-//                  height: 8,
-//                ),
-//                Expanded(
-////                    child: TabBarView(children: <Widget>[
-////                      SearchResultListPage('iphone'),
-////                      SearchResultListPage('iphone'),
-////                      SearchResultListPage('iphone'),
-////                      SearchResultListPage('iphone'),
-////                      SearchResultListPage('iphone'),
-////                    ])
-//                    child: _hotWords.length == 0
-//                        ? Center(
-//                            child: CircularProgressIndicator(),
-//                          )
-//                        : TabBarView(controller: _controller, children: _searchResultListPages())),
-//              ])),
-//        );
-////            return Text('234');
-////        var d= DefaultTabController(
-////            length: 8,
-////            initialIndex: 0,
-////            child: Column(children: <Widget>[
-////              KTabBarWidget(
-////                tabController: _controller,
-////                tabModels: _tabModels,
-////                currentIndex: _currentIndex,
-////              ),
-//////                  Expanded(
-//////                    child:
-////                    TabBarView(children: <Widget>[
-////                      SearchResultListPage('iphone'),
-////                      SearchResultListPage('iphone'),
-////                      SearchResultListPage('iphone'),
-////                      SearchResultListPage('iphone'),
-////                      SearchResultListPage('iphone'),
-////                      SearchResultListPage('iphone'),
-////                      SearchResultListPage('iphone'),
-////                      SearchResultListPage('iphone'),
-////                    ]
-////                    )
-//////                      child: _hotWords.length == 0
-//////                          ? Center(
-//////                        child: CircularProgressIndicator(),
-//////                      )
-//////                          : TabBarView(controller: _controller, children: _searchResultListPages())),
-//////              Expanded(child: TabBarView(controller: _controller, children: _searchResultListPages()))
-////            ]));
-////        return Container(width: 300, height: 300,child: d,);
-//      }, childCount: 0)),
-    ]);
-
-    return new Scaffold(
-      backgroundColor: GZXColors.mainBackgroundColor,
-      appBar: PreferredSize(
-          child: AppBar(
-            brightness: Brightness.dark,
-            elevation: 0,
-          ),
-          preferredSize: Size.fromHeight(0)),
-      body: Column(
-        children: <Widget>[
-          HomeTopBar(
-            searchHintTexts: searchHintTexts,
-          ),
-          Expanded(child: scrollWidget),
-        ],
-      ),
-//      new SliverPersistentHeader(
-//        delegate: new DropdownSliverChildBuilderDelegate(
-//            builder: (BuildContext context) {
-//              return new Container(
-//                  color: Theme.of(context).scaffoldBackgroundColor,
-//                  child: buildDropdownHeader(onTap: this._onTapHead));
-//            }),
-//        pinned: true,
-//        floating: true,
-//      ),
-//      new SliverList(
-//          delegate: new SliverChildBuilderDelegate(
-//                  (BuildContext context, int index) {
-//                return new Container(
-//                  color: Theme.of(context).scaffoldBackgroundColor,
-//                  child: new Image.asset(
-//                    "images/body.jpg",
-//                    fit: BoxFit.fill,
-//                  ),
-//                );
-//              }, childCount: 10)),
-//      ]
-//    )
-//    ,
-//      body: Column(
-//        children: <Widget>[
-//          HomeTopBar(
-//            searchHintTexts: searchHintTexts,
-//          ),
-////          _buildBody(),
-//          Expanded(
-//            child: _buildBody(),
-//          ),
-//          Expanded(
-//              child: ListView.builder(
-//                primary: false,
-//                shrinkWrap: true,
-//                itemBuilder: (BuildContext context, int index) {
-//                  return Text('1111');
-//                },
-//                itemCount: 100,
-//              ))
-//        ],
-//      ),
-//    body:   DefaultTabController(
-//        length: 8,
-//        initialIndex: 0,
-//        child: Column(children: <Widget>[
-//          KTabBarWidget(
-//            tabModels: _tabModels,
-//          ),
-//          Expanded(child: TabBarView(children: <Widget>[ProductPage()])),
-//        ])),
-    );
-  }
-
-  List<Widget> _builderTag(List<dynamic> tags) {
-    List<Widget> widgets = [];
-
-    for (int i = 0; i < tags.length; i++) {
-      widgets.add(ItemTag(tag: '' + tags[i].toString()));
-    }
-
-    return widgets;
   }
 
   Widget _buildHotSearchWidget() {
@@ -832,7 +376,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin, Auto
   Widget _buildSwiperButtonWidget() {
     return Container(
 //      height: 175,
-    height: ScreenUtil().L(80)*2+15,
+      height: ScreenUtil().L(80) * 2 + 15,
 //      color: Colors.red,
       child: Swiper(
         /// 初始的时候下标位置
@@ -961,22 +505,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin, Auto
 
   bool _onScroll(ScrollNotification scroll) {
     return false;
-    double currentExtent = scroll.metrics.pixels;
-    double offset = currentExtent - _lastScrollPixels;
-    print('_HomePageState._onScroll  $currentExtent  $offset  _scrollController.offset:${_scrollController.offset}');
-
-    if (currentExtent < 0 && currentExtent < _lastScrollPixels) {
-      _scrollController.jumpTo(_scrollController.offset - offset.abs());
-//      _scrollController
-//          .animateTo(_scrollController.offset +currentExtent,
-//          duration: new Duration(milliseconds: 150), curve: Curves.ease)
-//          .whenComplete(() {
-////      controller.show(index);
-//      });
-    }
-    _lastScrollPixels = currentExtent;
-
-    return false;
   }
 
   Widget _buildRecommendedCard() {
@@ -1067,35 +595,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin, Auto
                     unReadMsgCountText,
                   ],
                 ),
-//            Expanded(child: ,),
-//        Container(
-////          width: 20,
-//          height: 1,
-//          color: Colors.red,
-//          constraints: BoxConstraints.expand(),
-//        ),
-//                Expanded(
-//                  child: ConstrainedBox(
-//                    child: Container(
-//          width: 20,
-//                        height: 1,
-//                        color: Colors.red),
-//                    constraints: new BoxConstraints.expand(),
-//                  ),
-//                ),
                 Container(width: ScreenUtil.screenWidth, height: 0.7, color: GZXColors.mainBackgroundColor),
-
                 AnimationHeadlinesWidget(),
-//                      child: DiffScaleText(
-//                        text: _headlines[_diffScaleNext % _headlines.length],
-//                        textStyle: TextStyle(
-//                          fontSize: 12,
-////                          color: Colors.blue,
-//                            color: Colors.black),
-//                      ),
-//                    )),
-//                  ],
-//                )
               ],
             )),
       ),

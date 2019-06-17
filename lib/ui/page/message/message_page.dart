@@ -5,7 +5,7 @@ import 'package:flutter_taobao/common/services/search.dart';
 import 'package:flutter_taobao/common/style/gzx_style.dart';
 import 'package:flutter_taobao/common/utils/navigator_utils.dart';
 import 'package:flutter_taobao/common/utils/screen_util.dart';
-import 'package:flutter_taobao/ui/widget/UserIconWidget.dart';
+import 'package:flutter_taobao/ui/widget/GZXUserIconWidget.dart';
 import 'package:flutter_taobao/ui/widget/pull_load/ListState.dart';
 import 'package:flutter_taobao/ui/widget/pull_load/PullLoadWidget.dart';
 import 'dart:math';
@@ -148,66 +148,6 @@ class _MessagePageState extends State<MessagePage>
     return SafeArea(
       child: body,
       top: false,
-    );
-    return Scaffold(
-      appBar: PreferredSize(
-          child: AppBar(
-            backgroundColor: Colors.transparent,
-            brightness: Brightness.dark,
-            elevation: 0,
-          ),
-          preferredSize: Size.fromHeight(0)),
-      body: MediaQuery.removePadding(
-        child: body,
-        removeTop: true,
-        context: context,
-      ),
-    );
-    return body;
-    return Scaffold(
-      appBar: PreferredSize(
-          child: AppBar(
-            brightness: Brightness.dark,
-            elevation: 0,
-          ),
-          preferredSize: Size.fromHeight(0)),
-      body: body,
-    );
-
-    return Scaffold(
-      backgroundColor: Colors.red,
-      body: MediaQuery.removePadding(
-        removeTop: true,
-        child: NotificationListener<ScrollNotification>(
-            onNotification: _onScroll,
-            child: Scrollbar(
-                child: Stack(
-              children: <Widget>[
-                pullLoadWidget,
-                Offstage(
-                  offstage: !_isShowFloatingTopBar,
-                  child: Container(
-                    decoration: BoxDecoration(gradient: GZXColors.primaryGradient),
-                    height: 48 + ScreenUtil.statusBarHeight,
-                    width: ScreenUtil.screenWidth,
-//                margin: EdgeInsets.only(top: ScreenUtil.statusBarHeight),
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          height: ScreenUtil.statusBarHeight,
-                        ),
-                        Container(
-                          height: 48,
-                          child: _buildFloatingTopBar(),
-                        )
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ))),
-        context: context,
-      ),
     );
   }
 
@@ -404,17 +344,6 @@ class _MessagePageState extends State<MessagePage>
     // getIndexListData(1);
   }
 
-  _stat() async {
-//    await FlutterStatusbarcolor.setStatusBarColor(Colors.green[400]);
-//    await FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
-
-//    if (useWhiteForeground(Colors.green[400])) {
-//      FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
-//    } else {
-//      FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
-//    }
-  }
-
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
@@ -451,33 +380,6 @@ class _MessagePageState extends State<MessagePage>
   }
 }
 
-//class _DeviceInfoItem extends StatelessWidget {
-//  @override
-//  Widget build(BuildContext context) {
-//    return Container(
-//      padding: EdgeInsets.only(top: 12.0, bottom: 12.0),
-//      decoration: BoxDecoration(
-//          border: Border(
-//              top: BorderSide(color: Color(0xffd9d9d9), width: .4),
-//              bottom: BorderSide(color: Color(0xffd9d9d9), width: .5)),
-//          color: Color(0xffEDEDED)),
-//      child: Row(
-//        mainAxisAlignment: MainAxisAlignment.start,
-//        crossAxisAlignment: CrossAxisAlignment.center,
-//        children: <Widget>[
-//          Padding(
-//            padding: EdgeInsets.only(left: 22.0, right: 25.0),
-//            child: Icon(Icons.access_time),
-//          ),
-//          Text(
-//            'Windows 微信已登录，手机通知已关闭',
-//            style: TextStyle(fontSize: 13.5, color: Colors.black54, fontWeight: FontWeight.w500),
-//          )
-//        ],
-//      ),
-//    );
-//  }
-//}
 class TopItem extends StatelessWidget {
   final bool isShowFloatingTopBar;
   final double topBarOpacity;
@@ -545,7 +447,7 @@ class TopItem extends StatelessWidget {
             )),
         Positioned(
 //          top: _topBarHeight + ScreenUtil.statusBarHeight + 30,
-        bottom: -6,
+          bottom: -6,
           width: ScreenUtil.screenWidth,
           height: 105,
           child: Container(
@@ -568,18 +470,6 @@ class TopItem extends StatelessWidget {
                 ),
               )),
         ),
-//        AnimatedPositioned(
-//          duration: Duration(microseconds: 0),
-//          curve: Curves.easeInOut,
-//          top: 0,
-//          child: Container(
-////            color: Colors.red,
-//            height: _topBarHeight,
-//            width: ScreenUtil.screenWidth,
-//            margin: EdgeInsets.only(top: ScreenUtil.statusBarHeight),
-//            child: _buildFloatingTopBar(),
-//          ),
-//        )
       ]),
     );
   }
@@ -709,7 +599,7 @@ class _ConversationItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // 头像组件
-    Widget userImage = new UserIconWidget(
+    Widget userImage = new GZXUserIconWidget(
         padding: const EdgeInsets.only(top: 0.0, right: 8.0, left: 0.0),
         width: 50.0,
         height: 50.0,

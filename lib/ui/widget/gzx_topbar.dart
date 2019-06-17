@@ -7,13 +7,13 @@ import 'package:flutter_taobao/common/style/gzx_style.dart';
 import 'package:flutter_taobao/common/utils/navigator_utils.dart';
 import 'package:flutter_taobao/ui/widget/gzx_search_card.dart';
 
-class HomeTopBar extends StatelessWidget {
+class GZXTopBar extends StatelessWidget {
   // This ui.widget is the root of your application.
   TextEditingController _keywordTextEditingController = TextEditingController();
 
   final List<String> searchHintTexts;
 
-  HomeTopBar({Key key, this.searchHintTexts}) : super(key: key);
+  GZXTopBar({Key key, this.searchHintTexts}) : super(key: key);
 
   FocusNode _focus = new FocusNode();
 

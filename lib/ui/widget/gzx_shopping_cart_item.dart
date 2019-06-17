@@ -13,7 +13,7 @@ typedef AddTop<T> = void Function(T value);
 typedef RemoveTop<T> = void Function(T value);
 typedef OnSelectChanged<T, A> = void Function(T value, A value1);
 
-class ShoppingCarItemWidget extends StatelessWidget {
+class GZXShoppingCarItemWidget extends StatelessWidget {
   final ShoppingCartModel shoppingCartModel;
   final AddTop<OrderModel> addTap;
   final RemoveTop<OrderModel> removeTap;
@@ -21,7 +21,7 @@ class ShoppingCarItemWidget extends StatelessWidget {
   final OnSelectChanged<OrderModel, bool> onSelectChanged;
   final Color color;
 
-  const ShoppingCarItemWidget(
+  const GZXShoppingCarItemWidget(
     this.shoppingCartModel, {
     Key key,
     this.addTap,

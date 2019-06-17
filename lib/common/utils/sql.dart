@@ -2,7 +2,6 @@ import './provider.dart';
 import 'dart:async';
 import 'package:sqflite/sqflite.dart';
 
-
 class BaseModel {
   Database db;
   final String table = '';
@@ -20,7 +19,6 @@ class Sql extends BaseModel {
       : tableName = name,
         super(Provider.db);
 
-
   Future<List> get() async {
     return await this.query(tableName);
   }
@@ -35,8 +33,7 @@ class Sql extends BaseModel {
   }
 
   Future<int> delete(String value, String key) async {
-    return await this.db.delete(
-        tableName, where: '$key = ?', whereArgs: [value]);
+    return await this.db.delete(tableName, where: '$key = ?', whereArgs: [value]);
   }
 
   Future<int> clearTable(String tableName) async {
@@ -82,8 +79,7 @@ class Sql extends BaseModel {
   /// @mods [And, Or] default is Or
   /// search({'name': "hanxu', 'id': 1};
   ///
-  Future<List> search(
-      {Map<String, dynamic> conditions, String mods = 'Or'}) async {
+  Future<List> search({Map<String, dynamic> conditions, String mods = 'Or'}) async {
     if (conditions == null || conditions.isEmpty) {
       return this.get();
     }

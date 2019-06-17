@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_taobao/common/model/conversation.dart';
 import 'package:flutter_taobao/common/services/search.dart';
 import 'package:flutter_taobao/ui/page/test/my_home_page.dart';
-import 'package:flutter_taobao/ui/widget/UserIconWidget.dart';
+import 'package:flutter_taobao/ui/widget/GZXUserIconWidget.dart';
 import 'dart:math';
 
 import 'package:flutter_taobao/ui/widget/pull_load/ListState.dart';
@@ -163,7 +163,7 @@ class _ConversationItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // 头像组件
-    Widget userImage = new UserIconWidget(
+    Widget userImage = new GZXUserIconWidget(
         padding: const EdgeInsets.only(top: 0.0, right: 8.0, left: 10.0),
         width: 50.0,
         height: 50.0,

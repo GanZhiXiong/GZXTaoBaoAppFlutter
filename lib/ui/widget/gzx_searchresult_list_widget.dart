@@ -1,17 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_taobao/common/model/search.dart';
-import 'package:flutter_taobao/common/style/color.dart';
 import 'package:flutter_taobao/common/style/gzx_style.dart';
 import 'package:flutter_taobao/common/utils/common_utils.dart';
 import 'package:flutter_taobao/common/utils/screen_util.dart';
 
-class SearchResultListWidget extends StatelessWidget {
+class GZXSearchResultListWidget extends StatelessWidget {
   final SearchResultListModal list;
   final ValueChanged<String> onItemTap;
   final VoidCallback getNextPage;
 
-  SearchResultListWidget(this.list, {this.onItemTap, this.getNextPage});
+  GZXSearchResultListWidget(this.list, {this.onItemTap, this.getNextPage});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,7 @@ class SearchResultListWidget extends StatelessWidget {
                 getNextPage();
               }
               return Container(
-                color: KColorConstant.searchAppBarBgColor,
+                color: GZXColors.searchAppBarBgColor,
                 padding: EdgeInsets.only(top: ScreenUtil().L(5), right: ScreenUtil().L(10)),
                 child: Row(
                   children: <Widget>[
@@ -57,7 +56,7 @@ class SearchResultListWidget extends StatelessWidget {
                     Expanded(
                         child: Container(
                       decoration: BoxDecoration(
-                          border: Border(bottom: BorderSide(width: 1, color: KColorConstant.divideLineColor))),
+                          border: Border(bottom: BorderSide(width: 1, color: GZXColors.divideLineColor))),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.start,

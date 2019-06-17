@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_taobao/common/model/tab.dart';
 
-class KTabBarWidget extends StatefulWidget implements PreferredSizeWidget {
+class GZXTabBarWidget extends StatefulWidget implements PreferredSizeWidget {
   final List<TabModel> tabModels;
   final TabController tabController;
   final int currentIndex;
-  const KTabBarWidget({Key key, this.tabModels, this.tabController, this.currentIndex}) : super(key: key);
+  const GZXTabBarWidget({Key key, this.tabModels, this.tabController, this.currentIndex}) : super(key: key);
 
   @override
-  _KTabBarWidgetState createState() => _KTabBarWidgetState();
+  _GZXTabBarWidgetState createState() => _GZXTabBarWidgetState();
 
   @override
   // TODO: implement preferredSize
   Size get preferredSize => Size.fromHeight(30);
 }
 
-class _KTabBarWidgetState extends State<KTabBarWidget> {
+class _GZXTabBarWidgetState extends State<GZXTabBarWidget> {
 //  get preferredSize {
 //    return Size.fromHeight(60);
 //  }

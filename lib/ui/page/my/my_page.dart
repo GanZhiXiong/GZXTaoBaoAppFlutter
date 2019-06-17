@@ -10,14 +10,14 @@ import 'package:flutter_taobao/common/style/gzx_style.dart';
 import 'package:flutter_taobao/common/utils/common_utils.dart';
 import 'package:flutter_taobao/common/utils/navigator_utils.dart';
 import 'package:flutter_taobao/common/utils/screen_util.dart';
-import 'package:flutter_taobao/ui/widget/UserIconWidget.dart';
+import 'package:flutter_taobao/ui/widget/GZXUserIconWidget.dart';
 import 'package:flutter_taobao/ui/widget/gzx_card.dart';
 import 'package:flutter_taobao/ui/widget/gzx_checkbox.dart';
 import 'package:flutter_taobao/ui/widget/pull_load/ListState.dart';
 import 'package:flutter_taobao/ui/widget/pull_load/PullLoadWidget.dart';
 import 'dart:math';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
-import 'package:flutter_taobao/ui/widget/shopping_cart_item.dart';
+import 'package:flutter_taobao/ui/widget/gzx_shopping_cart_item.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:package_info/package_info.dart';
 
@@ -823,33 +823,6 @@ class _MyPageState extends State<MyPage>
   }
 }
 
-//class _DeviceInfoItem extends StatelessWidget {
-//  @override
-//  Widget build(BuildContext context) {
-//    return Container(
-//      padding: EdgeInsets.only(top: 12.0, bottom: 12.0),
-//      decoration: BoxDecoration(
-//          border: Border(
-//              top: BorderSide(color: Color(0xffd9d9d9), width: .4),
-//              bottom: BorderSide(color: Color(0xffd9d9d9), width: .5)),
-//          color: Color(0xffEDEDED)),
-//      child: Row(
-//        mainAxisAlignment: MainAxisAlignment.start,
-//        crossAxisAlignment: CrossAxisAlignment.center,
-//        children: <Widget>[
-//          Padding(
-//            padding: EdgeInsets.only(left: 22.0, right: 25.0),
-//            child: Icon(Icons.access_time),
-//          ),
-//          Text(
-//            'Windows 微信已登录，手机通知已关闭',
-//            style: TextStyle(fontSize: 13.5, color: Colors.black54, fontWeight: FontWeight.w500),
-//          )
-//        ],
-//      ),
-//    );
-//  }
-//}
 class TopItem extends StatelessWidget {
   final bool isShowFloatingTopBar;
   final double topBarOpacity;
@@ -865,24 +838,7 @@ class TopItem extends StatelessWidget {
   Widget build(BuildContext context) {
     _context = context;
     return Container(
-//      width: 50,
-//        color: ,
-//        height: 367 + _topBarHeight + ScreenUtil.statusBarHeight + 30,
-//      height: ScreenUtil.screenHeight / 4 + 14,
         child: Stack(children: <Widget>[
-//          AnimatedPositioned(
-//              curve: Curves.easeInOut,
-//              duration: const Duration(milliseconds: 500),
-//              left: 0,
-//              top: 0,
-//              height: ScreenUtil.screenHeight / 4,
-//              child: Container(
-//                  decoration: new BoxDecoration(
-//                    gradient: GZXColors.primaryGradient,
-//                  ),
-////                color: Theme.of(context).primaryColor,
-//                  width: ScreenUtil.screenWidth,
-//                  height: ScreenUtil.screenHeight / 4)),
       Container(
         child: Container(
           decoration: new BoxDecoration(
@@ -964,12 +920,6 @@ class TopItem extends StatelessWidget {
                                 ),
                                 child: Row(
                                   children: <Widget>[
-//                                Container(
-//                                  height: 40,
-//                                  color: Color(0xFFedeeed),
-//                                  width: 1,
-//                                  padding: EdgeInsets.all(0),
-//                                ),
                                     Column(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1004,8 +954,6 @@ class TopItem extends StatelessWidget {
           ),
         ),
       ),
-
-//Container(height: 367,child: contentWidget,)
       Positioned(
           top: _topBarHeight + ScreenUtil.statusBarHeight + 30,
           height: 367,

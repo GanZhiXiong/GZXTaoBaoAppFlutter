@@ -181,7 +181,7 @@ class _GZXFilterGoodsPageState extends State<GZXFilterGoodsPage> {
     ];
   }
 
-  Widget _typeGridWidget(List<String> items,{double childAspectRatio = 2.0}) {
+  Widget _typeGridWidget(List<String> items, {double childAspectRatio = 2.0}) {
     return GridView.count(
         primary: false,
         shrinkWrap: true,
@@ -459,17 +459,17 @@ class _GZXFilterGoodsPageState extends State<GZXFilterGoodsPage> {
                   padding: EdgeInsets.only(left: 6, top: 6),
                   child: Text('区域', style: TextStyle(fontSize: 11, color: Color(0xFF6a6a6a))),
                 ),
-                _typeGridWidget(_value5,childAspectRatio: 3),
+                _typeGridWidget(_value5, childAspectRatio: 3),
                 Padding(
                   padding: EdgeInsets.only(left: 6, top: 6),
                   child: Text('城市', style: TextStyle(fontSize: 11, color: Color(0xFF6a6a6a))),
                 ),
-                _typeGridWidget(_value6,childAspectRatio: 3),
+                _typeGridWidget(_value6, childAspectRatio: 3),
                 Padding(
                   padding: EdgeInsets.only(left: 6, top: 6),
                   child: Text('省份', style: TextStyle(fontSize: 11, color: Color(0xFF6a6a6a))),
                 ),
-                _typeGridWidget(_value7,childAspectRatio: 3),
+                _typeGridWidget(_value7, childAspectRatio: 3),
               ],
             ),
           ),
@@ -540,7 +540,7 @@ class _GZXFilterGoodsPageState extends State<GZXFilterGoodsPage> {
               width: 6,
             ),
             Expanded(
-              child: Text(title, style: TextStyle(fontSize: 12,color: Color(0xFF6a6a6a))),
+              child: Text(title, style: TextStyle(fontSize: 12, color: Color(0xFF6a6a6a))),
             ),
             GestureDetector(
 //              onTap: () {
@@ -628,7 +628,7 @@ class _GZXFilterGoodsPageState extends State<GZXFilterGoodsPage> {
                   ),
                   child: Text(
                     '重置',
-                    style: TextStyle(color: Colors.white,fontSize: 15),
+                    style: TextStyle(color: Colors.white, fontSize: 15),
                     textAlign: TextAlign.center,
                   ),
                   alignment: Alignment.centerLeft,

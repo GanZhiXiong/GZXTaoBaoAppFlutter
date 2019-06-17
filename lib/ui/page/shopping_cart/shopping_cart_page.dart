@@ -8,13 +8,13 @@ import 'package:flutter_taobao/common/style/gzx_style.dart';
 import 'package:flutter_taobao/common/utils/common_utils.dart';
 import 'package:flutter_taobao/common/utils/navigator_utils.dart';
 import 'package:flutter_taobao/common/utils/screen_util.dart';
-import 'package:flutter_taobao/ui/widget/UserIconWidget.dart';
+import 'package:flutter_taobao/ui/widget/GZXUserIconWidget.dart';
 import 'package:flutter_taobao/ui/widget/gzx_checkbox.dart';
 import 'package:flutter_taobao/ui/widget/pull_load/ListState.dart';
 import 'package:flutter_taobao/ui/widget/pull_load/PullLoadWidget.dart';
 import 'dart:math';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
-import 'package:flutter_taobao/ui/widget/shopping_cart_item.dart';
+import 'package:flutter_taobao/ui/widget/gzx_shopping_cart_item.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class ShoppingCartPage extends StatefulWidget {
@@ -64,57 +64,49 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
   Widget build(BuildContext context) {
     print('_MessagePageState.build');
     super.build(context); // 如果不加这句，从子页面回来会重新加载didChangeDependencies()方法
-//    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
-//    final page = ModalRoute.of(context);
-//    page.didPush().then((x) {
-//      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
-//    });
 
-// change the status bar color to material color [green-400]
-//    _stat();
-
-    var firstItemWidget= ShoppingCarItemWidget(
-        shoppingCartModels[0],
-        color: Colors.transparent,
-        addTap: (orderModel) {
-          if (orderModel.quantity + 1 > orderModel.amountPurchasing) {
-            Fluttertoast.showToast(msg: '该宝贝不能购买更多哦', gravity: ToastGravity.CENTER);
-          } else {
-            setState(() {
-              orderModel.quantity++;
-            });
-          }
-        },
-        removeTap: (orderModel) {
-          if (orderModel.quantity == 1) {
-            Fluttertoast.showToast(msg: '受不了了，宝贝不能再减少了哦', gravity: ToastGravity.CENTER);
-          } else {
-            setState(() {
-              orderModel.quantity--;
-            });
-          }
-        },
-        onSelectAllChanged: (value) {
+    var firstItemWidget = GZXShoppingCarItemWidget(
+      shoppingCartModels[0],
+      color: Colors.transparent,
+      addTap: (orderModel) {
+        if (orderModel.quantity + 1 > orderModel.amountPurchasing) {
+          Fluttertoast.showToast(msg: '该宝贝不能购买更多哦', gravity: ToastGravity.CENTER);
+        } else {
           setState(() {
-            shoppingCartModels[0].isSelected = value;
-            shoppingCartModels[0].orderModels.forEach((item) {
-              item.isSelected = value;
-            });
+            orderModel.quantity++;
           });
-        },
-        onSelectChanged: (orderModel, value) {
+        }
+      },
+      removeTap: (orderModel) {
+        if (orderModel.quantity == 1) {
+          Fluttertoast.showToast(msg: '受不了了，宝贝不能再减少了哦', gravity: ToastGravity.CENTER);
+        } else {
           setState(() {
-            orderModel.isSelected = value;
+            orderModel.quantity--;
+          });
+        }
+      },
+      onSelectAllChanged: (value) {
+        setState(() {
+          shoppingCartModels[0].isSelected = value;
+          shoppingCartModels[0].orderModels.forEach((item) {
+            item.isSelected = value;
+          });
+        });
+      },
+      onSelectChanged: (orderModel, value) {
+        setState(() {
+          orderModel.isSelected = value;
 //                shoppingCartModel.isSelected=value;
-          });
-        },
+        });
+      },
     );
 
-    var testWidget=Container(
-      color: Colors.red,
-      key: _keyFilter,
+    var testWidget = Container(
+        color: Colors.red,
+        key: _keyFilter,
 //      height: _firstItemHeight + 50,
-      child:firstItemWidget);
+        child: firstItemWidget);
 
     var pullLoadWidget = PullLoadWidget(
       pullLoadWidgetControl,
@@ -123,72 +115,53 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
         print('$index');
 
         if (index == 0) {
-//          return Container(color: Colors.red,height: 50,);
-//          return Stack(
-//            children: <Widget>[
-//              TopItem(
-//                topBarOpacity: _topBarOpacity,
-//              ),
-//              Positioned(
-//                top: 80,
-//                  child: Container(
-//                    color: Colors.red,
-//                width: double.infinity,
-//                height: 500,
-//              ))
-//            ],
-//          );
           return Container(
-            color: _backgroundColor,
+              color: _backgroundColor,
 //          color: Colors.red,
-            height: _firstItemHeight + 48 + ScreenUtil.statusBarHeight+20 ,
-            child: TopItem(
-                topBarOpacity: _topBarOpacity,
-                contentWidgetHeight: _firstItemHeight,
+              height: _firstItemHeight + 48 + ScreenUtil.statusBarHeight + 20,
+              child: TopItem(
+                  topBarOpacity: _topBarOpacity,
+                  contentWidgetHeight: _firstItemHeight,
 //contentWidget: Container(height: 44,color: Colors.white,width: 100,),
-                contentWidget: Container(
-//              color: _backgroundColor,
-//              key: _keyFilter,
-//              height: _firstItemHeight + 50,
-              child:ShoppingCarItemWidget(
-                shoppingCartModels[0],
-                color: Colors.transparent,
-                addTap: (orderModel) {
-                  if (orderModel.quantity + 1 > orderModel.amountPurchasing) {
-                    Fluttertoast.showToast(msg: '该宝贝不能购买更多哦', gravity: ToastGravity.CENTER);
-                  } else {
-                    setState(() {
-                      orderModel.quantity++;
-                    });
-                  }
-                },
-                removeTap: (orderModel) {
-                  if (orderModel.quantity == 1) {
-                    Fluttertoast.showToast(msg: '受不了了，宝贝不能再减少了哦', gravity: ToastGravity.CENTER);
-                  } else {
-                    setState(() {
-                      orderModel.quantity--;
-                    });
-                  }
-                },
-                onSelectAllChanged: (value) {
-                  setState(() {
-                    shoppingCartModels[0].isSelected = value;
-                    shoppingCartModels[0].orderModels.forEach((item) {
-                      item.isSelected = value;
-                    });
-                  });
-                },
-                onSelectChanged: (orderModel, value) {
-                  setState(() {
-                    orderModel.isSelected = value;
+                  contentWidget: Container(
+                      child: GZXShoppingCarItemWidget(
+                    shoppingCartModels[0],
+                    color: Colors.transparent,
+                    addTap: (orderModel) {
+                      if (orderModel.quantity + 1 > orderModel.amountPurchasing) {
+                        Fluttertoast.showToast(msg: '该宝贝不能购买更多哦', gravity: ToastGravity.CENTER);
+                      } else {
+                        setState(() {
+                          orderModel.quantity++;
+                        });
+                      }
+                    },
+                    removeTap: (orderModel) {
+                      if (orderModel.quantity == 1) {
+                        Fluttertoast.showToast(msg: '受不了了，宝贝不能再减少了哦', gravity: ToastGravity.CENTER);
+                      } else {
+                        setState(() {
+                          orderModel.quantity--;
+                        });
+                      }
+                    },
+                    onSelectAllChanged: (value) {
+                      setState(() {
+                        shoppingCartModels[0].isSelected = value;
+                        shoppingCartModels[0].orderModels.forEach((item) {
+                          item.isSelected = value;
+                        });
+                      });
+                    },
+                    onSelectChanged: (orderModel, value) {
+                      setState(() {
+                        orderModel.isSelected = value;
 //                shoppingCartModel.isSelected=value;
-                  });
-                },
-              )))
-          );
+                      });
+                    },
+                  ))));
         } else {
-          return ShoppingCarItemWidget(
+          return GZXShoppingCarItemWidget(
             shoppingCartModel,
             addTap: (orderModel) {
               if (orderModel.quantity + 1 > orderModel.amountPurchasing) {
@@ -242,7 +215,6 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
             child: Scrollbar(
                 child: Stack(
               children: <Widget>[
-
                 Container(
                   child: pullLoadWidget,
                 ),
@@ -272,11 +244,6 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
       ),
     );
 
-//    return pullLoadWidget;
-
-//    var selectedOrderModels =
-//        shoppingCartModels.map((item) => item.orderModels.where((i) => i.isSelected).）.toList();
-//    var totalAmount = selectedOrderModels.reduce((prev, i) => prev + i);
     double totalAmount = 0;
     int settlementCount = 0;
     for (var value1 in shoppingCartModels) {
@@ -590,33 +557,6 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
   }
 }
 
-//class _DeviceInfoItem extends StatelessWidget {
-//  @override
-//  Widget build(BuildContext context) {
-//    return Container(
-//      padding: EdgeInsets.only(top: 12.0, bottom: 12.0),
-//      decoration: BoxDecoration(
-//          border: Border(
-//              top: BorderSide(color: Color(0xffd9d9d9), width: .4),
-//              bottom: BorderSide(color: Color(0xffd9d9d9), width: .5)),
-//          color: Color(0xffEDEDED)),
-//      child: Row(
-//        mainAxisAlignment: MainAxisAlignment.start,
-//        crossAxisAlignment: CrossAxisAlignment.center,
-//        children: <Widget>[
-//          Padding(
-//            padding: EdgeInsets.only(left: 22.0, right: 25.0),
-//            child: Icon(Icons.access_time),
-//          ),
-//          Text(
-//            'Windows 微信已登录，手机通知已关闭',
-//            style: TextStyle(fontSize: 13.5, color: Colors.black54, fontWeight: FontWeight.w500),
-//          )
-//        ],
-//      ),
-//    );
-//  }
-//}
 class TopItem extends StatelessWidget {
   final bool isShowFloatingTopBar;
   final double topBarOpacity;
@@ -637,24 +577,7 @@ class TopItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-//      width: 50,
-//        color: ,
-//        height: 367 + _topBarHeight + ScreenUtil.statusBarHeight + 30,
-//      height: ScreenUtil.screenHeight / 4 + 14,
         child: Stack(children: <Widget>[
-//          AnimatedPositioned(
-//              curve: Curves.easeInOut,
-//              duration: const Duration(milliseconds: 500),
-//              left: 0,
-//              top: 0,
-//              height: ScreenUtil.screenHeight / 4,
-//              child: Container(
-//                  decoration: new BoxDecoration(
-//                    gradient: GZXColors.primaryGradient,
-//                  ),
-////                color: Theme.of(context).primaryColor,
-//                  width: ScreenUtil.screenWidth,
-//                  height: ScreenUtil.screenHeight / 4)),
       Container(
         child: Container(
           decoration: new BoxDecoration(
@@ -690,17 +613,6 @@ class TopItem extends StatelessWidget {
                 SizedBox(
                   width: 10,
                 ),
-//                  CircleAvatar(
-//                    radius: 10,
-//                    backgroundColor: Color(0xFFfea54e),
-//                    child: GestureDetector(
-//                      child: Icon(
-//                        GZXIcons.clear,
-//                        color: Colors.white,
-//                        size: 12,
-//                      ),
-//                    ),
-//                  ),
               ],
             ),
           )),
@@ -808,7 +720,7 @@ class _ConversationItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // 头像组件
-    Widget userImage = new UserIconWidget(
+    Widget userImage = new GZXUserIconWidget(
         padding: const EdgeInsets.only(top: 0.0, right: 8.0, left: 0.0),
         width: 50.0,
         height: 50.0,
@@ -870,15 +782,7 @@ class _ConversationItem extends StatelessWidget {
           children: <Widget>[
             Container(
               child: userImage,
-//                child: Stack(
-//                  overflow: Overflow.visible,
-//                  children: <Widget>[
-//                    userImage,
-////                unReadMsgCountText,
-//                  ],
-//                )
             ),
-//          Expanded(child: Container(color: Colors.red,),),
             Expanded(
                 child: Container(
 //              decoration: BoxDecoration(

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_taobao/common/model/search.dart';
 import 'package:flutter_taobao/common/services/search.dart';
-import 'package:flutter_taobao/common/style/color.dart';
 import 'package:flutter_taobao/common/style/gzx_style.dart';
-import 'package:flutter_taobao/ui/widget/searchresult.dart';
-import 'package:flutter_taobao/ui/widget/searchresult_gridview.dart';
+import 'package:flutter_taobao/ui/widget/gzx_searchresult_list_widget.dart';
+import 'package:flutter_taobao/ui/widget/gzx_searchresult_gridview_widget.dart';
 
 class GoodsSortCondition {
   String name;
@@ -149,25 +148,6 @@ class SearchResultListState extends State<SearchResultListPage>
             ),
           ),
         );
-
-//        return Container(
-////          height: 30,
-//        padding: EdgeInsets.all(0),
-//          child: ListTile(
-//            leading: Icon(Icons.keyboard), // item 前置图标
-//            trailing: Icon(
-//              Icons.check,
-//              color: Theme.of(context).primaryColor,
-//              size: 16,
-//            ), // item 后置图标
-//            contentPadding: EdgeInsets.symmetric(vertical: 0,horizontal: 0),
-//            isThreeLine: false, // item 是否三行显示
-////          contentPadding: EdgeInsets.all(0),
-////          dense:true,                // item 直观感受是整体大小
-////          contentPadding: EdgeInsets.all(10.0),// item 内容内边距
-//            selected: false, // item 是否选中状态
-//          ),
-//        );
       },
     );
 
@@ -176,26 +156,10 @@ class SearchResultListState extends State<SearchResultListPage>
       key: _keyDropDownItem,
       child: _dropDownItem,
     );
-//_getSizes();
-//    return hideWidget;
-//    return Scaffold(body: Container(color: Colors.blue,child: hideWidget,),);
-//    return Scaffold(
-//        appBar: AppBar(
-//            brightness: Brightness.light,
-//            backgroundColor: KColorConstant.searchAppBarBgColor,
-////            leading: SearchTopBarLeadingWidget(),
-//            //  actions: <Widget>[SearchTopBarActionWidget()],
-//            elevation: 0,
-//            titleSpacing: 0,
-////            title: SearchListTopBarTitleWidget(keyworld: widget.keyword)
-//            ),
-//        body:
 
-//        return SearchResultListWidget(listData,
-//            getNextPage: () => getSearchList(widget.keyword));
     var resultWidget = _isList
-        ? SearchResultListWidget(listData, getNextPage: () => getSearchList(widget.keyword))
-        : SearchResultGridViewWidget(listData, getNextPage: () => getSearchList(widget.keyword));
+        ? GZXSearchResultListWidget(listData, getNextPage: () => getSearchList(widget.keyword))
+        : GZXSearchResultGridViewWidget(listData, getNextPage: () => getSearchList(widget.keyword));
 
     if (widget.isRecommended) {
       return resultWidget;
@@ -225,20 +189,9 @@ class SearchResultListState extends State<SearchResultListPage>
                           child: resultWidget,
                         )),
                   ),
-//                  _dropDownItem
                 ],
               ),
-//              Offstage(
-//                offstage: true,
-////                child: Positioned(
-////                    child: Container(
-////                  color: Colors.red,
-////                )),
-//child: Container(color: Colors.red,),
-//              )
               _buildDrapDownWidget()
-//              _dropDownHeight == 0 ? SizedBox() : _buildDrapDownWidget()
-//            Offstage(offstage: _dropDownHeight==0,child: _buildDrapDownWidget() ,)
             ],
           ),
         ));
@@ -277,27 +230,12 @@ class SearchResultListState extends State<SearchResultListPage>
             Container(
               color: Colors.white,
               width: MediaQuery.of(context).size.width,
-//                color: Colors.white,
-//                height: animation.value,
-//              height: _animation == null ? 0 : _animation.value,
               height: _dropDownHeight,
               child: _dropDownItem,
             ),
             _mask()
           ],
-        )
-//      height: _animation == null ? 0 : _animation.value,
-//
-//      child: Container(
-////      color: Color.fromRGBO(0, 0, 0, 0.1),
-//      color: Colors.blue,
-//        width: MediaQuery.of(context).size.width,
-////                color: Colors.white,
-//                height: MediaQuery.of(context).size.height,
-//
-//        child: _dropDownItem,
-//      ),
-        );
+        ));
   }
 
   Widget _buildDrapDownWidget() {
@@ -326,19 +264,7 @@ class SearchResultListState extends State<SearchResultListPage>
             ),
             _mask()
           ],
-        )
-//      height: _animation == null ? 0 : _animation.value,
-//
-//      child: Container(
-////      color: Color.fromRGBO(0, 0, 0, 0.1),
-//      color: Colors.blue,
-//        width: MediaQuery.of(context).size.width,
-////                color: Colors.white,
-//                height: MediaQuery.of(context).size.height,
-//
-//        child: _dropDownItem,
-//      ),
-        );
+        ));
   }
 
   Widget _mask() {
@@ -375,28 +301,6 @@ class SearchResultListState extends State<SearchResultListPage>
 
 //    _dropDownHeight = dropDownItemRenderBox.size.height;
     _dropDownHeight = 160;
-    _isShowDropDownItemWidget = !_isShowDropDownItemWidget;
-    _isShowMask = !_isShowMask;
-
-    _animation = new Tween(begin: 0.0, end: _dropDownHeight).animate(_controller)
-      ..addListener(() {
-        //这行如果不写，没有动画效果
-        setState(() {});
-      });
-
-    if (_animation.status == AnimationStatus.completed) {
-      _controller.reverse();
-    } else {
-      _controller.forward();
-    }
-  }
-
-  _showDropDownItemWidget1() {
-    final RenderBox dropDownItemRenderBox = _keyDropDownItem.currentContext.findRenderObject();
-
-    _dropDownHeight = _dropDownHeight == 0 ? dropDownItemRenderBox.size.height : 0;
-    setState(() {});
-    return;
     _isShowDropDownItemWidget = !_isShowDropDownItemWidget;
     _isShowMask = !_isShowMask;
 
@@ -472,21 +376,6 @@ class SearchResultListState extends State<SearchResultListPage>
                 ),
               ),
             ),
-//            Container(
-//              color: Colors.red,
-//              child: IconButton(
-////                padding: EdgeInsets.all(1),
-//                  icon: Icon(
-//                    _isList ? GZXIcons.list : GZXIcons.cascades,
-//                    size: 18,
-//                  ),
-//                  onPressed: () {
-//                    print('_isList = !_isList');
-//                    setState(() {
-//                      _isList = !_isList;
-//                    });
-//                  }),
-//            ),
             GestureDetector(
               child: Padding(
                 padding: EdgeInsets.only(right: 20),

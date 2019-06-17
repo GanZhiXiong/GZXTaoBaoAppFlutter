@@ -8,7 +8,7 @@ import 'package:flutter_taobao/common/utils/screen_util.dart';
 import 'package:flutter_taobao/ui/page/home/searchlist_page.dart';
 import 'package:flutter_taobao/ui/tools/arc_clipper.dart';
 import 'package:flutter_taobao/ui/widget/menue.dart';
-import 'package:flutter_taobao/ui/widget/topbar.dart';
+import 'package:flutter_taobao/ui/widget/gzx_topbar.dart';
 
 class ActPage extends StatefulWidget {
   @override
@@ -58,7 +58,7 @@ class ActState extends State<ActPage> with SingleTickerProviderStateMixin {
               flexibleSpace: new Container(
                 child: new Column(
                   children: <Widget>[
-                    HomeTopBar(
+                    GZXTopBar(
                       searchHintTexts: searchHintTexts,
                     ),
                     Expanded(

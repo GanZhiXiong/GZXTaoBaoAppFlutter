@@ -3,8 +3,6 @@ import 'package:flutter_taobao/common/config/config.dart';
 
 /**
  * Log 拦截器
- * Created by guoshuyu
- * on 2019/3/23.
  */
 class LogsInterceptors extends InterceptorsWrapper {
   @override

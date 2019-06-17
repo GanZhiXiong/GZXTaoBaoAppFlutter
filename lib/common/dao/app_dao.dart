@@ -10,8 +10,7 @@ import 'package:pub_semver/pub_semver.dart';
 import 'package:package_info/package_info.dart';
 import 'dao_result.dart';
 
-class AppDao{
-
+class AppDao {
   /**
    * 获取仓库的release列表
    */
@@ -20,7 +19,8 @@ class AppDao{
         ? Address.getReposRelease(userName, reposName) + Address.getPageParams("?", page)
         : Address.getReposTag(userName, reposName) + Address.getPageParams("?", page);
 
-    var res = await httpManager.netFetch(url, null, {"Accept": (needHtml ? 'application/vnd.github.html,application/vnd.github.VERSION.raw' : "")}, null);
+    var res = await httpManager.netFetch(url, null,
+        {"Accept": (needHtml ? 'application/vnd.github.html,application/vnd.github.VERSION.raw' : "")}, null);
     if (res != null && res.result && res.data.length > 0) {
       List<Release> list = new List();
       var dataList = res.data;
@@ -69,8 +69,8 @@ class AppDao{
         if (Config.DEBUG) {
           print("newsHad " + result.toString());
         }
-        if (result > 0) {
-          CommonUtils.showUpdateDialog(context, 'V'+release.name + "\n" + release.body);
+        if (result <= 0) {
+          CommonUtils.showUpdateDialog(context, 'V' + release.name + "\n" + release.body);
         } else {
           if (showTip) Fluttertoast.showToast(msg: '当前没有新版本');
         }

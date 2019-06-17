@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_taobao/common/model/search.dart';
 import 'package:flutter_taobao/common/utils/common_utils.dart';
 
-class SearchResultGridViewWidget extends StatelessWidget {
+class GZXSearchResultGridViewWidget extends StatelessWidget {
   final SearchResultListModal list;
   final ValueChanged<String> onItemTap;
   final VoidCallback getNextPage;
   BuildContext _context;
 
-  SearchResultGridViewWidget(this.list, {Key key, this.onItemTap, this.getNextPage}) : super(key: key);
+  GZXSearchResultGridViewWidget(this.list, {Key key, this.onItemTap, this.getNextPage}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

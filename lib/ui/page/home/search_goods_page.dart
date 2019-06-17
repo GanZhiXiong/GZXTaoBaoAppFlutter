@@ -8,13 +8,14 @@ import 'package:flutter_taobao/ui/page/home/search_suggest_page.dart';
 import 'package:flutter_taobao/ui/page/home/searchlist_page.dart';
 import 'package:flutter_taobao/ui/widget/gzx_search_card.dart';
 import 'package:flutter_taobao/ui/widget/recomend.dart';
-import 'package:flutter_taobao/ui/widget/tabbar.dart';
-import 'package:flutter_taobao/ui/widget/topbar.dart';
+import 'package:flutter_taobao/ui/widget/gzx_tabbar.dart';
+import 'package:flutter_taobao/ui/widget/gzx_topbar.dart';
 
 class SearchGoodsPage extends StatefulWidget {
   final String keywords;
 
   const SearchGoodsPage({Key key, this.keywords}) : super(key: key);
+
   @override
   _SearchGoodsPageState createState() => _SearchGoodsPageState();
 }
@@ -22,16 +23,16 @@ class SearchGoodsPage extends StatefulWidget {
 class _SearchGoodsPageState extends State<SearchGoodsPage> {
   List _tabsTitle = ['全部', '天猫', '店铺'];
   List<String> recomendWords = [];
-TextEditingController _keywordsTextEditingController=TextEditingController();
+  TextEditingController _keywordsTextEditingController = TextEditingController();
 
-@override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-    _keywordsTextEditingController.text=widget.keywords;
+    _keywordsTextEditingController.text = widget.keywords;
 
-    if(widget.keywords!=null){
+    if (widget.keywords != null) {
       seachTxtChanged(widget.keywords);
     }
   }
@@ -54,12 +55,7 @@ TextEditingController _keywordsTextEditingController=TextEditingController();
           length: 3,
           initialIndex: 0,
           child: Column(
-//            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-//              HomeTopBar(
-//                searchHintTexts: searchHintTexts,
-//              ),
-//            SizedBox(height: ScreenUtil.statusBarHeight,),
               Row(
                 children: <Widget>[
                   SizedBox(
@@ -70,7 +66,7 @@ TextEditingController _keywordsTextEditingController=TextEditingController();
                     child: GZXSearchCardWidget(
                       elevation: 0,
 //                      autofocus: widget.keywords!=null,
-                    autofocus: true,
+                      autofocus: true,
                       textEditingController: _keywordsTextEditingController,
                       isShowLeading: false,
                       onSubmitted: (value) {
@@ -97,7 +93,6 @@ TextEditingController _keywordsTextEditingController=TextEditingController();
                   ),
                 ],
               ),
-
               Expanded(
                   child: (recomendWords.length == 0
                       ? _buildContentWidget()
@@ -131,24 +126,10 @@ TextEditingController _keywordsTextEditingController=TextEditingController();
 //
 //            setState(() {});
             },
-//                  tabs: _tabsTitle
-//                      .map((i) => Container(
-//                          color: Colors.red,
-//                          alignment: Alignment.center,
-////width: 30,
-////                      padding: EdgeInsets.symmetric(vertical: 10),
-////                  padding: EdgeInsets.only(left: (ScreenUtil.screenWidth-30*3)/4),
-//                          margin: EdgeInsets.only(left: (ScreenUtil.screenWidth - 30 * 3) / 4),
-//                          child: new Text(
-//                            i,
-//                            style: TextStyle(fontSize: 12),
-////                        style: GSYConstant.smallTextWhite,
-//                            maxLines: 1,
-//                          )))
-//                      .toList()
             tabs: _tabsTitle
                 .map((i) => Text(
-                      i,style: TextStyle(fontSize: 15),
+                      i,
+                      style: TextStyle(fontSize: 15),
                     ))
                 .toList()),
         SizedBox(
