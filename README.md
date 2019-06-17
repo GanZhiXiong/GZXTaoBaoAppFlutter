@@ -23,6 +23,7 @@
   - [微淘 消息](#微淘-消息)
   - [购物车 我的淘宝](#购物车-我的淘宝)
 - [示例图片](#示例图片)
+- [捐助开发者](#捐助开发者)
 
 # App下载
 Apk二维码，请手机扫描下载安装
@@ -64,4 +65,5 @@ gif图片加载较慢，会有卡顿，而非APP卡顿，可以滑到下面直�
 
 <img src="https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/搜索关键字列表.PNG" width="414" hegiht="736" align=center />
 
+# 捐助开发者
 ![](https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter/blob/master/preview_images/thanks.png)
