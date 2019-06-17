@@ -55,9 +55,9 @@ class RectSwiperPaginationBuilder extends SwiperPlugin {
   }
 }
 
-class SwipperBanner extends StatelessWidget {
+class GZXSwipperBanner extends StatelessWidget {
   final List<String> banners;
-  SwipperBanner({this.banners});
+  GZXSwipperBanner({this.banners});
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
