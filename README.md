@@ -5,7 +5,7 @@
 
 > 本代码使用更少的第三库，自造轮子可以更深层次的了解Flutter和Dart。
 
-## 如果你觉得对你有帮助，麻烦给个Star吧！我会根据大家的关注度和个人时间持续更新代码！
+## 开源不易，麻烦给个Star吧！我会根据大家的关注度和个人时间持续更新代码！
 **如你想接收更新消息，你可以Watch下，有问题请提到Issues。**
 ### 相关Repository  
 [自定义功能强大的下拉筛选菜单flutter package，支持iOS和Android](https://github.com/GanZhiXiong/gzx_dropdown_menu)
