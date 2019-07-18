@@ -7,7 +7,7 @@
 很多都在问我开发用了多长时间，确切的来说实际开发时间不超过一个星期。 
 由于快速开发，且个人也没有太多时间去测试，所以大家运行时如发现问题可以提到Issues，我看看是Flutter的问题还是代码的问题。
 
-## 开源不易，麻烦给个Star吧！我会根据大家的关注度和个人时间持续更新代码！
+## 开源不易，麻烦给个Star★吧！我会根据大家的关注度和个人时间持续更新代码！
 **如你想接收更新消息，你可以Watch下，有问题请提到Issues。**
 ### 相关Repository  
 [自定义功能强大的下拉筛选菜单flutter package，支持iOS和Android](https://github.com/GanZhiXiong/gzx_dropdown_menu)
